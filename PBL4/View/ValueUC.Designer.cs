@@ -42,7 +42,7 @@
             // 
             // lbMatLoca
             // 
-            this.lbMatLoca.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.lbMatLoca.BackColor = System.Drawing.Color.LightSkyBlue;
             this.lbMatLoca.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbMatLoca.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMatLoca.Location = new System.Drawing.Point(0, 0);

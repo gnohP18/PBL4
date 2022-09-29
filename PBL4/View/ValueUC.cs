@@ -20,13 +20,45 @@ namespace PBL4.View
             this.Text = text;
             lbMatLoca.Text = Text;
         }
+
         public void SetLocation(Point point)
         {
             this.Location = point;
         }
+
         public long GetValue()
         {
             return Convert.ToInt32(txtValue.Text);
+        }
+
+        public void SetValue()
+        {
+            bool isAvalableValue = true;
+            char[] arrChar = txtValue.Text.ToCharArray();
+            if (arrChar.Length > 0)
+            {
+                foreach (char c in arrChar)
+                {
+                    if ('0' > c && c > '9') isAvalableValue = false;
+                }
+            }
+            else isAvalableValue = false;
+            if (isAvalableValue)
+            {
+                lbMatLoca.BackColor = Color.LightSkyBlue;
+                Value = Convert.ToInt32(txtValue.Text);
+            }
+            else
+            {
+                lbMatLoca.BackColor = Color.LightCoral;
+                Value = -1;
+            }
+        }
+
+        public void ClearValue()
+        {
+            txtValue.Text = null;
+            Value = 0;
         }
         #endregion
     }
