@@ -48,6 +48,7 @@ namespace PBL4.Data
         {
             Locations = new List<Location>();
             //Quy will seed data of location in here
+            //Quy da o day
         }
 
         #endregion
