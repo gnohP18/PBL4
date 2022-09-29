@@ -6,5 +6,6 @@ namespace PBL4.Model
     {
         void GetLocation();
         List<int> GetNumberOfPoint();
+        List<string> GetPointNameByNumberOfPoint(int numberOfPoint);
     }
 }

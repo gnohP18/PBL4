@@ -1,5 +1,4 @@
 ﻿using PBL4.Data;
-using System;
 using System.Collections.Generic;
 
 namespace PBL4.Model
@@ -32,11 +31,17 @@ namespace PBL4.Model
 
         public List<int> GetNumberOfPoint()
         {
-            foreach (int i in _initData.NumberOfPoints)
-            {
-                Console.WriteLine(i);
-            }
             return _initData.NumberOfPoints;
+        }
+
+        public List<string> GetPointNameByNumberOfPoint(int numberOfPoint)
+        {
+            var listPointName = new List<string>();
+            for (int i = 0; i < numberOfPoint; i++)
+            {
+                listPointName.Add(_initData.PoitnName[i]);
+            }
+            return listPointName;
         }
     }
 }
