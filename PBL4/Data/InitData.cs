@@ -7,8 +7,7 @@ namespace PBL4.Data
     {
         #region Local variable
         public List<int> NumberOfPoints { get; set; }
-        public List<Location> Locations { get; set; }
-        public List<string> PoitnName { get; set; }
+        public List<string> PointName { get; set; }
         public int PortNumber { get; set; }
         public string IpAddress { get; set; }
         #endregion
@@ -31,10 +30,10 @@ namespace PBL4.Data
 
         private void SeedPointName()
         {
-            PoitnName = new List<string>();
+            PointName = new List<string>();
             for (int i = 65; i < 75; i++)
             {
-                PoitnName.Add(char.ConvertFromUtf32(i));
+                PointName.Add(char.ConvertFromUtf32(i));
             }
         }
 
@@ -42,13 +41,6 @@ namespace PBL4.Data
         {
             PortNumber = 111;
             IpAddress = "127.0.0.1";
-        }
-
-        private void SeedLocationOfPoint()
-        {
-            Locations = new List<Location>();
-            //Quy will seed data of location in here
-            //Quy da o day
         }
 
         #endregion

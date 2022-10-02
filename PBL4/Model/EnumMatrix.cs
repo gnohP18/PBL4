@@ -21,5 +21,15 @@
         public static int RadioButtonHeight = 50;
 
         public static int DistanceBetween2RabioButton = 30;
+
+        public static int DefaultCenterOfCircleX = 300;
+
+        public static int DefaultCenterOfCircleY = 200;
+
+        public static int DefaultHalfLengthOfMajorAxis = 200;
+
+        public static int DefaultHalfLengthOfMinorAxis = 150;
+
+        public static int DefaultWidthOfPen = 5;
     }
 }

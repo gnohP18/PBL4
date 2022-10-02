@@ -24,11 +24,6 @@ namespace PBL4.Model
             _initData = new InitData();
         }
 
-        public void GetLocation()
-        {
-
-        }
-
         public List<int> GetNumberOfPoint()
         {
             return _initData.NumberOfPoints;
@@ -39,7 +34,7 @@ namespace PBL4.Model
             var listPointName = new List<string>();
             for (int i = 0; i < numberOfPoint; i++)
             {
-                listPointName.Add(_initData.PoitnName[i]);
+                listPointName.Add(_initData.PointName[i]);
             }
             return listPointName;
         }

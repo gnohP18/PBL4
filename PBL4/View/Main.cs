@@ -3,6 +3,7 @@ using PBL4.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PBL4
@@ -14,8 +15,10 @@ namespace PBL4
         #endregion
         #region Local variable
         private ValueUC[,] ListValueUC { get; set; }
-        private int NumberOfPoint { get; set; }
         private long[,] MatrixDijktra { get; set; }
+        private List<string> NamePoint { get; set; }
+        private List<Point> listOfPoint { get; set; }
+        private int NumberOfPoint { get; set; }
         #endregion
         public Main()
         {
@@ -26,6 +29,7 @@ namespace PBL4
         #region InitData
         private void InitDataForCBB()
         {
+            NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
             foreach (int i in MatrixService.Instance.GetNumberOfPoint())
             {
                 cbbNumberOfPoints.Items.Add(i);
@@ -43,6 +47,13 @@ namespace PBL4
         private void ClearRadioButton()
         {
             gbPointName.Controls.Clear();
+        }
+
+        //Xóa item mỗi lần chuyển cbb
+        private void ClearGraphic()
+        {
+            pnGp.Invalidate();
+            pnGp.Controls.Clear();
         }
 
         //thêm ô của ma trận vào panel
@@ -171,6 +182,39 @@ namespace PBL4
                 SetResultUC(resultUCs[i]);
             }
         }
+
+        // Draw Point
+        private List<Point> InitPointFromNumberOfPoints(int numberOfPoints)
+        {
+            int centerOfCircleX = EnumMatrix.DefaultCenterOfCircleX;
+            int centerOfCircleY = EnumMatrix.DefaultCenterOfCircleY;
+            int halfLengthOfMajorAxis = EnumMatrix.DefaultHalfLengthOfMajorAxis;
+            int halfLengthOfMinorAxis = EnumMatrix.DefaultHalfLengthOfMinorAxis;
+            List<Point> listPoint = new List<Point>();
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                int x = (int)(centerOfCircleX - halfLengthOfMajorAxis * Math.Cos(2 * Math.PI * i / NumberOfPoint));
+                int y = (int)(centerOfCircleY - halfLengthOfMinorAxis * Math.Sin(2 * Math.PI * i / NumberOfPoint));
+                Point pt = new Point(x, y);
+                listPoint.Add(pt);
+            }
+            return listPoint;
+        }
+
+        // Draw Right Route
+        private void RightRoute(int[] rightRoute)
+        {
+            int widthOfPen = EnumMatrix.DefaultWidthOfPen;
+            Graphics graphics = pnGp.CreateGraphics();
+            Rectangle rectangle = new Rectangle(1, 1, 8, 1);
+            PaintEventArgs e = new PaintEventArgs(graphics, rectangle);
+            Pen aPen = new Pen(Color.Red, widthOfPen);
+            for (int i = 0; i < rightRoute.Length - 1; i++)
+            {
+                e.Graphics.DrawLine(aPen, listOfPoint[rightRoute[i]], listOfPoint[rightRoute[i + 1]]);
+                Console.WriteLine("Draw" + listOfPoint[i].X.ToString() + " " + listOfPoint[i].Y.ToString());
+            }
+        }
         #endregion
 
         #region Event handle
@@ -183,6 +227,7 @@ namespace PBL4
         {
             ClearMatrixItem();
             ClearRadioButton();
+            ClearGraphic();
             NumberOfPoint = cbbNumberOfPoints.SelectedIndex + 1;
             InitMatrixWithNumberOfPoint(NumberOfPoint);
             InitRadioButtonWithNumberOfPoint(NumberOfPoint);
@@ -198,6 +243,7 @@ namespace PBL4
             }
             else
             {
+                DrawLines(sender);
             };
         }
 
@@ -212,6 +258,57 @@ namespace PBL4
             }
             NoticeBox noticeBox = new NoticeBox("You have cleared all value!");
             noticeBox.Show();
+            
+        }
+
+       
+        //Draw Lines
+        private void DrawLines(object sender)
+        {
+            int widthOfPen = EnumMatrix.DefaultWidthOfPen;
+            Graphics graphics = pnGp.CreateGraphics();
+            Rectangle rectangle = new Rectangle(1, 1, 8, 1);
+            PaintEventArgs e = new PaintEventArgs(graphics, rectangle);
+            int centerOfCircleX = EnumMatrix.DefaultCenterOfCircleX;
+            int centerOfCircleY = EnumMatrix.DefaultCenterOfCircleY;
+            int halfLengthOfMajorAxis = EnumMatrix.DefaultHalfLengthOfMajorAxis;
+            int halfLengthOfMinorAxis = EnumMatrix.DefaultHalfLengthOfMinorAxis;
+            Brush aBrush = (Brush)Brushes.Red;
+            Pen pPen = new Pen(Color.Red);
+            Pen aPen = new Pen(Color.Green, widthOfPen);
+            listOfPoint = InitPointFromNumberOfPoints(NumberOfPoint);
+            long[,] matrix = GetMatrixFromView(ListValueUC, NumberOfPoint);
+            List<string> listPointName = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                for (int j = 0; j < NumberOfPoint; j++)
+                {
+                    // Kiểm tra giá trị ma trận để vẽ đường
+                    //if ((i == j) || (matrix[i, j] == 0)) continue;
+                    //else
+                    //{
+                    //   e.Graphics.DrawLine(aPen, listOfPoint[i], listOfPoint[j]);
+                    //}
+                    e.Graphics.DrawLine(aPen, listOfPoint[i], listOfPoint[j]);
+
+                }
+            }
+            //Draw label + fill point
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                Label lb = new Label();
+                lb.Text = listPointName[i];
+                int xlb = (int)(centerOfCircleX - (halfLengthOfMajorAxis + 20) * Math.Cos(2 * Math.PI * i / NumberOfPoint));
+                int ylb = (int)(centerOfCircleY - (halfLengthOfMinorAxis + 20)  * Math.Sin(2 * Math.PI * i / NumberOfPoint));
+                lb.Location = new Point(xlb, ylb);
+                lb.Size = new Size(12, 12);
+                lb.BackColor = TransparencyKey;
+                pnGp.Controls.Add(lb);
+                RectangleF a = new RectangleF(listOfPoint[i].X - 5, listOfPoint[i].Y - 5, 10, 10);
+                e.Graphics.FillEllipse(aBrush, a);
+                e.Graphics.DrawEllipse(pPen, a);
+            }
+            //RightRoute(rightRoute);
         }
         #endregion
     }
