@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.pnScreen = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pnGp = new System.Windows.Forms.Panel();
             this.pnMatrix = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.cbbNumberOfPoints = new System.Windows.Forms.ComboBox();
+            this.btnExit = new System.Windows.Forms.Button();
             this.pnResult = new System.Windows.Forms.Panel();
-            this.gbPointName = new System.Windows.Forms.GroupBox();
-            this.pnProcessing = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
+            this.gbPointName = new System.Windows.Forms.GroupBox();
             this.btnOK = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.pnProcessing = new System.Windows.Forms.Panel();
             this.pnResultFromServer = new System.Windows.Forms.Panel();
             this.pnScreen.SuspendLayout();
             this.pnResult.SuspendLayout();
@@ -47,9 +48,10 @@
             // 
             // pnScreen
             // 
-            this.pnScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(77)))), ((int)(((byte)(145)))));
-            this.pnScreen.Controls.Add(this.label1);
+            this.pnScreen.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnScreen.Controls.Add(this.pnGp);
             this.pnScreen.Controls.Add(this.pnMatrix);
+            this.pnScreen.Controls.Add(this.label1);
             this.pnScreen.Controls.Add(this.cbbNumberOfPoints);
             this.pnScreen.Controls.Add(this.btnExit);
             this.pnScreen.Dock = System.Windows.Forms.DockStyle.Left;
@@ -57,6 +59,23 @@
             this.pnScreen.Name = "pnScreen";
             this.pnScreen.Size = new System.Drawing.Size(750, 800);
             this.pnScreen.TabIndex = 1;
+            // 
+            // pnGp
+            // 
+            this.pnGp.AutoScroll = true;
+            this.pnGp.Location = new System.Drawing.Point(3, 63);
+            this.pnGp.Name = "pnGp";
+            this.pnGp.Size = new System.Drawing.Size(747, 452);
+            this.pnGp.TabIndex = 4;
+            // 
+            // pnMatrix
+            // 
+            this.pnMatrix.AutoScroll = true;
+            this.pnMatrix.BackColor = System.Drawing.SystemColors.Info;
+            this.pnMatrix.Location = new System.Drawing.Point(0, 535);
+            this.pnMatrix.Name = "pnMatrix";
+            this.pnMatrix.Size = new System.Drawing.Size(750, 265);
+            this.pnMatrix.TabIndex = 2;
             // 
             // label1
             // 
@@ -68,16 +87,6 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Number of points";
             // 
-            // pnMatrix
-            // 
-            this.pnMatrix.AutoScroll = true;
-            this.pnMatrix.BackColor = System.Drawing.SystemColors.Info;
-            this.pnMatrix.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnMatrix.Location = new System.Drawing.Point(0, 535);
-            this.pnMatrix.Name = "pnMatrix";
-            this.pnMatrix.Size = new System.Drawing.Size(750, 265);
-            this.pnMatrix.TabIndex = 2;
-            // 
             // cbbNumberOfPoints
             // 
             this.cbbNumberOfPoints.FormattingEnabled = true;
@@ -86,6 +95,19 @@
             this.cbbNumberOfPoints.Size = new System.Drawing.Size(270, 24);
             this.cbbNumberOfPoints.TabIndex = 0;
             this.cbbNumberOfPoints.SelectedIndexChanged += new System.EventHandler(this.cbbNumberOfPoints_SelectedIndexChanged);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.FlatAppearance.BorderSize = 0;
+            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExit.Image = global::PBL4.Properties.Resources.uncheckedRed;
+            this.btnExit.Location = new System.Drawing.Point(40, 5);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(40, 40);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // pnResult
             // 
@@ -99,27 +121,6 @@
             this.pnResult.Name = "pnResult";
             this.pnResult.Size = new System.Drawing.Size(550, 265);
             this.pnResult.TabIndex = 2;
-            // 
-            // gbPointName
-            // 
-            this.gbPointName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbPointName.Location = new System.Drawing.Point(35, 20);
-            this.gbPointName.Name = "gbPointName";
-            this.gbPointName.Size = new System.Drawing.Size(410, 187);
-            this.gbPointName.TabIndex = 5;
-            this.gbPointName.TabStop = false;
-            this.gbPointName.Text = "From A to";
-            // 
-            // pnProcessing
-            // 
-            this.pnProcessing.AutoScroll = true;
-            this.pnProcessing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(77)))), ((int)(((byte)(145)))));
-            this.pnProcessing.Controls.Add(this.pnResultFromServer);
-            this.pnProcessing.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnProcessing.Location = new System.Drawing.Point(750, 0);
-            this.pnProcessing.Name = "pnProcessing";
-            this.pnProcessing.Size = new System.Drawing.Size(550, 535);
-            this.pnProcessing.TabIndex = 3;
             // 
             // button1
             // 
@@ -146,6 +147,16 @@
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // gbPointName
+            // 
+            this.gbPointName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbPointName.Location = new System.Drawing.Point(35, 20);
+            this.gbPointName.Name = "gbPointName";
+            this.gbPointName.Size = new System.Drawing.Size(410, 187);
+            this.gbPointName.TabIndex = 5;
+            this.gbPointName.TabStop = false;
+            this.gbPointName.Text = "From A to";
+            // 
             // btnOK
             // 
             this.btnOK.BackColor = System.Drawing.Color.Transparent;
@@ -159,21 +170,20 @@
             this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // btnExit
+            // pnProcessing
             // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.FlatAppearance.BorderSize = 0;
-            this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Image = global::PBL4.Properties.Resources.uncheckedRed;
-            this.btnExit.Location = new System.Drawing.Point(40, 5);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(40, 40);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.pnProcessing.AutoScroll = true;
+            this.pnProcessing.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnProcessing.Controls.Add(this.pnResultFromServer);
+            this.pnProcessing.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnProcessing.Location = new System.Drawing.Point(750, 0);
+            this.pnProcessing.Name = "pnProcessing";
+            this.pnProcessing.Size = new System.Drawing.Size(550, 535);
+            this.pnProcessing.TabIndex = 3;
             // 
             // pnResultFromServer
             // 
+            this.pnResultFromServer.BackColor = System.Drawing.Color.FloralWhite;
             this.pnResultFromServer.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnResultFromServer.Location = new System.Drawing.Point(0, 35);
             this.pnResultFromServer.Name = "pnResultFromServer";
@@ -213,6 +223,7 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel pnResultFromServer;
+        private System.Windows.Forms.Panel pnGp;
     }
 }
 
