@@ -38,5 +38,25 @@ namespace PBL4.Model
             }
             return listPointName;
         }
+
+        public string ConvertMatrixToMatrixString(int numberOfPoint, long[,] matrixInput)
+        {
+            var matrixString = numberOfPoint.ToString() + ":";
+            for (int i = 0; i < numberOfPoint; i++)
+            {
+                for (int j = 0; j < numberOfPoint; j++)
+                {
+                    if (i == 0 && j == 0)
+                    {
+                        matrixString += matrixInput[i, j].ToString();
+                    }
+                    else
+                    {
+                        matrixString += " " + matrixInput[i, j].ToString();
+                    }
+                }
+            }
+            return matrixString;
+        }
     }
 }

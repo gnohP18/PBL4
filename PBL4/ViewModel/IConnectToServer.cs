@@ -2,6 +2,8 @@
 {
     public interface IConnectToServer
     {
-        bool ClientConnectToServer(int numberOfPoint, int[,] matrixDijktra);
+        void DataEncapsulation(string data);
+        void ThreadReceiveDataFromServer();
+        void ThreadSendDataToServer();
     }
 }
