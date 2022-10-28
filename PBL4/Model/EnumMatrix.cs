@@ -2,6 +2,8 @@
 {
     public static class EnumMatrix
     {
+        public static int MaximumNumberOfPoint = 100;
+
         public static int ValueUCWidth = 70;
 
         public static int ValueUCHeight = 22;
@@ -22,11 +24,11 @@
 
         public static int DistanceBetween2RabioButton = 30;
 
-        public static int DefaultCenterOfCircleX = 300;
+        public static int DefaultCenterOfCircleX = 400;
 
-        public static int DefaultCenterOfCircleY = 200;
+        public static int DefaultCenterOfCircleY = 350;
 
-        public static int DefaultHalfLengthOfMajorAxis = 200;
+        public static int DefaultHalfLengthOfMajorAxis = 280;
 
         public static int DefaultHalfLengthOfMinorAxis = 150;
 

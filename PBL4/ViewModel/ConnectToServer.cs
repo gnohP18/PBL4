@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
 
 namespace PBL4.ViewModel
 {
@@ -9,6 +10,7 @@ namespace PBL4.ViewModel
     {
         #region Instance
         private static InitData _initData;
+        private static ASCIIEncoding encoding = new ASCIIEncoding();
         private static ConnectToServer _connectToServer;
         public static ConnectToServer Instance
         {
@@ -21,48 +23,71 @@ namespace PBL4.ViewModel
         }
         #endregion
         #region Local Variable
-        public Exception ExWhileConnectServer { get; set; }
+        private string Data { get; set; }
+        private Stream stream { get; set; }
+        private TcpClient client { get; set; }
         #endregion
 
-        public ConnectToServer()
+        private ConnectToServer()
         {
             _initData = new InitData();
+            client = new TcpClient();
+            client.Connect(_initData.IpAddress, _initData.PortNumber);
+            stream = client.GetStream();
         }
 
-        public bool ClientConnectToServer(int numberOfPoint, int[,] matrixDijktra)
+        public void DataEncapsulation(string data)
         {
-            var arrayLength = numberOfPoint * numberOfPoint + 1;
+            Data = data;
+        }
+
+        public void ThreadSendDataToServer()
+        {
             try
             {
-                // 1. Open connection
-                TcpClient client = new TcpClient();
-                client.Connect(_initData.IpAddress, _initData.PortNumber);
-                Stream stream = client.GetStream();
-                // 2. read data 
-                byte[] numberOfPointDataSend = new byte[arrayLength];
-                numberOfPointDataSend[0] = Convert.ToByte(numberOfPoint);
-                int count = 1;
-                for (int i = 0; i < numberOfPoint; i++)
-                {
-                    for (int j = 0; j < numberOfPoint; j++)
-                    {
-                        numberOfPointDataSend[count] = Convert.ToByte(matrixDijktra[i, j]);
-                    }
-                }
-                stream.Write(numberOfPointDataSend, 0, arrayLength);
-                // 3. receive data
-                byte[] numberOfPointDataReceive = new byte[arrayLength];
-                // Change your function here to receive data
-
-                // 4. Close connection
-                client.Close();
+                // 1. connect
+                var writer = new StreamWriter(stream);
+                writer.AutoFlush = true;
+                // 2. send
+                Console.WriteLine("Data is" + Data);
+                writer.Write(Data);
+                // 3. receive
+                //Thread threadReceive = new Thread(() => ThreadReceiveDataFromServer(reader));
+                //threadReceive.Start();
+                //threadReceive.Join();
+                // 4. close
                 stream.Close();
-                return true;
+                client.Close();
+
             }
             catch (Exception ex)
             {
-                ExWhileConnectServer = ex;
-                return false;
+                Console.WriteLine("Error from Client: " + ex);
+            }
+        }
+
+        public void ThreadReceiveDataFromServer()
+        {
+            try
+            {
+                // 1. connect
+                var reader = new StreamReader(stream);
+                while (true)
+                {
+                    var mess = reader.ReadLine();
+                    if (mess != null && mess == "OK")
+                    {
+                        Console.WriteLine(mess);
+                        break;
+                    }
+                }
+                stream.Close();
+                client.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error from Client: " + ex);
             }
         }
     }

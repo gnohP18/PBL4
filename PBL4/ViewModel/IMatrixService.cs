@@ -6,5 +6,6 @@ namespace PBL4.Model
     {
         List<int> GetNumberOfPoint();
         List<string> GetPointNameByNumberOfPoint(int numberOfPoint);
+        string ConvertMatrixToMatrixString(int numberOfPoint, long[,] matrixInput);
     }
 }
