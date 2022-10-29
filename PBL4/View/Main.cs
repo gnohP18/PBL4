@@ -22,9 +22,16 @@ namespace PBL4
         #endregion
 
         #region Local variable
+        //Ma trận với kiểu dữ liệu ValueUC được nhập từ User
         private ValueUC[,] ListValueUC { get; set; }
+
+        //Danh sách tên điểm dựa vào số lượng điểm 
         private List<string> NamePoint { get; set; }
+
+        //Ma trận trọng số lấy từ ma trận ListValueUC trên View
         private long[,] MatrixDijktra { get; set; }
+
+        //Số lượng điểm của ma trận
         private int NumberOfPoint { get; set; }
         #endregion
 

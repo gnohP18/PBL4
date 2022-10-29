@@ -14,13 +14,16 @@ namespace PBL4_Server
         public Main()
         {
             InitializeComponent();
+            Thread listenThread = new Thread(InitServer);
+            listenThread.Start();
+        }
+        private void InitServer()
+        {
             InitData _initData = new InitData();
             try
             {
                 IPAddress address = IPAddress.Parse(_initData.IpAddress);
-
                 TcpListener listener = new TcpListener(address, _initData.PortNumber);
-
                 // 1. listen
                 listener.Start();
 
@@ -40,7 +43,7 @@ namespace PBL4_Server
                     // 2. receive
                     string str = reader.ReadLine();
                     MatrixService.Instance.SplitMatrixFromData(str);
-                    //MatrixService.Instance.Dijkstra(0);
+                    Console.WriteLine("server has receive" + str);
                     if (str.ToUpper() == "EXIT")
                     {
                         writer.WriteLine("bye");
@@ -60,7 +63,6 @@ namespace PBL4_Server
             }
             Console.Read();
         }
-
         private void Main_Load(object sender, EventArgs e)
         {
             
@@ -68,7 +70,6 @@ namespace PBL4_Server
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            //ConnectToClient.Instance.ShowResult();
         }
     }
 }
