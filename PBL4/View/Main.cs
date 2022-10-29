@@ -1,9 +1,11 @@
-﻿using PBL4.Model;
+﻿using PBL4.Data;
+using PBL4.Model;
 using PBL4.View;
-using PBL4.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -12,19 +14,26 @@ namespace PBL4
     public partial class Main : Form
     {
         #region Service
-
+        private InitData _initData;
+        private TcpClient _tcpClient;
+        private Stream _stream;
+        private StreamReader _streamReader;
+        private StreamWriter _streamWriter;
         #endregion
+
         #region Local variable
         private ValueUC[,] ListValueUC { get; set; }
         private List<string> NamePoint { get; set; }
         private long[,] MatrixDijktra { get; set; }
         private int NumberOfPoint { get; set; }
         #endregion
+
         public Main()
         {
             InitializeComponent();
             InitDataForCBB();
         }
+
         #region InitData
         private void InitDataForCBB()
         {
@@ -35,7 +44,27 @@ namespace PBL4
             }
         }
         #endregion
+
         #region Function
+        //Luồng nhận dữ liệu được gửi từ server
+        private void ReceiveDataFromServer()
+        {
+            while (true)
+            {
+                try
+                {
+                    _streamReader = new StreamReader(_stream);
+                    string dataFromServer = _streamReader.ReadLine();
+                    Console.WriteLine("Data from server " + dataFromServer);
+                }
+                catch (Exception ex)
+                {
+                    NoticeBox box = new NoticeBox(ex.ToString());
+                    box.Show();
+                    break;
+                }
+            }
+        }
         //Xóa item mỗi lần chuyển cbb
         private void ClearMatrixItem()
         {
@@ -93,16 +122,38 @@ namespace PBL4
                 {
                     listValueUC[i, j].SetValue();
                     matrix[i, j] = listValueUC[i, j].Value;
-                    //Console.Write(matrix[i, j] + " ");
                 }
-                //Console.WriteLine();
             }
             MatrixDijktra = matrix;
             return matrix;
         }
 
+        private void DisconnectFromServer()
+        {
+            _tcpClient.Close();
+            _stream.Close();
+        }
         #endregion
+
         #region Event handle
+        private void Main_Load(object sender, EventArgs e)
+        {
+            _initData = new InitData();
+            try
+            {
+                _tcpClient = new TcpClient();
+                _tcpClient.Connect(_initData.IpAddress, _initData.PortNumber);
+                _stream = _tcpClient.GetStream();
+            }
+            catch (Exception ex)
+            {
+                NoticeBox box = new NoticeBox(ex.ToString());
+                box.Show();
+                Console.WriteLine(ex);
+            }
+
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -115,41 +166,6 @@ namespace PBL4
             InitMatrixWithNumberOfPoint(NumberOfPoint);
         }
 
-        //Test
-
-        private void MatrixTest()
-        {
-            NumberOfPoint = 8;
-            MatrixDijktra = new long[8, 8] {
-                { 0, 3, 5, 2, 0, 0, 0, 0 },
-                { 3, 0, 1, 0, 7, 0, 0, 0 },
-                { 5, 1, 0, 4, 0, 1, 0, 0 },
-                { 2, 0, 4, 0, 0, 3, 6, 0 },
-                { 0, 7, 0, 0, 0, 2, 0, 3 },
-                { 0, 0, 1, 3, 2, 0, 4, 6 },
-                { 0, 0, 0, 6, 0, 4, 0, 5 },
-                { 0, 0, 0, 0, 3, 6, 5, 0 } };
-        }
-
-        private void ShowMatrix(int step)
-        {
-            for (int i = 0; i < NumberOfPoint; i++)
-            {
-                for (int j = 0; j < NumberOfPoint; j++)
-                {
-                    Console.Write(MatrixDijktra[i, j]);
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("Done Step " + step);
-        }
-        private void ShowData(int step, string data)
-        {
-            Console.WriteLine(data);
-            Console.WriteLine("Done Step " + step);
-        }
-        //End test
-
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (!IsAvailableMatrix(GetMatrixFromView(ListValueUC, NumberOfPoint), NumberOfPoint))
@@ -161,22 +177,29 @@ namespace PBL4
             {
                 //1.Lấy ma trận từ UI nhập vào
                 MatrixDijktra = GetMatrixFromView(ListValueUC, NumberOfPoint);
-                ShowMatrix(1);
 
                 //2.Chuyển ma trận từ dạng số sang chuỗi để gửi
                 string data = MatrixService.Instance.ConvertMatrixToMatrixString(NumberOfPoint, MatrixDijktra);
-                ShowData(2, data);
 
-                //3.Tạo ra 1 luồng riêng để gửi dữ liệu đi
-                ConnectToServer.Instance.DataEncapsulation(data);
-                Thread send = new Thread(ConnectToServer.Instance.ThreadSendDataToServer);
-                //Thread receive = new Thread(ConnectToServer.Instance.ThreadReceiveDataFromServer);
-                send.Start();
-                //receive.Start();
-                //receive.Join();
-                //connect.Join();
+                //3.Gửi dữ liệu đi
+                try
+                {
+                    _streamWriter = new StreamWriter(_stream);
+                    _streamWriter.AutoFlush = true;
+                    _streamWriter.WriteLine(data);
+                }
+                catch (Exception ex)
+                {
+                    NoticeBox box = new NoticeBox(ex.ToString());
+                    box.Show();
+                    Console.WriteLine(ex);
+                }
 
-                //4.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
+                //4. Tạo luồng mới nhận dữ liệu
+                Thread receiveThread = new Thread(ReceiveDataFromServer);
+                receiveThread.Start();
+
+                //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
                 ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra);
                 resultGraph.StartPosition = FormStartPosition.CenterScreen;
                 resultGraph.Show();
@@ -198,17 +221,12 @@ namespace PBL4
             noticeBox.Show();
 
         }
-
+        private void btnDisConnectToServer_Click(object sender, EventArgs e)
+        {
+            DisconnectFromServer();
+            this.Close();
+        }
         #endregion
 
-        private void Main_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnConnectToServer_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

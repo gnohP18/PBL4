@@ -92,7 +92,6 @@
             this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
             this.btnConnectToServer.TabIndex = 7;
             this.btnConnectToServer.UseVisualStyleBackColor = false;
-            this.btnConnectToServer.Click += new System.EventHandler(this.btnConnectToServer_Click);
             // 
             // btnReset
             // 
