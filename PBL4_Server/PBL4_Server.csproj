@@ -47,8 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\InitData.cs" />
-    <Compile Include="Model\ConnectToClient.cs" />
-    <Compile Include="Model\IConnectToClient.cs" />
     <Compile Include="Model\IMatrixService.cs" />
     <Compile Include="Model\MatrixService.cs" />
     <Compile Include="View\Main.cs">

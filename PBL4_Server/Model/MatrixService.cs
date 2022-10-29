@@ -20,89 +20,29 @@ namespace PBL4_Server.Model
         }
         #endregion
 
-        #region Local variable
+        #region Global variable
+        /// <summary>
+        /// Ma trận chứa trọng số của đồ thị
+        /// </summary>
         public long[,] MatrixDijkstra { get; set; }
+
+        /// <summary>
+        /// Số điểm trong đồ thị
+        /// </summary>
         public int NumberOfPoint { get; set; }
+
+        /// <summary>
+        /// Mảng 1 chiều chứa khoảng cách từ nguồn đến một điểm bất kỳ
+        /// </summary>
+        public static long[] dist { get; set; }
+
+        /// <summary>
+        /// Danh sách chứa các đường đi đến các điểm
+        /// </summary>
+        public static List<List<string>> pred = new List<List<string>>();
         #endregion
-        public List<string> MergeMap(List<string> mapU, string dst)
-        {
-            List<string> rs = new List<string>(mapU);
-            rs.Add(dst);
-            return rs;
-        }
 
-        public int MinDistance(int[] dist, bool[] sptSet)
-        {
-            // Initialize min value
-            int min = int.MaxValue, min_index = -1;
-
-            for (int i = 0; i < dist.Length; i++)
-                if (sptSet[i] == false && dist[i] <= min)
-                {
-                    min = dist[i];
-                    min_index = i;
-                }
-
-            return min_index;
-        }
-
-        public void Dijkstra(int[,] graph, int src)
-        {
-            //int N = graph.Length;
-            int N = 9;
-            // The output array. dist[i] will hold the shortest distance from src to i
-            int[] dist = new int[N];
-            List<List<string>> pred = new List<List<string>>(N);
-
-            for (int i = 0; i < N; i++)
-            {
-                pred.Add(new List<string>());
-            }
-
-            bool[] sptSet = new bool[N];
-            // Initialize all distances as INFINITE and stpSet[] as false
-            for (int i = 0; i < N; i++)
-            {
-                dist[i] = int.MaxValue;
-                sptSet[i] = false;
-            }
-
-            // Distance of source vertex from itself is always 0
-            dist[src] = 0;
-            pred[src].Add(src.ToString());
-
-            // Find shortest path for all vertices
-            for (int count = 0; count < N - 1; count++)
-            {
-                int u = MinDistance(dist, sptSet);
-
-                // Mark the picked vertex as processed
-                sptSet[u] = true;
-                for (int i = 0; i < N; i++)
-                    if (!sptSet[i] && graph[u, i] != 0 && dist[u] != int.MaxValue && dist[u] + graph[u, i] < dist[i])
-                    {
-                        dist[i] = dist[u] + graph[u, i];
-                        pred[i] = MergeMap(pred[u], i.ToString());
-                    }
-            }
-            List<string> weight = new List<string>();
-            for (int i = 0; i < pred[N - 1].Count - 1; i++)
-            {
-                weight.Add(graph[Convert.ToInt32(pred[N - 1][i]), Convert.ToInt32(pred[N - 1][i + 1])].ToString());
-            }
-            Console.WriteLine("Right way: ");
-            for (int i = 0; i < pred[N - 1].Count; i++)
-            {
-                Console.WriteLine(pred[N - 1][i]);
-            }
-            Console.WriteLine();
-            Console.WriteLine("Weight: ");
-            for (int i = 0; i < weight.Count; i++)
-            {
-                Console.WriteLine(weight[i]);
-            }
-        }
-
+        #region Function
         public void SplitMatrixFromData(string data)
         {
             Console.WriteLine("After split matrix from data");
@@ -122,5 +62,96 @@ namespace PBL4_Server.Model
                 Console.WriteLine();
             }
         }
+
+        public int MinDistance(long[] dist, bool[] sptSet)
+        {
+            long min = long.MaxValue;
+            int min_index = -1;
+
+            for (int i = 0; i < dist.Length; i++)
+                if (sptSet[i] == false && dist[i] <= min)
+                {
+                    min = dist[i];
+                    min_index = i;
+                }
+
+            return min_index;
+        }
+
+        public List<string> MergeMap(List<string> mapU, string dst)
+        {
+            List<string> rs = new List<string>(mapU);
+            rs.Add(dst);
+            return rs;
+        }
+
+        public void Dijkstra(int src)
+        {
+            long[,] graph = MatrixDijkstra;
+            dist = new long[NumberOfPoint];
+            int numberOfPoint = NumberOfPoint;
+            int N = numberOfPoint;
+
+            for (int i = 0; i < N; i++)
+            {
+                pred.Add(new List<string>());
+            }
+            //Mảng đánh dấu điểm đã được xử lý 
+            bool[] sptSet = new bool[N];
+            //Khởi tạo khoảng cách bằng max value của long
+            //và gán tất các phần tử sptSet(shortest path tree set) bằng false
+            for (int i = 0; i < N; i++)
+            {
+                dist[i] = long.MaxValue;
+                sptSet[i] = false;
+            }
+
+            // Khoảng cách từ điểm nguồn đến chính nó bằng 0
+            dist[src] = 0;
+            pred[src].Add(src.ToString());
+
+            //Tìm đường đi ngắn nhất cho tất cả các đỉnh
+            for (int count = 0; count < N - 1; count++)
+            {
+                int u = MinDistance(dist, sptSet);
+
+                //Đánh dấu điểm đã được xử lý
+                sptSet[u] = true;
+                for (int i = 0; i < N; i++)
+                    if (!sptSet[i] && graph[u, i] != 0 && dist[u] != long.MaxValue && dist[u] + graph[u, i] < dist[i])
+                    {
+                        dist[i] = dist[u] + graph[u, i];
+                        pred[i] = MergeMap(pred[u], i.ToString());
+                    }
+            }
+            //Hiển thị kết quả
+            for (int i = 0; i < N; i++)
+            {
+                Console.WriteLine(i + " : " + dist[i]);
+                for (int j = 0; j < pred[i].Count; j++)
+                {
+                    Console.WriteLine(pred[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public string ConvertResultToString()
+        {
+            var resultString = "";
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                resultString += dist[i] + ":";
+                for (int j = 0; j < pred[i].Count; j++)
+                {
+                    resultString += " " + pred[i][j];
+                }
+                resultString += "#";
+            }
+            //Xóa dấu # ở vị trí cuối
+            resultString = resultString.Remove(resultString.Length - 1);
+            return resultString;
+        }
+        #endregion
     }
 }

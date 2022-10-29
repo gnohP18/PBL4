@@ -53,8 +53,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ConnectToServer.cs" />
-    <Compile Include="ViewModel\IConnectToServer.cs" />
     <Compile Include="ViewModel\IMatrixService.cs" />
     <Compile Include="ViewModel\MatrixService.cs" />
     <Compile Include="View\Main.cs">
