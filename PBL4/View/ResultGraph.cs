@@ -85,6 +85,8 @@ namespace PBL4.View
         private void ResultGraph_Load(object sender, EventArgs e)
         {
             InitResultFromNumberOfPoint(NumberOfPoint);
+            //Test 
+            MatrixService.Instance.TestResultFromServer();
         }
 
         private void pnGp_Paint(object sender, PaintEventArgs e)

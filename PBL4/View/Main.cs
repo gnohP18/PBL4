@@ -63,6 +63,9 @@ namespace PBL4
                     _streamReader = new StreamReader(_stream);
                     string dataFromServer = _streamReader.ReadLine();
                     Console.WriteLine("Data from server " + dataFromServer);
+                    //Bug IndexOutOfRangeException Check lai thuật toán tách chuỗi
+                    MatrixService.Instance.ResultFromServer = dataFromServer;
+                    MatrixService.Instance.ConvertStringInputToShow();
                 }
                 catch (Exception ex)
                 {

@@ -11,6 +11,14 @@ namespace PBL4_Server
 {
     public partial class Main : Form
     {
+        #region Service threads
+        private delegate void SafeCallDelegate(string text);
+        #endregion
+        #region Global variable
+        private static string Data = null;
+        private static string BeginLog = null;
+        private static bool IsShow = false;
+        #endregion
         public Main()
         {
             InitializeComponent();
@@ -28,10 +36,16 @@ namespace PBL4_Server
                 listener.Start();
 
                 Console.WriteLine("Server started on " + listener.LocalEndpoint);
+                BeginLog += "Server started on " + listener.LocalEndpoint + "\n";
+
                 Console.WriteLine("Waiting for a connection...");
+                BeginLog += "Waiting for a connection..." + "\n";
 
                 Socket socket = listener.AcceptSocket();
                 Console.WriteLine("Connection received from " + socket.RemoteEndPoint);
+                BeginLog += "Connection received from " + socket.RemoteEndPoint + "\n";
+
+                UpdateRTB(BeginLog);
 
                 var stream = new NetworkStream(socket);
                 var reader = new StreamReader(stream);
@@ -43,6 +57,13 @@ namespace PBL4_Server
                     // 2. receive
                     string str = reader.ReadLine();
                     MatrixService.Instance.SplitMatrixFromData(str);
+                    if (str != null)
+                    {
+                        Data = str;
+                        UpdateRTB(Data);
+                        MatrixService.Instance.Dijkstra(0);
+                    }
+                    else IsShow = false;
                     Console.WriteLine("server has receive" + str);
                     if (str.ToUpper() == "EXIT")
                     {
@@ -50,7 +71,7 @@ namespace PBL4_Server
                         break;
                     }
                     // 3. send
-                    writer.WriteLine("hihiii");
+                    writer.WriteLine(MatrixService.Instance.ConvertResultToString());
                 }
                 // 4. close
                 stream.Close();
@@ -65,11 +86,21 @@ namespace PBL4_Server
         }
         private void Main_Load(object sender, EventArgs e)
         {
-            
+            //Coming soon function
         }
 
-        private void btnTest_Click(object sender, EventArgs e)
+        private void UpdateRTB(string log)
         {
+            if (rtbShowLog.InvokeRequired)
+            {
+                var dele = new SafeCallDelegate(UpdateRTB);
+                rtbShowLog.Invoke(dele, new object[] { log });
+            }
+            else
+            {
+                DateTime currentTime = DateTime.Now;
+                rtbShowLog.AppendText("[" + currentTime.ToShortTimeString() + "] " + log + "\n");
+            }
         }
     }
 }
