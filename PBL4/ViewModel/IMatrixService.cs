@@ -4,9 +4,9 @@ namespace PBL4.Model
 {
     public interface IMatrixService
     {
-         /// <summary>
-         /// Danh sách số lượng điểm
-         /// </summary>
+        /// <summary>
+        /// Danh sách số lượng điểm
+        /// </summary>
         List<int> GetNumberOfPoint();
 
         /// <summary>
@@ -18,5 +18,7 @@ namespace PBL4.Model
         /// Chuyển ma trận từ dạng số thành chuỗi 
         /// </summary>
         string ConvertMatrixToMatrixString(int numberOfPoint, long[,] matrixInput);
+
+        void TestResultFromServer();
     }
 }

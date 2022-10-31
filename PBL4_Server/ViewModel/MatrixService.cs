@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace PBL4_Server.Model
+namespace PBL4_Server.ViewModel
+
 {
     public class MatrixService : IMatrixService
     {
@@ -20,25 +21,10 @@ namespace PBL4_Server.Model
         }
         #endregion
 
-        #region Global variable
-        /// <summary>
-        /// Ma trận chứa trọng số của đồ thị
-        /// </summary>
+        #region Local variable
         public long[,] MatrixDijkstra { get; set; }
-
-        /// <summary>
-        /// Số điểm trong đồ thị
-        /// </summary>
         public int NumberOfPoint { get; set; }
-
-        /// <summary>
-        /// Mảng 1 chiều chứa khoảng cách từ nguồn đến một điểm bất kỳ
-        /// </summary>
         public static long[] dist { get; set; }
-
-        /// <summary>
-        /// Danh sách chứa các đường đi đến các điểm
-        /// </summary>
         public static List<List<string>> pred = new List<List<string>>();
         #endregion
 
@@ -65,6 +51,7 @@ namespace PBL4_Server.Model
 
         public int MinDistance(long[] dist, bool[] sptSet)
         {
+            // Initialize min value
             long min = long.MaxValue;
             int min_index = -1;
 
@@ -96,26 +83,25 @@ namespace PBL4_Server.Model
             {
                 pred.Add(new List<string>());
             }
-            //Mảng đánh dấu điểm đã được xử lý 
+
             bool[] sptSet = new bool[N];
-            //Khởi tạo khoảng cách bằng max value của long
-            //và gán tất các phần tử sptSet(shortest path tree set) bằng false
+            // Initialize all distances as INFINITE and stpSet[] as false
             for (int i = 0; i < N; i++)
             {
                 dist[i] = long.MaxValue;
                 sptSet[i] = false;
             }
 
-            // Khoảng cách từ điểm nguồn đến chính nó bằng 0
+            // Distance of source vertex from itself is always 0
             dist[src] = 0;
             pred[src].Add(src.ToString());
 
-            //Tìm đường đi ngắn nhất cho tất cả các đỉnh
+            // Find shortest path for all vertices
             for (int count = 0; count < N - 1; count++)
             {
                 int u = MinDistance(dist, sptSet);
 
-                //Đánh dấu điểm đã được xử lý
+                // Mark the picked vertex as processed
                 sptSet[u] = true;
                 for (int i = 0; i < N; i++)
                     if (!sptSet[i] && graph[u, i] != 0 && dist[u] != long.MaxValue && dist[u] + graph[u, i] < dist[i])
@@ -124,7 +110,11 @@ namespace PBL4_Server.Model
                         pred[i] = MergeMap(pred[u], i.ToString());
                     }
             }
-            //Hiển thị kết quả
+            List<string> weight = new List<string>();
+            for (int i = 0; i < pred[N - 1].Count - 1; i++)
+            {
+                weight.Add(graph[Convert.ToInt32(pred[N - 1][i]), Convert.ToInt32(pred[N - 1][i + 1])].ToString());
+            }
             for (int i = 0; i < N; i++)
             {
                 Console.WriteLine(i + " : " + dist[i]);
@@ -133,6 +123,18 @@ namespace PBL4_Server.Model
                     Console.WriteLine(pred[i][j] + " ");
                 }
                 Console.WriteLine();
+            }
+
+            Console.WriteLine("Right way: ");
+            for (int i = 0; i < pred[N - 1].Count; i++)
+            {
+                Console.WriteLine(pred[N - 1][i]);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Weight: ");
+            for (int i = 0; i < weight.Count; i++)
+            {
+                Console.WriteLine(weight[i]);
             }
         }
 
@@ -144,14 +146,10 @@ namespace PBL4_Server.Model
                 resultString += dist[i] + ":";
                 for (int j = 0; j < pred[i].Count; j++)
                 {
-                    if (j == 0)
-                        resultString += pred[i][j];
-                    else
-                        resultString += " " + pred[i][j];
+                    resultString += " " + pred[i][j];
                 }
                 resultString += "#";
             }
-            //Xóa dấu # ở vị trí cuối
             resultString = resultString.Remove(resultString.Length - 1);
             return resultString;
         }

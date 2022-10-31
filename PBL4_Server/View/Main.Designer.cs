@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnTest = new System.Windows.Forms.Button();
+            this.rtbShowLog = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // btnTest
+            // rtbShowLog
             // 
-            this.btnTest.Location = new System.Drawing.Point(835, 97);
-            this.btnTest.Name = "btnTest";
-            this.btnTest.Size = new System.Drawing.Size(75, 23);
-            this.btnTest.TabIndex = 0;
-            this.btnTest.Text = "Show";
-            this.btnTest.UseVisualStyleBackColor = true;
-            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+            this.rtbShowLog.Enabled = false;
+            this.rtbShowLog.Location = new System.Drawing.Point(12, 11);
+            this.rtbShowLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.rtbShowLog.Name = "rtbShowLog";
+            this.rtbShowLog.Size = new System.Drawing.Size(935, 466);
+            this.rtbShowLog.TabIndex = 1;
+            this.rtbShowLog.Text = "";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.btnTest);
+            this.ClientSize = new System.Drawing.Size(961, 494);
+            this.Controls.Add(this.rtbShowLog);
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Main";
             this.Text = "Form1";
@@ -56,8 +56,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnTest;
+        private System.Windows.Forms.RichTextBox rtbShowLog;
     }
 }
 
