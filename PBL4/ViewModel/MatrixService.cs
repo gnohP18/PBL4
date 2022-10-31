@@ -29,6 +29,7 @@ namespace PBL4.Model
         public int NumberOfPoint { get; set; }
         public string ResultFromServer { get; set; }
         public List<long[]> ListResultFromServer { get; set; }
+        public List<long> TotalWeight { get; set; }
         #endregion
 
         public List<int> GetNumberOfPoint()
@@ -80,7 +81,7 @@ namespace PBL4.Model
             {
                 int index = s[i].IndexOf(":");
                 tongtrongso[i] = Convert.ToInt32(s[i].Substring(0, index));
-                temp.Add(s[i].Substring(index + 2));
+                temp.Add(s[i].Substring(index + 1));
             }
 
             //Tách đỉnh từ chuỗi "dinh1 dinh2 ... dinhN"
@@ -108,7 +109,6 @@ namespace PBL4.Model
                 }
                 Console.WriteLine();
             }
-
         }
     }
 }
