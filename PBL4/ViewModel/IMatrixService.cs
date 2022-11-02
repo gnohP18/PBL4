@@ -15,10 +15,18 @@ namespace PBL4.Model
         List<string> GetPointNameByNumberOfPoint(int numberOfPoint);
 
         /// <summary>
-        /// Chuyển ma trận từ dạng số thành chuỗi 
+        /// Biến đổi ma trận từ dạng số thành chuỗi 
         /// </summary>
         string ConvertMatrixToMatrixString(int numberOfPoint, long[,] matrixInput);
 
-        void TestResultFromServer();
+        /// <summary>
+        /// Tách kết quả gửi từ server thành danh sách các kết quả của các điểm
+        /// </summary>
+        void ConvertListResultOfAllPoint(int index);
+
+        /// <summary>
+        /// Biến đổi chuỗi kết quả của một điểm
+        /// </summary>
+        void ConvertToStringResultOfOnePoint(string s);
     }
 }

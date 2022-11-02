@@ -28,51 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnNumber = new System.Windows.Forms.Button();
-            this.lblPointName = new System.Windows.Forms.Label();
-            this.lblWay = new System.Windows.Forms.Label();
+            this.lblPath = new System.Windows.Forms.Label();
+            this.lbWeight = new System.Windows.Forms.Label();
+            this.endPointName = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnNumber
+            // lblPath
             // 
-            this.btnNumber.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(202)))), ((int)(((byte)(185)))));
-            this.btnNumber.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnNumber.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNumber.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNumber.Location = new System.Drawing.Point(0, 0);
-            this.btnNumber.Name = "btnNumber";
-            this.btnNumber.Size = new System.Drawing.Size(50, 50);
-            this.btnNumber.TabIndex = 0;
-            this.btnNumber.Text = "nb";
-            this.btnNumber.UseVisualStyleBackColor = false;
+            this.lblPath.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblPath.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPath.Location = new System.Drawing.Point(75, 0);
+            this.lblPath.Name = "lblPath";
+            this.lblPath.Size = new System.Drawing.Size(475, 25);
+            this.lblPath.TabIndex = 1;
+            this.lblPath.Text = "path";
             // 
-            // lblPointName
+            // lbWeight
             // 
-            this.lblPointName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblPointName.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPointName.Location = new System.Drawing.Point(50, 0);
-            this.lblPointName.Name = "lblPointName";
-            this.lblPointName.Size = new System.Drawing.Size(500, 25);
-            this.lblPointName.TabIndex = 1;
-            this.lblPointName.Text = "name";
+            this.lbWeight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbWeight.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbWeight.Location = new System.Drawing.Point(75, 25);
+            this.lbWeight.Name = "lbWeight";
+            this.lbWeight.Size = new System.Drawing.Size(475, 25);
+            this.lbWeight.TabIndex = 2;
+            this.lbWeight.Text = "weight";
             // 
-            // lblWay
+            // endPointName
             // 
-            this.lblWay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblWay.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWay.Location = new System.Drawing.Point(50, 25);
-            this.lblWay.Name = "lblWay";
-            this.lblWay.Size = new System.Drawing.Size(500, 25);
-            this.lblWay.TabIndex = 2;
-            this.lblWay.Text = "label1";
+            this.endPointName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(202)))), ((int)(((byte)(185)))));
+            this.endPointName.Dock = System.Windows.Forms.DockStyle.Left;
+            this.endPointName.Enabled = false;
+            this.endPointName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.endPointName.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endPointName.Location = new System.Drawing.Point(0, 0);
+            this.endPointName.Name = "endPointName";
+            this.endPointName.Size = new System.Drawing.Size(75, 50);
+            this.endPointName.TabIndex = 0;
+            this.endPointName.Text = "Name";
+            this.endPointName.UseVisualStyleBackColor = false;
             // 
             // ResultUC
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(235)))), ((int)(((byte)(248)))));
-            this.Controls.Add(this.lblWay);
-            this.Controls.Add(this.lblPointName);
-            this.Controls.Add(this.btnNumber);
+            this.Controls.Add(this.lbWeight);
+            this.Controls.Add(this.lblPath);
+            this.Controls.Add(this.endPointName);
             this.Name = "ResultUC";
             this.Size = new System.Drawing.Size(550, 50);
             this.ResumeLayout(false);
@@ -80,9 +81,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnNumber;
-        private System.Windows.Forms.Label lblPointName;
-        private System.Windows.Forms.Label lblWay;
+        private System.Windows.Forms.Label lblPath;
+        private System.Windows.Forms.Label lbWeight;
+        private System.Windows.Forms.Button endPointName;
     }
 }

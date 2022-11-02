@@ -65,7 +65,7 @@ namespace PBL4
                     Console.WriteLine("Data from server " + dataFromServer);
                     MatrixService.Instance.NumberOfPoint = NumberOfPoint;
                     MatrixService.Instance.ResultFromServer = dataFromServer;
-                    MatrixService.Instance.ConvertStringInputToShow();
+                    MatrixService.Instance.ConvertListResultOfAllPoint(0);
                 }
                 catch (Exception ex)
                 {
@@ -88,14 +88,14 @@ namespace PBL4
             pnMatrix.Controls.Add(valueUC);
         }
 
-        //Kiểm tra ma trận có hợp lệ hay không
+        //Kiểm tra ma trận có hợp lệ hay không, với điều kiện là trọng số không âm, không bỏ trống ô 
         private bool IsAvailableMatrix(long[,] matrix, int numberOfPoint)
         {
             for (int i = 0; i < numberOfPoint; i++)
             {
                 for (int j = 0; j < numberOfPoint; j++)
                 {
-                    if (matrix[i, j] == -1) return false;
+                    if (matrix[i, j] < 0) return false;
                 }
             }
             return true;
@@ -114,10 +114,14 @@ namespace PBL4
                 {
                     ListValueUC[i, j] = new ValueUC();
                     Point point = new Point(locaX + EnumMatrix.ValueUCWidth * j + EnumMatrix.DistanceBetween2Points, locaY);
-                    var coordinates = (i + "," + j).ToString();
+                    var coordinates = ((i + 1) + "," + (j + 1)).ToString();
                     ListValueUC[i, j].SetCoordinates(coordinates);
                     ListValueUC[i, j].SetLocation(point);
                     SetupItem(ListValueUC[i, j]);
+                    if (i == j)
+                    {
+                        ListValueUC[i, j].SetValueEqualZero();
+                    }
                 }
             }
         }
@@ -130,8 +134,11 @@ namespace PBL4
             {
                 for (int j = 0; j < numberOfPoint; j++)
                 {
-                    listValueUC[i, j].SetValue();
-                    matrix[i, j] = listValueUC[i, j].Value;
+                    listValueUC[i, j].SetInitValue();
+                    if (i != j)
+                    {
+                        matrix[i, j] = listValueUC[i, j].Value;
+                    }
                 }
             }
             MatrixDijktra = matrix;
@@ -163,7 +170,19 @@ namespace PBL4
             }
 
         }
-
+        //private void ValueUC_Text_Leave(object sender, EventArgs e)
+        //{
+        //    for (int i = 0; i < NumberOfPoint; i++)
+        //    {
+        //        for (int j = 0; j < NumberOfPoint; j++)
+        //        {
+        //            if (i == j)
+        //            {
+        //                ValueUC valueUC[i, j] = valueUC[j, i];
+        //            }
+        //        }
+        //    }
+        //}
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();

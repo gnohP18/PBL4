@@ -39,7 +39,13 @@ namespace PBL4_Server.Model
         /// <summary>
         /// Danh sách chứa các đường đi đến các điểm
         /// </summary>
-        public static List<List<string>> pred = new List<List<string>>();
+        public static List<List<string>> pred { get; set; }
+
+        /// <summary>
+        ///  Chuỗi kết quả thực hiện tính toán của tất cả các điểm
+        /// </summary>
+        public static string StringResultOfAllPoint { get; set; }
+
         #endregion
 
         #region Function
@@ -85,13 +91,27 @@ namespace PBL4_Server.Model
             return rs;
         }
 
+        public string CalculateDijskstraOfAllPoint()
+        {
+            StringResultOfAllPoint = "";
+
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                Dijkstra(i);
+                StringResultOfAllPoint += ConvertResultToString() + "@";
+            }
+            StringResultOfAllPoint = StringResultOfAllPoint.Remove(StringResultOfAllPoint.Length - 1);
+            Console.Write(StringResultOfAllPoint);
+            return StringResultOfAllPoint;
+        }
+
         public void Dijkstra(int src)
         {
+            pred = new List<List<string>>();
             long[,] graph = MatrixDijkstra;
             dist = new long[NumberOfPoint];
             int numberOfPoint = NumberOfPoint;
             int N = numberOfPoint;
-
             for (int i = 0; i < N; i++)
             {
                 pred.Add(new List<string>());
@@ -155,6 +175,7 @@ namespace PBL4_Server.Model
             resultString = resultString.Remove(resultString.Length - 1);
             return resultString;
         }
+
         #endregion
     }
 }

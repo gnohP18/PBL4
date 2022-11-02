@@ -20,13 +20,18 @@ namespace PBL4_Server.Model
         List<string> MergeMap(List<string> mapU, string dst);
 
         /// <summary>
-        ///thực hiện tính toán theo thuật toán Dijstra
+        ///thực hiện tính toán theo thuật toán Dijsktra
         /// </summary>
         void Dijkstra(int src);
 
         /// <summary>
-        ///chuyển kết quả của thuật toán Dijstra thành chuỗi để gửi cho client
+        ///chuyển kết quả của thuật toán Dijsktra thành chuỗi để gửi cho client
         /// </summary>
         string ConvertResultToString();
+
+        /// <summary>
+        /// thực hiện tính toán Dijsktra cho tất cả các điểm
+        /// </summary>
+        string CalculateDijskstraOfAllPoint();
     }
 }

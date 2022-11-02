@@ -5,7 +5,6 @@ namespace PBL4.View
     public partial class ResultUC : UserControl
     {
         #region Local variable
-        private string PointName { get; set; }
         private string Result { get; set; }
         private long Distance { get; set; }
         #endregion
@@ -16,13 +15,11 @@ namespace PBL4.View
         }
 
         #region Function
-        public void SetResult(string name, string result, int distance)
+        public void SetResult(string name, string path, string distance)
         {
-            PointName = name;
-            Result = result;
-            Distance = distance;
-            lblPointName.Text = "From " + name + "To";
-            lblWay.Text = "Way" + result + " distance " + distance.ToString();
+            endPointName.Text = name;
+            lblPath.Text = "Path: " + path;
+            lbWeight.Text = "Distance: " + distance;
         }
         #endregion
 
