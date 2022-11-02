@@ -28,9 +28,9 @@
 
         public static int DefaultCenterOfCircleY = 350;
 
-        public static int DefaultHalfLengthOfMajorAxis = 280;
+        public static int DefaultHalfLengthOfMajorAxis = 300;
 
-        public static int DefaultHalfLengthOfMinorAxis = 150;
+        public static int DefaultHalfLengthOfMinorAxis = 180;
 
         public static int DefaultWidthOfPen = 5;
     }

@@ -61,17 +61,18 @@ namespace PBL4_Server
                     {
                         Data = str;
                         UpdateRTB(Data);
-                        MatrixService.Instance.Dijkstra(0);
+                        //MatrixService.Instance.CalculateDijskstraOfAllPoint();
                     }
                     else IsShow = false;
-                    Console.WriteLine("server has receive" + str);
+                    Console.WriteLine();
+                    Console.WriteLine("Server has receive" + str);
                     if (str.ToUpper() == "EXIT")
                     {
                         writer.WriteLine("bye");
                         break;
                     }
                     // 3. send
-                    writer.WriteLine(MatrixService.Instance.ConvertResultToString());
+                    writer.WriteLine(MatrixService.Instance.CalculateDijskstraOfAllPoint());
                 }
                 // 4. close
                 stream.Close();

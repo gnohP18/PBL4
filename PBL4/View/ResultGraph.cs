@@ -13,13 +13,31 @@ namespace PBL4.View
         private long[,] MatrixDijktra { get; set; }
         private int NumberOfPoint { get; set; }
         private Label[] UINameOfPoint { get; set; }
+        //Danh sách tên điểm dựa vào số lượng điểm 
+        private List<string> NamePoint { get; set; }
+        private string[] listTotalWeight { get; set; }
+        private List<string[]> listResultFromServer { get; set; } 
         #endregion
         public ResultGraph(int numberOfPoint, long[,] matrix)
         {
             MatrixDijktra = matrix;
             NumberOfPoint = numberOfPoint;
             InitializeComponent();
+            InitDataForCBB();
         }
+
+        #region InitData
+        private void InitDataForCBB()
+        {
+            NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
+            foreach (var i in NamePoint)
+            {
+                cbbStartPoint.Items.Add(i);
+            }
+            cbbStartPoint.SelectedIndex = 0;
+        }
+        #endregion
+
         #region Function
         //Resize Result 
         private void SetResultUC(ResultUC resultUC)
@@ -29,15 +47,25 @@ namespace PBL4.View
         }
 
         //Khởi tạo ô kết quả trả về từ server
-        private void InitResultFromNumberOfPoint(int numberOfPoint)
+        private void InitResultFromNumberOfPoint(int numberOfPoint, int index)
         {
-            List<string> listPointName = MatrixService.Instance.GetPointNameByNumberOfPoint(numberOfPoint);
+            NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(numberOfPoint);
+            MatrixService.Instance.ConvertListResultOfAllPoint(index);
+            listResultFromServer = MatrixService.Instance.ListPathOfOnePoint;
+            listTotalWeight = MatrixService.Instance.ListTotalWeightOfOnePoint;
+
             ResultUC[] resultUCs = new ResultUC[numberOfPoint];
-            for (int i = 0; i < numberOfPoint; i++)
+            for (int i = 0; i < NumberOfPoint; i++)
             {
+                string path = null;
+                foreach (var j in listResultFromServer[i])
+                {
+                    path += NamePoint[Convert.ToInt32(j)] + " ";
+                }
                 resultUCs[i] = new ResultUC();
-                resultUCs[i].SetResult(listPointName[i], "ABC", i);
+                resultUCs[i].SetResult(NamePoint[i], path, listTotalWeight[i]);
                 SetResultUC(resultUCs[i]);
+
             }
         }
 
@@ -84,9 +112,10 @@ namespace PBL4.View
 
         private void ResultGraph_Load(object sender, EventArgs e)
         {
-            InitResultFromNumberOfPoint(NumberOfPoint);
+            //cho nay khong can do khi bat dau da gan selected index change r
+            //InitResultFromNumberOfPoint(NumberOfPoint, 0);
             //Test 
-            MatrixService.Instance.TestResultFromServer();
+            //MatrixService.Instance.TestResultFromServer();
         }
 
         private void pnGp_Paint(object sender, PaintEventArgs e)
@@ -167,6 +196,14 @@ namespace PBL4.View
             {
                 UINameOfPoint[ListOfPoint.IndexOf(e.Location)].BackColor = Color.Red;
             }
+        }
+
+        private void cbbStartPoint_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            int startPoint = cbbStartPoint.SelectedIndex;
+            this.pnResultFromServer.Controls.Clear();
+            InitResultFromNumberOfPoint(NumberOfPoint, startPoint);
         }
     }
 }

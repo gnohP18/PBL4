@@ -40,20 +40,22 @@ namespace PBL4.Data
         private void SeedPointName()
         {
             PointName = new List<string>();
-            for (int i = 1; i <= EnumMatrix.MaximumNumberOfPoint; i++)
+            for (int i = 1; i <= 150; i++)
             {
-                const int beginChar = 65;
-                if (i <= 26)
+                const int beginChar = 64;
+                int suffixes = i / 26;
+                string name = "";
+                if (i % 26 == 0)
                 {
-                    string name = char.ConvertFromUtf32(i + beginChar);
-                    PointName.Add(name);
+                    name = char.ConvertFromUtf32(26 + beginChar) + (suffixes - 1);
                 }
                 else
                 {
-                    string name = char.ConvertFromUtf32(i + beginChar) + (i % 26).ToString();
-                    PointName.Add(name);
+                    name = char.ConvertFromUtf32(i % 26 + beginChar) + suffixes;
                 }
+                PointName.Add(name);
             }
+
         }
 
         //Khởi tạo dữ liệu để kết nối client-server

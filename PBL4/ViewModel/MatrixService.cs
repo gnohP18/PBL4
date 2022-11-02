@@ -28,8 +28,9 @@ namespace PBL4.Model
         #region Global variable
         public int NumberOfPoint { get; set; }
         public string ResultFromServer { get; set; }
-        public List<long[]> ListResultFromServer { get; set; }
-        public List<long> TotalWeight { get; set; }
+        public  List<string[]> ListPathOfOnePoint { get; set; }
+        public string[] ListTotalWeightOfOnePoint { get; set; }
+
         #endregion
 
         public List<int> GetNumberOfPoint()
@@ -39,7 +40,7 @@ namespace PBL4.Model
 
         public List<string> GetPointNameByNumberOfPoint(int numberOfPoint)
         {
-            var listPointName = new List<string>();
+            List<string> listPointName = new List<string>();
             for (int i = 0; i < numberOfPoint; i++)
             {
                 listPointName.Add(_initData.PointName[i]);
@@ -66,48 +67,39 @@ namespace PBL4.Model
             }
             return matrixString;
         }
-
-        public void ConvertStringInputToShow()
+        public void ConvertListResultOfAllPoint(int index)
         {
-            ListResultFromServer = new List<long[]>();
             string resultString = ResultFromServer;
+            string[] arrrayResult = new string[NumberOfPoint];
+            arrrayResult = resultString.Split('@');
+            ConvertToStringResultOfOnePoint(arrrayResult[index]);
+        }
 
-            string[] s = resultString.Split('#');
-            long[] tongtrongso = new long[NumberOfPoint];
+        public void ConvertToStringResultOfOnePoint(string resultStringOfOnePoint)
+        {
+            ListPathOfOnePoint = new List<string[]>();
+            ListTotalWeightOfOnePoint = new string[NumberOfPoint];
+            string[] s = resultStringOfOnePoint.Split('#');
             List<string> temp = new List<string>();
 
             //Tách trọng số từ chuỗi "#tongtrongso:dinh1 dinh2 ... dinhN#"
             for (int i = 0; i < s.Length; i++)
             {
-                int index = s[i].IndexOf(":");
-                tongtrongso[i] = Convert.ToInt32(s[i].Substring(0, index));
+                int index = s[i].IndexOf(':');
+                ListTotalWeightOfOnePoint[i] = s[i].Substring(0, index);
                 temp.Add(s[i].Substring(index + 1));
             }
-
+            
             //Tách đỉnh từ chuỗi "dinh1 dinh2 ... dinhN"
             for (int i = 0; i < s.Length; i++)
             {
                 string[] arrListStr = temp[i].Split(' ');
-                long[] temp2 = new long[arrListStr.Length];
+                string[] temp2 = new string[arrListStr.Length];
                 for (int j = 0; j < arrListStr.Length; j++)
                 {
-                    temp2[j] = Convert.ToInt64(arrListStr[j]);
+                    temp2[j] = arrListStr[j];
                 }
-                ListResultFromServer.Add(temp2);
-            }
-        }
-
-        //This is a testing function
-        public void TestResultFromServer()
-        {
-            Console.WriteLine("Data from server after unpacking");
-            foreach (var i in ListResultFromServer)
-            {
-                foreach (int j in i)
-                {
-                    Console.Write(j + " ");
-                }
-                Console.WriteLine();
+                ListPathOfOnePoint.Add(temp2);
             }
         }
     }

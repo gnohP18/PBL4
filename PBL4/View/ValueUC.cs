@@ -31,7 +31,8 @@ namespace PBL4.View
             return Convert.ToInt32(txtValue.Text);
         }
 
-        public void SetValue()
+        //Khởi tạo giá trị ban đầu của ma trận
+        public void SetInitValue()
         {
             bool isAvalableValue = true;
             char[] arrChar = txtValue.Text.ToCharArray();
@@ -53,6 +54,13 @@ namespace PBL4.View
                 lbMatLoca.BackColor = Color.LightCoral;
                 Value = -1;
             }
+        }
+
+        public void SetValueEqualZero()
+        {
+            Value = 0;
+            txtValue.Text = "0";
+            txtValue.Enabled = false;
         }
 
         public void ClearValue()
