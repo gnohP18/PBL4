@@ -63,9 +63,29 @@ namespace PBL4.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Artboard_1 {
+            get {
+                object obj = ResourceManager.GetObject("Artboard 1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap checkedGreen {
             get {
                 object obj = ResourceManager.GetObject("checkedGreen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Internet_BG {
+            get {
+                object obj = ResourceManager.GetObject("Internet BG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +126,16 @@ namespace PBL4.Properties {
         internal static System.Drawing.Bitmap reset_24 {
             get {
                 object obj = ResourceManager.GetObject("reset-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap search_24 {
+            get {
+                object obj = ResourceManager.GetObject("search-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

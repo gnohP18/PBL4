@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbbNumberOfPoints = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnConnectToServer = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.pnProcessing = new System.Windows.Forms.Panel();
@@ -54,7 +53,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(321, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 18);
+            this.label1.Size = new System.Drawing.Size(154, 24);
             this.label1.TabIndex = 3;
             this.label1.Text = "Number of points";
             // 
@@ -63,7 +62,7 @@
             this.cbbNumberOfPoints.FormattingEnabled = true;
             this.cbbNumberOfPoints.Location = new System.Drawing.Point(494, 12);
             this.cbbNumberOfPoints.Name = "cbbNumberOfPoints";
-            this.cbbNumberOfPoints.Size = new System.Drawing.Size(270, 21);
+            this.cbbNumberOfPoints.Size = new System.Drawing.Size(270, 24);
             this.cbbNumberOfPoints.TabIndex = 0;
             this.cbbNumberOfPoints.SelectedIndexChanged += new System.EventHandler(this.cbbNumberOfPoints_SelectedIndexChanged);
             // 
@@ -80,18 +79,6 @@
             this.btnExit.Text = " ";
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // btnConnectToServer
-            // 
-            this.btnConnectToServer.BackColor = System.Drawing.Color.Transparent;
-            this.btnConnectToServer.FlatAppearance.BorderSize = 0;
-            this.btnConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnectToServer.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnConnectToServer.Location = new System.Drawing.Point(84, 757);
-            this.btnConnectToServer.Name = "btnConnectToServer";
-            this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
-            this.btnConnectToServer.TabIndex = 7;
-            this.btnConnectToServer.UseVisualStyleBackColor = false;
             // 
             // btnReset
             // 
@@ -123,7 +110,6 @@
             // 
             this.pnProcessing.AutoScroll = true;
             this.pnProcessing.BackColor = System.Drawing.Color.FloralWhite;
-            this.pnProcessing.Controls.Add(this.btnConnectToServer);
             this.pnProcessing.Controls.Add(this.label1);
             this.pnProcessing.Controls.Add(this.btnReset);
             this.pnProcessing.Controls.Add(this.pnMatrix);
@@ -161,7 +147,6 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnReset;
-        private System.Windows.Forms.Button btnConnectToServer;
     }
 }
 

@@ -1,5 +1,4 @@
-﻿using PBL4.Data;
-using PBL4.Model;
+﻿using PBL4.Model;
 using PBL4.View;
 using System;
 using System.Collections.Generic;
@@ -14,14 +13,16 @@ namespace PBL4
     public partial class Main : Form
     {
         #region Service
-        private InitData _initData;
+        private string _ipAddress;
+        private string _computerName;
+        private string _port;
         private TcpClient _tcpClient;
         private Stream _stream;
         private StreamReader _streamReader;
         private StreamWriter _streamWriter;
         #endregion
 
-        #region Local variable
+        #region Global variable
         //Ma trận với kiểu dữ liệu ValueUC được nhập từ User
         private ValueUC[,] ListValueUC { get; set; }
 
@@ -33,10 +34,20 @@ namespace PBL4
 
         //Số lượng điểm của ma trận
         private int NumberOfPoint { get; set; }
+
+        //Tên máy tính
+
+        //Địa chỉ mạng
+
+        //Số cổng
+
         #endregion
 
-        public Main()
+        public Main(string computerName, string hostName, string port)
         {
+            _port = port;
+            _ipAddress = hostName;
+            _computerName = computerName;
             InitializeComponent();
             InitDataForCBB();
         }
@@ -113,6 +124,7 @@ namespace PBL4
                 for (int j = 0; j < numberOfPoint; j++)
                 {
                     ListValueUC[i, j] = new ValueUC();
+                    ListValueUC[i, j].Leave += ValueUC_Text_Leave;
                     Point point = new Point(locaX + EnumMatrix.ValueUCWidth * j + EnumMatrix.DistanceBetween2Points, locaY);
                     var coordinates = ((i + 1) + "," + (j + 1)).ToString();
                     ListValueUC[i, j].SetCoordinates(coordinates);
@@ -155,11 +167,10 @@ namespace PBL4
         #region Event handle
         private void Main_Load(object sender, EventArgs e)
         {
-            _initData = new InitData();
             try
             {
                 _tcpClient = new TcpClient();
-                _tcpClient.Connect(_initData.IpAddress, _initData.PortNumber);
+                _tcpClient.Connect(_ipAddress, Convert.ToInt32(_port));
                 _stream = _tcpClient.GetStream();
             }
             catch (Exception ex)
@@ -170,19 +181,22 @@ namespace PBL4
             }
 
         }
-        //private void ValueUC_Text_Leave(object sender, EventArgs e)
-        //{
-        //    for (int i = 0; i < NumberOfPoint; i++)
-        //    {
-        //        for (int j = 0; j < NumberOfPoint; j++)
-        //        {
-        //            if (i == j)
-        //            {
-        //                ValueUC valueUC[i, j] = valueUC[j, i];
-        //            }
-        //        }
-        //    }
-        //}
+
+        private void ValueUC_Text_Leave(object sender, EventArgs e)
+        {
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                for (int j = 0; j < NumberOfPoint; j++)
+                {
+                    if (i < j && ListValueUC[i, j].GetValue() != "")
+                    {
+                        ListValueUC[j, i].SetValue((long)(Convert.ToInt32(ListValueUC[i, j].GetValue())));
+                        ListValueUC[j, i].SetEnableTextBox();
+                    }
+                }
+            }
+        }
+
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -215,7 +229,8 @@ namespace PBL4
                 {
                     _streamWriter = new StreamWriter(_stream);
                     _streamWriter.AutoFlush = true;
-                    _streamWriter.WriteLine(data);
+                    var packingData = _computerName + "@" + data;
+                    _streamWriter.WriteLine(packingData);
                 }
                 catch (Exception ex)
                 {

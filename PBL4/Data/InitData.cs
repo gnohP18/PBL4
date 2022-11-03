@@ -1,5 +1,7 @@
 ﻿using PBL4.Model;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 
 namespace PBL4.Data
 {
@@ -8,7 +10,7 @@ namespace PBL4.Data
         #region Local variable
         //Danh sách số lượng điểm 
         public List<int> NumberOfPoints { get; set; }
-        
+
         // Danh sách tên điểm dựa vào số lượng điểm
         public List<string> PointName { get; set; }
 
@@ -17,12 +19,15 @@ namespace PBL4.Data
 
         //Địa chỉ IP để kết nối client-server
         public string IpAddress { get; set; }
+        //Tên máy tính hiện hành
+        public string ComputerName { get; set; }
         #endregion
         public InitData()
         {
             SeedNumberOfPoint();
             SeedPointName();
             SeedDataForConnectingtoServer();
+            SeedComputerName();
         }
 
         #region Seeding data 
@@ -62,7 +67,26 @@ namespace PBL4.Data
         private void SeedDataForConnectingtoServer()
         {
             PortNumber = 555;
-            IpAddress = "127.0.0.1";
+            IpAddress = GetIPAddress();
+        }
+
+        //Lấy giá trị của IP hiện hành
+        public string GetIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return null;
+        }
+
+        private void SeedComputerName()
+        {
+            ComputerName = System.Environment.GetEnvironmentVariable("COMPUTERNAME");
         }
         #endregion
     }
