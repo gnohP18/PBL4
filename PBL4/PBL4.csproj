@@ -55,6 +55,12 @@
     </Compile>
     <Compile Include="ViewModel\IMatrixService.cs" />
     <Compile Include="ViewModel\MatrixService.cs" />
+    <Compile Include="View\Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Connection.Designer.cs">
+      <DependentUpon>Connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Connection.resx">
+      <DependentUpon>Connection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -137,6 +146,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\neural-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Artboard 1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Internet BG.jfif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

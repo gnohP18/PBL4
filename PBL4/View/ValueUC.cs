@@ -26,9 +26,14 @@ namespace PBL4.View
             this.Location = point;
         }
 
-        public long GetValue()
+        public string GetValue()
         {
-            return Convert.ToInt32(txtValue.Text);
+            return txtValue.Text;
+        }
+
+        public void SetValue(long value)
+        {
+            txtValue.Text = value.ToString();
         }
 
         //Khởi tạo giá trị ban đầu của ma trận
@@ -67,6 +72,11 @@ namespace PBL4.View
         {
             txtValue.Text = null;
             Value = 0;
+        }
+
+        public void SetEnableTextBox()
+        {
+            txtValue.Enabled = false;
         }
         #endregion
     }

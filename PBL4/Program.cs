@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using PBL4.View;
+using System;
 using System.Windows.Forms;
 
 namespace PBL4
@@ -16,7 +14,7 @@ namespace PBL4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+            Application.Run(new Connection());
         }
     }
 }

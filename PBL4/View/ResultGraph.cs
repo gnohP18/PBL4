@@ -16,7 +16,7 @@ namespace PBL4.View
         //Danh sách tên điểm dựa vào số lượng điểm 
         private List<string> NamePoint { get; set; }
         private string[] listTotalWeight { get; set; }
-        private List<string[]> listResultFromServer { get; set; } 
+        private List<string[]> listResultFromServer { get; set; }
         #endregion
         public ResultGraph(int numberOfPoint, long[,] matrix)
         {
@@ -46,6 +46,10 @@ namespace PBL4.View
             pnResultFromServer.Controls.Add(resultUC);
         }
 
+        private void Set2(ResultUC resultUC)
+        {
+            resultUC.Dock = DockStyle.Top;
+        }
         //Khởi tạo ô kết quả trả về từ server
         private void InitResultFromNumberOfPoint(int numberOfPoint, int index)
         {
@@ -64,8 +68,11 @@ namespace PBL4.View
                 }
                 resultUCs[i] = new ResultUC();
                 resultUCs[i].SetResult(NamePoint[i], path, listTotalWeight[i]);
-                SetResultUC(resultUCs[i]);
-
+            }
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                SetResultUC(resultUCs[NumberOfPoint - i - 1]);
+                //Set2(resultUCs[NumberOfPoint - i - 1]);
             }
         }
 
@@ -187,8 +194,6 @@ namespace PBL4.View
             }
             //RightRoute(rightRoute);
         }
-        #endregion
-
         private void ResultGraph_MouseClick(object sender, MouseEventArgs e)
         {
             Console.WriteLine(e.X + " " + e.Y);
@@ -205,5 +210,7 @@ namespace PBL4.View
             this.pnResultFromServer.Controls.Clear();
             InitResultFromNumberOfPoint(NumberOfPoint, startPoint);
         }
+        #endregion
+
     }
 }

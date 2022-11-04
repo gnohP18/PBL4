@@ -1,4 +1,8 @@
-﻿namespace PBL4_Server.Data
+﻿using System;
+using System.Net;
+using System.Net.Sockets;
+
+namespace PBL4_Server.Data
 {
     public class InitData
     {
@@ -11,7 +15,20 @@
         private void SeedDataForConnectingtoServer()
         {
             PortNumber = 555;
-            IpAddress = "127.0.0.1";
+            IpAddress = GetHostName();
+        }
+
+        public string GetHostName()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
     }
 }

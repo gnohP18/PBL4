@@ -37,7 +37,7 @@
             this.txtValue.Dock = System.Windows.Forms.DockStyle.Right;
             this.txtValue.Location = new System.Drawing.Point(35, 0);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(35, 22);
+            this.txtValue.Size = new System.Drawing.Size(35, 20);
             this.txtValue.TabIndex = 0;
             // 
             // lbMatLoca

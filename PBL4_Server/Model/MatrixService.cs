@@ -1,5 +1,4 @@
-﻿using PBL4_Server.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace PBL4_Server.Model
@@ -7,17 +6,7 @@ namespace PBL4_Server.Model
     public class MatrixService : IMatrixService
     {
         #region Instance
-        private static InitData _initData;
-        private static MatrixService _matrixService;
-        public static MatrixService Instance
-        {
-            get
-            {
-                if (_matrixService == null) _matrixService = new MatrixService();
-                return _matrixService;
-            }
-            private set { }
-        }
+
         #endregion
 
         #region Global variable
@@ -39,21 +28,33 @@ namespace PBL4_Server.Model
         /// <summary>
         /// Danh sách chứa các đường đi đến các điểm
         /// </summary>
-        public static List<List<string>> pred { get; set; }
+        public List<List<string>> pred { get; set; }
 
         /// <summary>
         ///  Chuỗi kết quả thực hiện tính toán của tất cả các điểm
         /// </summary>
-        public static string StringResultOfAllPoint { get; set; }
+        public string StringResultOfAllPoint { get; set; }
 
+        /// <summary>
+        ///  Tên của Client khi tách ra
+        /// </summary>
+        public string ComputerName { get; set; }
         #endregion
 
         #region Function
-        public void SplitMatrixFromData(string data)
+        public void SplitMatrixFromData(string dataFromServer)
         {
             Console.WriteLine("After split matrix from data");
+            //Tách tên máy
+            int indexOfName = dataFromServer.IndexOf("@");
+            ComputerName = dataFromServer.Substring(0, indexOfName);
+
+            //Tách số lượng điểm
+            var data = dataFromServer.Substring(indexOfName + 1);
             int index = data.IndexOf(":");
             NumberOfPoint = Convert.ToInt32((data.Substring(0, index)));
+
+            //Tách ma trận
             var matrixString = data.Substring(index + 1);
             MatrixDijkstra = new long[NumberOfPoint, NumberOfPoint];
             string[] arrListStr = matrixString.Split(' ');
