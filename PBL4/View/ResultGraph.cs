@@ -17,6 +17,7 @@ namespace PBL4.View
         private List<string> NamePoint { get; set; }
         private List<string> listTotalWeight { get; set; }
         private List<string[]> listResultFromServer { get; set; }
+
         private string DataFromServer { get; set; }
         #endregion
         public ResultGraph(int numberOfPoint, long[,] matrix, string dataFromServer)
@@ -51,6 +52,8 @@ namespace PBL4.View
         //Khởi tạo ô kết quả trả về từ server
         private void InitResultFromNumberOfPoint(int numberOfPoint, int index)
         {
+            listResultFromServer = new List<string[]>();
+            
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(numberOfPoint);
             //Bước 1 Tách theo index
             string splitByIndex = MatrixService.Instance.SplitOneResultOfAPointInAllResults(index, DataFromServer);
@@ -78,6 +81,7 @@ namespace PBL4.View
                 resultUCs[i] = new ResultUC();
                 resultUCs[i].SetResult(NamePoint[i], path, listTotalWeight[i]);
             }
+
             for (int i = 0; i < NumberOfPoint; i++)
             {
                 SetResultUC(resultUCs[NumberOfPoint - i - 1]);
@@ -122,7 +126,12 @@ namespace PBL4.View
         #region Event handle
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            listResultFromServer.Clear();
+            listTotalWeight = null;
+            Console.WriteLine("tat cai cu");
+            //MatrixService.Instance.ListPathOfOnePoint.Clear();
+            
+            this.Close();
         }
 
         private void ResultGraph_Load(object sender, EventArgs e)

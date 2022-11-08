@@ -45,7 +45,7 @@ namespace PBL4.Data
         private void SeedPointName()
         {
             PointName = new List<string>();
-            for (int i = 1; i <= 150; i++)
+            for (int i = 1; i <= EnumMatrix.MaximumNumberOfPoint; i++)
             {
                 const int beginChar = 64;
                 int suffixes = i / 26;
