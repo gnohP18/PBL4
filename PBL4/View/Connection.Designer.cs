@@ -37,9 +37,6 @@
             this.btnSearchComputerName = new System.Windows.Forms.Button();
             this.btnSearchIPAddress = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPortNumber = new System.Windows.Forms.TextBox();
-            this.btnPortNumber = new System.Windows.Forms.Button();
             this.btnConnectToServer = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -127,9 +124,6 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.LightBlue;
             this.panel1.Controls.Add(this.btnConnectToServer);
-            this.panel1.Controls.Add(this.btnPortNumber);
-            this.panel1.Controls.Add(this.txtPortNumber);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtComputerName);
             this.panel1.Controls.Add(this.btnSearchIPAddress);
             this.panel1.Controls.Add(this.txtIPAddress);
@@ -138,40 +132,8 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(102, 223);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(397, 275);
+            this.panel1.Size = new System.Drawing.Size(397, 213);
             this.panel1.TabIndex = 8;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(51, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 24);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Port";
-            // 
-            // txtPortNumber
-            // 
-            this.txtPortNumber.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPortNumber.Location = new System.Drawing.Point(51, 148);
-            this.txtPortNumber.Name = "txtPortNumber";
-            this.txtPortNumber.Size = new System.Drawing.Size(303, 27);
-            this.txtPortNumber.TabIndex = 9;
-            // 
-            // btnPortNumber
-            // 
-            this.btnPortNumber.BackColor = System.Drawing.Color.Transparent;
-            this.btnPortNumber.BackgroundImage = global::PBL4.Properties.Resources.search_24;
-            this.btnPortNumber.FlatAppearance.BorderSize = 0;
-            this.btnPortNumber.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPortNumber.Location = new System.Drawing.Point(21, 148);
-            this.btnPortNumber.Name = "btnPortNumber";
-            this.btnPortNumber.Size = new System.Drawing.Size(24, 24);
-            this.btnPortNumber.TabIndex = 10;
-            this.btnPortNumber.UseVisualStyleBackColor = false;
-            this.btnPortNumber.Click += new System.EventHandler(this.btnPortNumber_Click);
             // 
             // btnConnectToServer
             // 
@@ -179,7 +141,7 @@
             this.btnConnectToServer.FlatAppearance.BorderSize = 0;
             this.btnConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnConnectToServer.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnConnectToServer.Location = new System.Drawing.Point(161, 208);
+            this.btnConnectToServer.Location = new System.Drawing.Point(168, 139);
             this.btnConnectToServer.Name = "btnConnectToServer";
             this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
             this.btnConnectToServer.TabIndex = 9;
@@ -214,9 +176,6 @@
         private System.Windows.Forms.Button btnSearchComputerName;
         private System.Windows.Forms.Button btnSearchIPAddress;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnPortNumber;
-        private System.Windows.Forms.TextBox txtPortNumber;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnConnectToServer;
     }
 }

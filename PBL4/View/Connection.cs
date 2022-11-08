@@ -34,18 +34,6 @@ namespace PBL4.View
             return true;
         }
 
-        private bool IsAvailablePort()
-        {
-            //var charConvert = txtPortNumber.Text.ToCharArray();
-            //for (int i = 0; i < charConvert.Length; i++)
-            //{
-            //    if (charConvert[i] >= '9' && charConvert[i] <= '0')
-            //    {
-            //        return false;
-            //    }
-            //}
-            return true;
-        }
         #endregion
 
         #region Handle event
@@ -59,16 +47,11 @@ namespace PBL4.View
             txtIPAddress.Text = _initData.IpAddress;
         }
 
-        private void btnPortNumber_Click(object sender, EventArgs e)
-        {
-            txtPortNumber.Text = _initData.PortNumber.ToString();
-        }
-
         private void btnConnectToServer_Click(object sender, EventArgs e)
         {
-            if (IsAvailableComputerName() && IsAvailableIPAddress() && IsAvailablePort())
+            if (IsAvailableComputerName() && IsAvailableIPAddress())
             {
-                Main main = new Main(txtComputerName.Text, txtIPAddress.Text, txtPortNumber.Text);
+                Main main = new Main(txtComputerName.Text, txtIPAddress.Text, _initData.PortNumber.ToString());
                 main.Show();
                 this.Hide();
             }
@@ -80,11 +63,6 @@ namespace PBL4.View
             else if (!IsAvailableIPAddress())
             {
                 NoticeBox noticeBox = new NoticeBox("Wrong IP Address");
-                noticeBox.Show();
-            }
-            else if (!IsAvailablePort())
-            {
-                NoticeBox noticeBox = new NoticeBox("Wrong Port Number");
                 noticeBox.Show();
             }
         }
@@ -99,7 +77,6 @@ namespace PBL4.View
         {
             txtComputerName.Text = _initData.ComputerName;
             txtIPAddress.Text = _initData.IpAddress;
-            txtPortNumber.Text = _initData.PortNumber.ToString();
         }
     }
 }

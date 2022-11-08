@@ -35,6 +35,7 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.pnProcessing = new System.Windows.Forms.Panel();
+            this.btnDrawTheGraph = new System.Windows.Forms.Button();
             this.pnProcessing.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,6 +111,7 @@
             // 
             this.pnProcessing.AutoScroll = true;
             this.pnProcessing.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnProcessing.Controls.Add(this.btnDrawTheGraph);
             this.pnProcessing.Controls.Add(this.label1);
             this.pnProcessing.Controls.Add(this.btnReset);
             this.pnProcessing.Controls.Add(this.pnMatrix);
@@ -121,6 +123,19 @@
             this.pnProcessing.Name = "pnProcessing";
             this.pnProcessing.Size = new System.Drawing.Size(1300, 800);
             this.pnProcessing.TabIndex = 3;
+            // 
+            // btnDrawTheGraph
+            // 
+            this.btnDrawTheGraph.BackColor = System.Drawing.Color.Linen;
+            this.btnDrawTheGraph.FlatAppearance.BorderSize = 0;
+            this.btnDrawTheGraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDrawTheGraph.Image = global::PBL4.Properties.Resources.neural_24;
+            this.btnDrawTheGraph.Location = new System.Drawing.Point(1007, 748);
+            this.btnDrawTheGraph.Name = "btnDrawTheGraph";
+            this.btnDrawTheGraph.Size = new System.Drawing.Size(75, 40);
+            this.btnDrawTheGraph.TabIndex = 10;
+            this.btnDrawTheGraph.UseVisualStyleBackColor = false;
+            this.btnDrawTheGraph.Click += new System.EventHandler(this.btnDrawTheGraph_Click);
             // 
             // Main
             // 
@@ -147,6 +162,7 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Button btnDrawTheGraph;
     }
 }
 
