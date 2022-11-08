@@ -77,7 +77,8 @@ namespace PBL4_Server
             while (true)
             {
                 // 2. receive
-                string str = reader.ReadLine();
+                string str = null;
+                str = reader.ReadLine();
                 if (str != null && str.ToUpper() != "EXIT")
                 {
                     matrixService.SplitMatrixFromData(str);

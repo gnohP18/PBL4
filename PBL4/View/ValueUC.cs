@@ -33,7 +33,8 @@ namespace PBL4.View
 
         public void SetValue(long value)
         {
-            txtValue.Text = value.ToString();
+            Value = value;
+            txtValue.Text = Convert.ToString(value);
         }
 
         //Khởi tạo giá trị ban đầu của ma trận
@@ -67,7 +68,6 @@ namespace PBL4.View
             txtValue.Text = "0";
             txtValue.Enabled = false;
         }
-
         public void ClearValue()
         {
             txtValue.Text = null;

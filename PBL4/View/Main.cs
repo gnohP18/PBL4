@@ -56,6 +56,7 @@ namespace PBL4
         #region InitData
         private void InitDataForCBB()
         {
+            
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
             foreach (int i in MatrixService.Instance.GetNumberOfPoint())
             {
@@ -105,8 +106,6 @@ namespace PBL4
         {
             pnMatrix.Controls.Clear();
         }
-
-
         //thêm ô của ma trận vào panel
         private void SetupItem(ValueUC valueUC)
         {
@@ -170,6 +169,43 @@ namespace PBL4
             MatrixDijktra = matrix;
             return matrix;
         }
+        private void SetValueUCFromBrowserFile(long[, ] matrix, int numberOfPoint)
+        {
+            //long[, ] matrixDijstra = matrix;
+            MatrixDijktra = matrix;
+            for(int i = 0; i < numberOfPoint ; i++)
+            {
+                for(int j = 0; j < numberOfPoint; j++)
+                {
+                    Console.Write("gan duoc: " + MatrixDijktra[i, j]);
+                }
+                Console.WriteLine();
+            }
+            NumberOfPoint = numberOfPoint;
+            int locaX = EnumMatrix.DefaultItemMatrixX;
+            int locaY = EnumMatrix.DefaultItemMatrixY;
+            for (int i = 0; i < numberOfPoint; i++)
+            {
+                locaY = EnumMatrix.ValueUCHeight * i + EnumMatrix.DistanceBetween2Points;
+                for (int j = 0; j < numberOfPoint; j++)
+                {
+                    ListValueUC[i, j] = new ValueUC();
+                    ListValueUC[i, j].SetValue(matrix[i, j]);
+                    ListValueUC[i, j].Load += ValueUC_Text_Load;
+                    //ListValueUC[i, j].Leave += ValueUC_Text_Leave;
+                    Point point = new Point(locaX + EnumMatrix.ValueUCWidth * j + EnumMatrix.DistanceBetween2Points, locaY);
+                    var coordinates = ((i + 1) + "," + (j + 1)).ToString();
+                    ListValueUC[i, j].SetCoordinates(coordinates);
+                    ListValueUC[i, j].SetLocation(point);
+                    SetupItem(ListValueUC[i, j]);
+                    if (i == j)
+                    {
+                        ListValueUC[i, j].SetValueEqualZero();
+                    }
+                    
+                }
+            }
+        }
 
         private void DisconnectFromServer()
         {
@@ -210,7 +246,27 @@ namespace PBL4
                 }
             }
         }
-
+        private void ValueUC_Text_Load(object sender, EventArgs e)
+        {
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                for (int j = 0; j < NumberOfPoint; j++)
+                {
+                    ListValueUC[i, j].SetValue(MatrixDijktra[i, j]);
+                }
+            }
+            for (int i = 0; i < NumberOfPoint; i++)
+            {
+                for (int j = 0; j < NumberOfPoint; j++)
+                {
+                    if (i < j && ListValueUC[i, j].GetValue() != "")
+                    {
+                        ListValueUC[j, i].SetValue((long)(Convert.ToInt32(ListValueUC[i, j].GetValue())));
+                        ListValueUC[j, i].SetEnableTextBox();
+                    }
+                }
+            }
+        }
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -222,6 +278,7 @@ namespace PBL4
             NumberOfPoint = cbbNumberOfPoints.SelectedIndex + 1;
             InitMatrixWithNumberOfPoint(NumberOfPoint);
         }
+
 
         private void btnOK_Click(object sender, EventArgs e)
         {
@@ -243,7 +300,7 @@ namespace PBL4
                 {
                     _streamWriter = new StreamWriter(_stream);
                     _streamWriter.AutoFlush = true;
-                    var packingData = _computerName + "@" + data;
+                    var packingData = _computerName + '@' + data;
                     _streamWriter.WriteLine(packingData);
                 }
                 catch (Exception ex)
@@ -283,6 +340,42 @@ namespace PBL4
             DisconnectFromServer();
             this.Close();
         }
+        private void btnBF_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string file = openFileDialog.FileName;
+                txtbBF.Text = file;
+                try
+                {
+                    string[] lines = System.IO.File.ReadAllLines(file);
+                    if(lines.Length <= 0)
+                    {
+                        NoticeBox noticeBox = new NoticeBox("File does not contain data!");
+                    }
+                    else
+                    {
+                        string lineNumberOfPoint = lines[0];
+                        int numberOfPoint = MatrixService.Instance.GetNumberOfPointFromBrowseFile(lineNumberOfPoint);
+                        cbbNumberOfPoints.SelectedIndex = numberOfPoint - 1;
+                        string[] temp = new string[numberOfPoint];
+                        for(int i = 0; i < lines.Length - 1; i++)
+                        {
+                            temp[i] = lines[i + 1];
+                        }
+                        long[, ] matrix = MatrixService.Instance.GetMatrixFromBrowseFile(numberOfPoint, temp);
+                        SetValueUCFromBrowserFile(matrix, numberOfPoint);
+                    }
+                }
+                catch (IOException)
+                {
+
+                }
+            }
+        }
+
 
         private void btnDrawTheGraph_Click(object sender, EventArgs e)
         {
@@ -292,6 +385,7 @@ namespace PBL4
             resultGraph.Show();
         }
         #endregion
+
 
     }
 }

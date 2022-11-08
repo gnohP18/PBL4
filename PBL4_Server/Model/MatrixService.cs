@@ -46,7 +46,7 @@ namespace PBL4_Server.Model
         {
             Console.WriteLine("After split matrix from data");
             //Tách tên máy
-            int indexOfName = dataFromServer.IndexOf("@");
+            int indexOfName = dataFromServer.IndexOf('@');
             ComputerName = dataFromServer.Substring(0, indexOfName);
 
             //Tách số lượng điểm
@@ -94,12 +94,11 @@ namespace PBL4_Server.Model
 
         public string CalculateDijskstraOfAllPoint()
         {
-            StringResultOfAllPoint = "";
-
+            StringResultOfAllPoint = null;
             for (int i = 0; i < NumberOfPoint; i++)
             {
                 Dijkstra(i);
-                StringResultOfAllPoint += ConvertResultToString() + "@";
+                StringResultOfAllPoint += ConvertResultToString() + '@';
             }
             StringResultOfAllPoint = StringResultOfAllPoint.Remove(StringResultOfAllPoint.Length - 1);
             Console.Write(StringResultOfAllPoint);
