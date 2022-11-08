@@ -35,11 +35,12 @@ namespace PBL4
         //Số lượng điểm của ma trận
         private int NumberOfPoint { get; set; }
 
-        //Tên máy tính
+        //Dữ liệu trả về từ server
+        private string DataFromServer { get; set; }
+        //Luồng nhận dữ liệu
+        private Thread receiveThread;
+        private delegate void SafeCallDelegate(string text);
 
-        //Địa chỉ mạng
-
-        //Số cổng
 
         #endregion
 
@@ -64,6 +65,20 @@ namespace PBL4
         #endregion
 
         #region Function
+        //Delegate update dữ liệu
+        private void UpdateDataFromServer(string log)
+        {
+            if (btnOK.InvokeRequired)
+            {
+                var dele = new SafeCallDelegate(UpdateDataFromServer);
+                btnOK.Invoke(dele, new object[] { log });
+            }
+            else
+            {
+                DataFromServer = log;
+            }
+        }
+
         //Luồng nhận dữ liệu được gửi từ server
         private void ReceiveDataFromServer()
         {
@@ -74,9 +89,7 @@ namespace PBL4
                     _streamReader = new StreamReader(_stream);
                     string dataFromServer = _streamReader.ReadLine();
                     Console.WriteLine("Data from server " + dataFromServer);
-                    MatrixService.Instance.NumberOfPoint = NumberOfPoint;
-                    MatrixService.Instance.ResultFromServer = dataFromServer;
-                    MatrixService.Instance.ConvertListResultOfAllPoint(0);
+                    if (dataFromServer != null) UpdateDataFromServer(dataFromServer);
                 }
                 catch (Exception ex)
                 {
@@ -86,6 +99,7 @@ namespace PBL4
                 }
             }
         }
+
         //Xóa item mỗi lần chuyển cbb
         private void ClearMatrixItem()
         {
@@ -240,13 +254,11 @@ namespace PBL4
                 }
 
                 //4. Tạo luồng mới nhận dữ liệu
-                Thread receiveThread = new Thread(ReceiveDataFromServer);
-                receiveThread.Start();
-
-                //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
-                ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra);
-                resultGraph.StartPosition = FormStartPosition.CenterScreen;
-                resultGraph.Show();
+                if (receiveThread == null)
+                {
+                    receiveThread = new Thread(ReceiveDataFromServer);
+                    receiveThread.Start();
+                }
             };
 
         }
@@ -265,10 +277,19 @@ namespace PBL4
             noticeBox.Show();
 
         }
+
         private void btnDisConnectToServer_Click(object sender, EventArgs e)
         {
             DisconnectFromServer();
             this.Close();
+        }
+
+        private void btnDrawTheGraph_Click(object sender, EventArgs e)
+        {
+            //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
+            ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
+            resultGraph.StartPosition = FormStartPosition.CenterScreen;
+            resultGraph.Show();
         }
         #endregion
 

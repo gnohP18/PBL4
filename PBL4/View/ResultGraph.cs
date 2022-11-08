@@ -15,13 +15,15 @@ namespace PBL4.View
         private Label[] UINameOfPoint { get; set; }
         //Danh sách tên điểm dựa vào số lượng điểm 
         private List<string> NamePoint { get; set; }
-        private string[] listTotalWeight { get; set; }
+        private List<string> listTotalWeight { get; set; }
         private List<string[]> listResultFromServer { get; set; }
+        private string DataFromServer { get; set; }
         #endregion
-        public ResultGraph(int numberOfPoint, long[,] matrix)
+        public ResultGraph(int numberOfPoint, long[,] matrix, string dataFromServer)
         {
             MatrixDijktra = matrix;
             NumberOfPoint = numberOfPoint;
+            DataFromServer = dataFromServer;
             InitializeComponent();
             InitDataForCBB();
         }
@@ -46,17 +48,24 @@ namespace PBL4.View
             pnResultFromServer.Controls.Add(resultUC);
         }
 
-        private void Set2(ResultUC resultUC)
-        {
-            resultUC.Dock = DockStyle.Top;
-        }
         //Khởi tạo ô kết quả trả về từ server
         private void InitResultFromNumberOfPoint(int numberOfPoint, int index)
         {
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(numberOfPoint);
-            MatrixService.Instance.ConvertListResultOfAllPoint(index);
-            listResultFromServer = MatrixService.Instance.ListPathOfOnePoint;
-            listTotalWeight = MatrixService.Instance.ListTotalWeightOfOnePoint;
+            //Bước 1 Tách theo index
+            string splitByIndex = MatrixService.Instance.SplitOneResultOfAPointInAllResults(index, DataFromServer);
+
+            //Bước 2 Tách theo '#'
+            string[] splitOneResult = MatrixService.Instance.SplitResultFromOneResultOfPoint(splitByIndex);
+
+            //Bước 3.1 Tách theo ':'
+            List<string> splitListTotalWeigth = MatrixService.Instance.SplitListTotalWeightOfOnePoint(numberOfPoint, splitOneResult);
+
+            //Bước 3.2 Tách theo ' '(whitespace)
+            List<string[]> splitRightRoute = MatrixService.Instance.SplitListPathOfOnePoint(numberOfPoint, splitOneResult);
+
+            listResultFromServer = splitRightRoute;
+            listTotalWeight = splitListTotalWeigth;
 
             ResultUC[] resultUCs = new ResultUC[numberOfPoint];
             for (int i = 0; i < NumberOfPoint; i++)
@@ -72,7 +81,6 @@ namespace PBL4.View
             for (int i = 0; i < NumberOfPoint; i++)
             {
                 SetResultUC(resultUCs[NumberOfPoint - i - 1]);
-                //Set2(resultUCs[NumberOfPoint - i - 1]);
             }
         }
 
@@ -114,7 +122,7 @@ namespace PBL4.View
         #region Event handle
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
 
         private void ResultGraph_Load(object sender, EventArgs e)
@@ -205,12 +213,10 @@ namespace PBL4.View
 
         private void cbbStartPoint_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             int startPoint = cbbStartPoint.SelectedIndex;
             this.pnResultFromServer.Controls.Clear();
             InitResultFromNumberOfPoint(NumberOfPoint, startPoint);
         }
         #endregion
-
     }
 }

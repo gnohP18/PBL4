@@ -84,11 +84,6 @@ namespace PBL4_Server
                     var log = "[" + matrixService.ComputerName + "] " + str;
                     UpdateRTB(log);
                 }
-                if (str.ToUpper() == "EXIT")
-                {
-                    writer.WriteLine("bye");
-                    break;
-                }
                 // 3. send
                 writer.WriteLine(matrixService.CalculateDijskstraOfAllPoint());
                 // 4. close
