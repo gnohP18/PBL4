@@ -32,12 +32,13 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.txtComputerName = new System.Windows.Forms.TextBox();
             this.txtIPAddress = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblComputerName = new System.Windows.Forms.Label();
+            this.lblIPAddress = new System.Windows.Forms.Label();
             this.btnSearchComputerName = new System.Windows.Forms.Button();
             this.btnSearchIPAddress = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnConnectToServer = new System.Windows.Forms.Button();
+            this.cbbLanguageChange = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             this.txtComputerName.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComputerName.Location = new System.Drawing.Point(51, 41);
             this.txtComputerName.Name = "txtComputerName";
-            this.txtComputerName.Size = new System.Drawing.Size(303, 27);
+            this.txtComputerName.Size = new System.Drawing.Size(303, 23);
             this.txtComputerName.TabIndex = 2;
             // 
             // txtIPAddress
@@ -69,30 +70,30 @@
             this.txtIPAddress.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIPAddress.Location = new System.Drawing.Point(51, 94);
             this.txtIPAddress.Name = "txtIPAddress";
-            this.txtIPAddress.Size = new System.Drawing.Size(303, 27);
+            this.txtIPAddress.Size = new System.Drawing.Size(303, 23);
             this.txtIPAddress.TabIndex = 3;
             // 
-            // label1
+            // lblComputerName
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(47, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 24);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Computer name";
+            this.lblComputerName.AutoSize = true;
+            this.lblComputerName.BackColor = System.Drawing.Color.Transparent;
+            this.lblComputerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComputerName.Location = new System.Drawing.Point(47, 14);
+            this.lblComputerName.Name = "lblComputerName";
+            this.lblComputerName.Size = new System.Drawing.Size(115, 18);
+            this.lblComputerName.TabIndex = 4;
+            this.lblComputerName.Text = "Computer name";
             // 
-            // label2
+            // lblIPAddress
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(47, 67);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 24);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "IP address";
+            this.lblIPAddress.AutoSize = true;
+            this.lblIPAddress.BackColor = System.Drawing.Color.Transparent;
+            this.lblIPAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIPAddress.Location = new System.Drawing.Point(47, 67);
+            this.lblIPAddress.Name = "lblIPAddress";
+            this.lblIPAddress.Size = new System.Drawing.Size(78, 18);
+            this.lblIPAddress.TabIndex = 5;
+            this.lblIPAddress.Text = "IP address";
             // 
             // btnSearchComputerName
             // 
@@ -128,8 +129,8 @@
             this.panel1.Controls.Add(this.btnSearchIPAddress);
             this.panel1.Controls.Add(this.txtIPAddress);
             this.panel1.Controls.Add(this.btnSearchComputerName);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.lblComputerName);
+            this.panel1.Controls.Add(this.lblIPAddress);
             this.panel1.Location = new System.Drawing.Point(102, 223);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(397, 213);
@@ -141,18 +142,28 @@
             this.btnConnectToServer.FlatAppearance.BorderSize = 0;
             this.btnConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnConnectToServer.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnConnectToServer.Location = new System.Drawing.Point(168, 139);
+            this.btnConnectToServer.Location = new System.Drawing.Point(167, 135);
             this.btnConnectToServer.Name = "btnConnectToServer";
             this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
             this.btnConnectToServer.TabIndex = 9;
             this.btnConnectToServer.UseVisualStyleBackColor = false;
             this.btnConnectToServer.Click += new System.EventHandler(this.btnConnectToServer_Click);
             // 
+            // cbbLanguageChange
+            // 
+            this.cbbLanguageChange.FormattingEnabled = true;
+            this.cbbLanguageChange.Location = new System.Drawing.Point(482, 593);
+            this.cbbLanguageChange.Name = "cbbLanguageChange";
+            this.cbbLanguageChange.Size = new System.Drawing.Size(141, 21);
+            this.cbbLanguageChange.TabIndex = 9;
+            this.cbbLanguageChange.SelectedIndexChanged += new System.EventHandler(this.cbbLanguageChange_SelectedIndexChanged);
+            // 
             // Connection
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = global::PBL4.Properties.Resources.Internet_BG;
             this.ClientSize = new System.Drawing.Size(626, 626);
+            this.Controls.Add(this.cbbLanguageChange);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -171,11 +182,12 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.TextBox txtComputerName;
         private System.Windows.Forms.TextBox txtIPAddress;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblComputerName;
+        private System.Windows.Forms.Label lblIPAddress;
         private System.Windows.Forms.Button btnSearchComputerName;
         private System.Windows.Forms.Button btnSearchIPAddress;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnConnectToServer;
+        private System.Windows.Forms.ComboBox cbbLanguageChange;
     }
 }

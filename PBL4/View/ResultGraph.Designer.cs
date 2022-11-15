@@ -58,13 +58,12 @@
             this.pnGp.Size = new System.Drawing.Size(849, 800);
             this.pnGp.TabIndex = 5;
             this.pnGp.Paint += new System.Windows.Forms.PaintEventHandler(this.pnGp_Paint);
-            this.pnGp.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ResultGraph_MouseClick);
             // 
             // lblStartPoint
             // 
             this.lblStartPoint.AutoSize = true;
             this.lblStartPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStartPoint.Location = new System.Drawing.Point(101, 727);
+            this.lblStartPoint.Location = new System.Drawing.Point(237, 755);
             this.lblStartPoint.Name = "lblStartPoint";
             this.lblStartPoint.Size = new System.Drawing.Size(92, 24);
             this.lblStartPoint.TabIndex = 4;
@@ -73,7 +72,7 @@
             // cbbStartPoint
             // 
             this.cbbStartPoint.FormattingEnabled = true;
-            this.cbbStartPoint.Location = new System.Drawing.Point(241, 730);
+            this.cbbStartPoint.Location = new System.Drawing.Point(335, 755);
             this.cbbStartPoint.Name = "cbbStartPoint";
             this.cbbStartPoint.Size = new System.Drawing.Size(150, 24);
             this.cbbStartPoint.TabIndex = 2;
@@ -102,7 +101,6 @@
             this.Name = "ResultGraph";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ResultGraph";
-            this.Load += new System.EventHandler(this.ResultGraph_Load);
             this.pnGp.ResumeLayout(false);
             this.pnGp.PerformLayout();
             this.ResumeLayout(false);

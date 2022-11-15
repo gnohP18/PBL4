@@ -1,7 +1,11 @@
 ﻿using PBL4.Model;
+using PBL4.Resources.Language;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace PBL4.View
@@ -17,7 +21,10 @@ namespace PBL4.View
         private List<string> NamePoint { get; set; }
         private List<string> listTotalWeight { get; set; }
         private List<string[]> listResultFromServer { get; set; }
-
+        //Delegate
+        public delegate void DeleDraw(string text);
+        //Graphic
+        private Graphics CurrentGraphics;
         private string DataFromServer { get; set; }
         #endregion
         public ResultGraph(int numberOfPoint, long[,] matrix, string dataFromServer)
@@ -27,9 +34,17 @@ namespace PBL4.View
             DataFromServer = dataFromServer;
             InitializeComponent();
             InitDataForCBB();
+            SetupLanguage(InitLanguage.CurrentLanguage);
         }
 
         #region InitData
+        public void DrawerWithEndPoint(string test)
+        {
+            var index = NamePoint.IndexOf(test);
+            var route = listResultFromServer[index].Select(p => int.Parse(p)).ToList();
+            RightRoute(route);
+        }
+
         private void InitDataForCBB()
         {
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
@@ -42,6 +57,15 @@ namespace PBL4.View
         #endregion
 
         #region Function
+        //Setup laanuage
+        private void SetupLanguage(string language)
+        {
+            ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
+            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            cultureInfo = CultureInfo.CreateSpecificCulture(language);
+            InitLanguage.Instance.ChangeLanguage(language);
+            lblStartPoint.Text = _resourceManager.GetString("StartPoint", cultureInfo);
+        }
         //Resize Result 
         private void SetResultUC(ResultUC resultUC)
         {
@@ -53,7 +77,7 @@ namespace PBL4.View
         private void InitResultFromNumberOfPoint(int numberOfPoint, int index)
         {
             listResultFromServer = new List<string[]>();
-            
+
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(numberOfPoint);
             //Bước 1 Tách theo index
             string splitByIndex = MatrixService.Instance.SplitOneResultOfAPointInAllResults(index, DataFromServer);
@@ -78,7 +102,7 @@ namespace PBL4.View
                 {
                     path += NamePoint[Convert.ToInt32(j)] + " ";
                 }
-                resultUCs[i] = new ResultUC();
+                resultUCs[i] = new ResultUC(DrawerWithEndPoint);
                 resultUCs[i].SetResult(NamePoint[i], path, listTotalWeight[i]);
             }
 
@@ -89,17 +113,32 @@ namespace PBL4.View
         }
 
         // Draw Right Route
-        private void RightRoute(int[] rightRoute)
+        private void RightRoute(List<int> rightRoute)
         {
             int widthOfPen = EnumMatrix.DefaultWidthOfPen;
-            Graphics graphics = pnGp.CreateGraphics();
+            CurrentGraphics = pnGp.CreateGraphics();
             Rectangle rectangle = new Rectangle(1, 1, 8, 1);
-            PaintEventArgs e = new PaintEventArgs(graphics, rectangle);
-            Pen aPen = new Pen(Color.Red, widthOfPen);
-            for (int i = 0; i < rightRoute.Length - 1; i++)
+            PaintEventArgs e = new PaintEventArgs(CurrentGraphics, rectangle);
+
+            Pen redPen = new Pen(Color.Red, widthOfPen);
+            Pen greenPen = new Pen(Color.Green, widthOfPen);
+
+            long[,] matrix = MatrixDijktra;
+            for (int i = 0; i < NumberOfPoint; i++)
             {
-                e.Graphics.DrawLine(aPen, ListOfPoint[rightRoute[i]], ListOfPoint[rightRoute[i + 1]]);
-                //Console.WriteLine("Draw" + ListOfPoint[i].X.ToString() + " " + ListOfPoint[i].Y.ToString());
+                for (int j = 0; j < NumberOfPoint; j++)
+                {
+                    //Kiểm tra giá trị ma trận để vẽ đường
+                    if ((i == j) || (matrix[i, j] == 0)) continue;
+                    else
+                    {
+                        e.Graphics.DrawLine(greenPen, ListOfPoint[i], ListOfPoint[j]);
+                    }
+                }
+            }
+            for (int i = 0; i < rightRoute.Count - 1; i++)
+            {
+                e.Graphics.DrawLine(redPen, ListOfPoint[rightRoute[i]], ListOfPoint[rightRoute[i + 1]]);
             }
         }
 
@@ -120,7 +159,6 @@ namespace PBL4.View
             }
             return listPoint;
         }
-
         #endregion
 
         #region Event handle
@@ -128,18 +166,7 @@ namespace PBL4.View
         {
             listResultFromServer.Clear();
             listTotalWeight = null;
-            Console.WriteLine("tat cai cu");
-            //MatrixService.Instance.ListPathOfOnePoint.Clear();
-            
             this.Close();
-        }
-
-        private void ResultGraph_Load(object sender, EventArgs e)
-        {
-            //cho nay khong can do khi bat dau da gan selected index change r
-            //InitResultFromNumberOfPoint(NumberOfPoint, 0);
-            //Test 
-            //MatrixService.Instance.TestResultFromServer();
         }
 
         private void pnGp_Paint(object sender, PaintEventArgs e)
@@ -150,6 +177,7 @@ namespace PBL4.View
 
             int halfLengthOfMajorAxis = EnumMatrix.DefaultHalfLengthOfMajorAxis;
             int halfLengthOfMinorAxis = EnumMatrix.DefaultHalfLengthOfMinorAxis;
+
             Brush aBrush = (Brush)Brushes.Red;
             Pen pPen = new Pen(Color.Red);
             Pen aPen = new Pen(Color.Green, widthOfPen);
@@ -170,7 +198,6 @@ namespace PBL4.View
                     {
                         e.Graphics.DrawLine(aPen, ListOfPoint[i], ListOfPoint[j]);
                     }
-                    //e.Graphics.DrawLine(aPen, ListOfPoint[i], ListOfPoint[j]);
                 }
             }
             //vẽ tên điểm 
@@ -181,7 +208,7 @@ namespace PBL4.View
                 int xlb = (int)(centerOfCircleX - (halfLengthOfMajorAxis + 20) * Math.Cos(2 * Math.PI * i / NumberOfPoint));
                 int ylb = (int)(centerOfCircleY - (halfLengthOfMinorAxis + 20) * Math.Sin(2 * Math.PI * i / NumberOfPoint));
                 UINameOfPoint[i].Location = new Point(xlb, ylb);
-                UINameOfPoint[i].Size = new Size(12, 12);
+                UINameOfPoint[i].AutoSize = true;
                 UINameOfPoint[i].BackColor = TransparencyKey;
                 pnGp.Controls.Add(UINameOfPoint[i]);
                 RectangleF a = new RectangleF(ListOfPoint[i].X - 5, ListOfPoint[i].Y - 5, 10, 10);
@@ -202,21 +229,11 @@ namespace PBL4.View
                         var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2;
                         Label weightGraph = new Label();
                         weightGraph.Text = matrix[i, j].ToString();
-                        weightGraph.Size = new Size(12, 12);
+                        weightGraph.AutoSize = true;
                         weightGraph.Location = new Point(averageX, averageY);
                         pnGp.Controls.Add(weightGraph);
                     }
-                    //e.Graphics.DrawLine(aPen, ListOfPoint[i], ListOfPoint[j]);
                 }
-            }
-            //RightRoute(rightRoute);
-        }
-        private void ResultGraph_MouseClick(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine(e.X + " " + e.Y);
-            if (ListOfPoint.Contains(e.Location))
-            {
-                UINameOfPoint[ListOfPoint.IndexOf(e.Location)].BackColor = Color.Red;
             }
         }
 

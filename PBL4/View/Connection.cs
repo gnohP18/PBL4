@@ -1,11 +1,20 @@
 ﻿using PBL4.Data;
+using PBL4.Resources.Language;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace PBL4.View
 {
     public partial class Connection : Form
     {
+        #region Global variable
+        private List<string> ListKeyLanguage;
+        private string CurrentLanguage;
+        #endregion
+
         private static InitData _initData;
         public Connection()
         {
@@ -14,6 +23,15 @@ namespace PBL4.View
         }
 
         #region Function
+        private void SetupLanguage(string language)
+        {
+            ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
+            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            cultureInfo = CultureInfo.CreateSpecificCulture(language);
+            InitLanguage.Instance.ChangeLanguage(language);
+            lblComputerName.Text = _resourceManager.GetString("ComputerName", cultureInfo);
+            lblIPAddress.Text = _resourceManager.GetString("IPAddress", cultureInfo);
+        }
         private bool IsAvailableComputerName()
         {
             return txtComputerName.Text != null ? true : false;
@@ -21,17 +39,7 @@ namespace PBL4.View
 
         private bool IsAvailableIPAddress()
         {
-            //var charConvert = txtIPAddress.Text.ToCharArray();
-            //bool result = true;
-            //for (int i = 0; i < charConvert.Length; i++)
-            //{
-            //    if (charConvert[i] <= '9' && charConvert[i] >= '0' || charConvert[i] == '.')
-            //    {
-            //        result = false;
-            //    }
-            //}
-            //return result;
-            return true;
+            return txtIPAddress.Text != null ? true : false;
         }
 
         #endregion
@@ -66,7 +74,6 @@ namespace PBL4.View
                 noticeBox.Show();
             }
         }
-        #endregion
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -77,6 +84,20 @@ namespace PBL4.View
         {
             txtComputerName.Text = _initData.ComputerName;
             txtIPAddress.Text = _initData.IpAddress;
+            foreach (var i in InitLanguage.Instance.Language())
+            {
+                cbbLanguageChange.Items.Add(i);
+            }
+            ListKeyLanguage = InitLanguage.Instance.KeyLanguage();
+            CurrentLanguage = "en-US";
+            SetupLanguage(CurrentLanguage);
+        }
+        #endregion
+
+        private void cbbLanguageChange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetupLanguage(ListKeyLanguage[cbbLanguageChange.SelectedIndex]);
+            Console.WriteLine(ListKeyLanguage[cbbLanguageChange.SelectedIndex]);
         }
     }
 }

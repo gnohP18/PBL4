@@ -107,32 +107,32 @@ namespace PBL4.Model
             }
             return listPathOfOnePoint;
         }
+
         public int GetNumberOfPointFromBrowseFile(string s)
         {
             int numberOfPoint = 0;
             string[] temp = s.Split(' ');
-            for(int i = 0; i < temp.Length; i++)
+            for (int i = 0; i < temp.Length; i++)
             {
-                if(temp[i] != " ")
+                if (temp[i] != " ")
                 {
                     numberOfPoint = Convert.ToInt32(temp[i]);
                 }
             }
             return numberOfPoint;
         }
-        public long[, ] GetMatrixFromBrowseFile(int numberOfPoint, string[] s)
+
+        public long[,] GetMatrixFromBrowseFile(int numberOfPoint, string[] s)
         {
             long[,] matrixDijstra = new long[numberOfPoint, numberOfPoint];
-            for(int i = 0; i < numberOfPoint; i++)
+            for (int i = 0; i < numberOfPoint; i++)
             {
                 var matrixString = s[i];
                 string[] temp = s[i].Split(' ');
                 for (int j = 0; j < numberOfPoint; j++)
                 {
                     matrixDijstra[i, j] = Convert.ToInt32(temp[j]);
-                    Console.Write(matrixDijstra[i, j] + " ");
                 }
-                Console.WriteLine();
             }
             return matrixDijstra;
         }
