@@ -36,7 +36,7 @@
             // lblPath
             // 
             this.lblPath.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblPath.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPath.Font = new System.Drawing.Font("Calibri", 12F);
             this.lblPath.Location = new System.Drawing.Point(75, 0);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(475, 25);
@@ -46,7 +46,7 @@
             // lbWeight
             // 
             this.lbWeight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbWeight.Font = new System.Drawing.Font("Berlin Sans FB", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbWeight.Font = new System.Drawing.Font("Calibri", 12F);
             this.lbWeight.Location = new System.Drawing.Point(75, 25);
             this.lbWeight.Name = "lbWeight";
             this.lbWeight.Size = new System.Drawing.Size(475, 25);
@@ -57,15 +57,15 @@
             // 
             this.endPointName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(202)))), ((int)(((byte)(185)))));
             this.endPointName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.endPointName.Enabled = false;
             this.endPointName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.endPointName.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.endPointName.Font = new System.Drawing.Font("Calibri", 12F);
             this.endPointName.Location = new System.Drawing.Point(0, 0);
             this.endPointName.Name = "endPointName";
             this.endPointName.Size = new System.Drawing.Size(75, 50);
             this.endPointName.TabIndex = 0;
             this.endPointName.Text = "Name";
             this.endPointName.UseVisualStyleBackColor = false;
+            this.endPointName.Click += new System.EventHandler(this.endPointName_Click);
             // 
             // ResultUC
             // 

@@ -7,6 +7,7 @@ namespace PBL4.View
         #region Local variable
         public string Notice { get; set; }
         #endregion
+
         public NoticeBox(string message)
         {
             Notice = message;
@@ -14,6 +15,7 @@ namespace PBL4.View
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        #region Event Handle
         private void NoticeBox_Load(object sender, System.EventArgs e)
         {
             lblMessage.Text = Notice;
@@ -23,5 +25,6 @@ namespace PBL4.View
         {
             this.Close();
         }
+        #endregion
     }
 }

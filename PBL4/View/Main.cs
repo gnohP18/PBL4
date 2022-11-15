@@ -1,10 +1,13 @@
 ﻿using PBL4.Model;
+using PBL4.Resources.Language;
 using PBL4.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Net.Sockets;
+using System.Resources;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -40,8 +43,6 @@ namespace PBL4
         //Luồng nhận dữ liệu
         private Thread receiveThread;
         private delegate void SafeCallDelegate(string text);
-
-
         #endregion
 
         public Main(string computerName, string hostName, string port)
@@ -51,12 +52,12 @@ namespace PBL4
             _computerName = computerName;
             InitializeComponent();
             InitDataForCBB();
+            SetupLanguage(InitLanguage.CurrentLanguage);
         }
 
         #region InitData
         private void InitDataForCBB()
         {
-            
             NamePoint = MatrixService.Instance.GetPointNameByNumberOfPoint(NumberOfPoint);
             foreach (int i in MatrixService.Instance.GetNumberOfPoint())
             {
@@ -66,6 +67,19 @@ namespace PBL4
         #endregion
 
         #region Function
+        private void SetupLanguage(string language)
+        {
+            ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
+            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            cultureInfo = CultureInfo.CreateSpecificCulture(language);
+            InitLanguage.Instance.ChangeLanguage(language);
+            lblDrawGraph.Text = _resourceManager.GetString("DrawGraph", cultureInfo);
+            lblNameOfPoint.Text = _resourceManager.GetString("NumberOfPoint", cultureInfo);
+            lblResetMatrix.Text = _resourceManager.GetString("ResetMatrix", cultureInfo);
+            lblTitle.Text = _resourceManager.GetString("Title", cultureInfo);
+            lblSubmitMatrix.Text = _resourceManager.GetString("SubmitMatrix", cultureInfo);
+            btnBF.Text = _resourceManager.GetString("BrowserFile", cultureInfo);
+        }
         //Delegate update dữ liệu
         private void UpdateDataFromServer(string log)
         {
@@ -89,7 +103,6 @@ namespace PBL4
                 {
                     _streamReader = new StreamReader(_stream);
                     string dataFromServer = _streamReader.ReadLine();
-                    Console.WriteLine("Data from server " + dataFromServer);
                     if (dataFromServer != null) UpdateDataFromServer(dataFromServer);
                 }
                 catch (Exception ex)
@@ -169,18 +182,9 @@ namespace PBL4
             MatrixDijktra = matrix;
             return matrix;
         }
-        private void SetValueUCFromBrowserFile(long[, ] matrix, int numberOfPoint)
+        private void SetValueUCFromBrowserFile(long[,] matrix, int numberOfPoint)
         {
-            //long[, ] matrixDijstra = matrix;
             MatrixDijktra = matrix;
-            for(int i = 0; i < numberOfPoint ; i++)
-            {
-                for(int j = 0; j < numberOfPoint; j++)
-                {
-                    Console.Write("gan duoc: " + MatrixDijktra[i, j]);
-                }
-                Console.WriteLine();
-            }
             NumberOfPoint = numberOfPoint;
             int locaX = EnumMatrix.DefaultItemMatrixX;
             int locaY = EnumMatrix.DefaultItemMatrixY;
@@ -192,7 +196,7 @@ namespace PBL4
                     ListValueUC[i, j] = new ValueUC();
                     ListValueUC[i, j].SetValue(matrix[i, j]);
                     ListValueUC[i, j].Load += ValueUC_Text_Load;
-                    //ListValueUC[i, j].Leave += ValueUC_Text_Leave;
+
                     Point point = new Point(locaX + EnumMatrix.ValueUCWidth * j + EnumMatrix.DistanceBetween2Points, locaY);
                     var coordinates = ((i + 1) + "," + (j + 1)).ToString();
                     ListValueUC[i, j].SetCoordinates(coordinates);
@@ -202,7 +206,7 @@ namespace PBL4
                     {
                         ListValueUC[i, j].SetValueEqualZero();
                     }
-                    
+
                 }
             }
         }
@@ -227,7 +231,6 @@ namespace PBL4
             {
                 NoticeBox box = new NoticeBox(ex.ToString());
                 box.Show();
-                Console.WriteLine(ex);
             }
 
         }
@@ -307,7 +310,6 @@ namespace PBL4
                 {
                     NoticeBox box = new NoticeBox(ex.ToString());
                     box.Show();
-                    Console.WriteLine(ex);
                 }
 
                 //4. Tạo luồng mới nhận dữ liệu
@@ -329,10 +331,8 @@ namespace PBL4
                     ListValueUC[i, j].ClearValue();
                 }
             }
-
             NoticeBox noticeBox = new NoticeBox("You have cleared all value!");
             noticeBox.Show();
-
         }
 
         private void btnDisConnectToServer_Click(object sender, EventArgs e)
@@ -351,7 +351,7 @@ namespace PBL4
                 try
                 {
                     string[] lines = System.IO.File.ReadAllLines(file);
-                    if(lines.Length <= 0)
+                    if (lines.Length <= 0)
                     {
                         NoticeBox noticeBox = new NoticeBox("File does not contain data!");
                     }
@@ -361,11 +361,11 @@ namespace PBL4
                         int numberOfPoint = MatrixService.Instance.GetNumberOfPointFromBrowseFile(lineNumberOfPoint);
                         cbbNumberOfPoints.SelectedIndex = numberOfPoint - 1;
                         string[] temp = new string[numberOfPoint];
-                        for(int i = 0; i < lines.Length - 1; i++)
+                        for (int i = 0; i < lines.Length - 1; i++)
                         {
                             temp[i] = lines[i + 1];
                         }
-                        long[, ] matrix = MatrixService.Instance.GetMatrixFromBrowseFile(numberOfPoint, temp);
+                        long[,] matrix = MatrixService.Instance.GetMatrixFromBrowseFile(numberOfPoint, temp);
                         SetValueUCFromBrowserFile(matrix, numberOfPoint);
                     }
                 }

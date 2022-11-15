@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Language\InitLanguage.cs" />
     <Compile Include="ViewModel\IMatrixService.cs" />
     <Compile Include="ViewModel\MatrixService.cs" />
     <Compile Include="View\Connection.cs">
@@ -98,6 +99,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Language\Resource.de-DE.resx" />
+    <EmbeddedResource Include="Resources\Language\Resource.en-US.resx" />
+    <EmbeddedResource Include="Resources\Language\Resource.es-ES.resx" />
+    <EmbeddedResource Include="Resources\Language\Resource.fr-FR.resx" />
+    <EmbeddedResource Include="Resources\Language\Resource.pt-PT.resx" />
+    <EmbeddedResource Include="Resources\Language\Resource.vi-VN.resx" />
     <EmbeddedResource Include="View\Connection.resx">
       <DependentUpon>Connection.cs</DependentUpon>
     </EmbeddedResource>

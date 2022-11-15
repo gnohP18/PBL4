@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.pnMatrix = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNameOfPoint = new System.Windows.Forms.Label();
             this.cbbNumberOfPoints = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.pnProcessing = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblSubmitMatrix = new System.Windows.Forms.Label();
+            this.lblDrawGraph = new System.Windows.Forms.Label();
+            this.lblResetMatrix = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.txtbBF = new System.Windows.Forms.TextBox();
             this.btnBF = new System.Windows.Forms.Button();
             this.btnDrawTheGraph = new System.Windows.Forms.Button();
@@ -46,25 +49,25 @@
             // 
             this.pnMatrix.AutoScroll = true;
             this.pnMatrix.BackColor = System.Drawing.SystemColors.Info;
-            this.pnMatrix.Location = new System.Drawing.Point(51, 132);
+            this.pnMatrix.Location = new System.Drawing.Point(15, 86);
             this.pnMatrix.Name = "pnMatrix";
-            this.pnMatrix.Size = new System.Drawing.Size(1302, 612);
+            this.pnMatrix.Size = new System.Drawing.Size(1273, 612);
             this.pnMatrix.TabIndex = 2;
             // 
-            // label1
+            // lblNameOfPoint
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(47, 89);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 24);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Number of points";
+            this.lblNameOfPoint.AutoSize = true;
+            this.lblNameOfPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNameOfPoint.Location = new System.Drawing.Point(12, 58);
+            this.lblNameOfPoint.Name = "lblNameOfPoint";
+            this.lblNameOfPoint.Size = new System.Drawing.Size(154, 24);
+            this.lblNameOfPoint.TabIndex = 3;
+            this.lblNameOfPoint.Text = "Number of points";
             // 
             // cbbNumberOfPoints
             // 
             this.cbbNumberOfPoints.FormattingEnabled = true;
-            this.cbbNumberOfPoints.Location = new System.Drawing.Point(227, 89);
+            this.cbbNumberOfPoints.Location = new System.Drawing.Point(186, 61);
             this.cbbNumberOfPoints.Name = "cbbNumberOfPoints";
             this.cbbNumberOfPoints.Size = new System.Drawing.Size(161, 24);
             this.cbbNumberOfPoints.TabIndex = 0;
@@ -76,7 +79,7 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Image = global::PBL4.Properties.Resources.uncheckedRed;
-            this.btnExit.Location = new System.Drawing.Point(1317, 3);
+            this.btnExit.Location = new System.Drawing.Point(1248, 3);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(40, 40);
             this.btnExit.TabIndex = 0;
@@ -90,7 +93,7 @@
             this.btnReset.FlatAppearance.BorderSize = 0;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReset.Image = global::PBL4.Properties.Resources.reset_24;
-            this.btnReset.Location = new System.Drawing.Point(12, 757);
+            this.btnReset.Location = new System.Drawing.Point(18, 722);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 40);
             this.btnReset.TabIndex = 6;
@@ -103,7 +106,7 @@
             this.btnOK.FlatAppearance.BorderSize = 0;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Image = global::PBL4.Properties.Resources.checkedGreen;
-            this.btnOK.Location = new System.Drawing.Point(1278, 757);
+            this.btnOK.Location = new System.Drawing.Point(1194, 726);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 40);
             this.btnOK.TabIndex = 0;
@@ -114,11 +117,14 @@
             // 
             this.pnProcessing.AutoScroll = true;
             this.pnProcessing.BackColor = System.Drawing.Color.FloralWhite;
-            this.pnProcessing.Controls.Add(this.label2);
+            this.pnProcessing.Controls.Add(this.lblSubmitMatrix);
+            this.pnProcessing.Controls.Add(this.lblDrawGraph);
+            this.pnProcessing.Controls.Add(this.lblResetMatrix);
+            this.pnProcessing.Controls.Add(this.lblTitle);
             this.pnProcessing.Controls.Add(this.txtbBF);
             this.pnProcessing.Controls.Add(this.btnBF);
             this.pnProcessing.Controls.Add(this.btnDrawTheGraph);
-            this.pnProcessing.Controls.Add(this.label1);
+            this.pnProcessing.Controls.Add(this.lblNameOfPoint);
             this.pnProcessing.Controls.Add(this.btnReset);
             this.pnProcessing.Controls.Add(this.pnMatrix);
             this.pnProcessing.Controls.Add(this.cbbNumberOfPoints);
@@ -127,24 +133,54 @@
             this.pnProcessing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProcessing.Location = new System.Drawing.Point(0, 0);
             this.pnProcessing.Name = "pnProcessing";
-            this.pnProcessing.Size = new System.Drawing.Size(1400, 800);
+            this.pnProcessing.Size = new System.Drawing.Size(1300, 771);
             this.pnProcessing.TabIndex = 3;
             // 
-            // label2
+            // lblSubmitMatrix
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Location = new System.Drawing.Point(571, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 39);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "APP";
+            this.lblSubmitMatrix.AutoSize = true;
+            this.lblSubmitMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubmitMatrix.Location = new System.Drawing.Point(1162, 701);
+            this.lblSubmitMatrix.Name = "lblSubmitMatrix";
+            this.lblSubmitMatrix.Size = new System.Drawing.Size(123, 24);
+            this.lblSubmitMatrix.TabIndex = 13;
+            this.lblSubmitMatrix.Text = "Submit matrix";
+            // 
+            // lblDrawGraph
+            // 
+            this.lblDrawGraph.AutoSize = true;
+            this.lblDrawGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDrawGraph.Location = new System.Drawing.Point(570, 700);
+            this.lblDrawGraph.Name = "lblDrawGraph";
+            this.lblDrawGraph.Size = new System.Drawing.Size(107, 24);
+            this.lblDrawGraph.TabIndex = 12;
+            this.lblDrawGraph.Text = "Draw graph";
+            // 
+            // lblResetMatrix
+            // 
+            this.lblResetMatrix.AutoSize = true;
+            this.lblResetMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResetMatrix.Location = new System.Drawing.Point(12, 701);
+            this.lblResetMatrix.Name = "lblResetMatrix";
+            this.lblResetMatrix.Size = new System.Drawing.Size(113, 24);
+            this.lblResetMatrix.TabIndex = 11;
+            this.lblResetMatrix.Text = "Reset matrix";
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblTitle.Location = new System.Drawing.Point(393, 13);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(538, 38);
+            this.lblTitle.TabIndex = 10;
+            this.lblTitle.Text = "Dijkstra’s Shortest Path Algorithm";
             // 
             // txtbBF
             // 
             this.txtbBF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbBF.Location = new System.Drawing.Point(774, 86);
+            this.txtbBF.Location = new System.Drawing.Point(738, 54);
             this.txtbBF.Name = "txtbBF";
             this.txtbBF.ReadOnly = true;
             this.txtbBF.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
@@ -155,7 +191,7 @@
             // btnBF
             // 
             this.btnBF.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBF.Location = new System.Drawing.Point(1174, 85);
+            this.btnBF.Location = new System.Drawing.Point(1105, 49);
             this.btnBF.Name = "btnBF";
             this.btnBF.Size = new System.Drawing.Size(183, 31);
             this.btnBF.TabIndex = 8;
@@ -169,7 +205,7 @@
             this.btnDrawTheGraph.FlatAppearance.BorderSize = 0;
             this.btnDrawTheGraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDrawTheGraph.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnDrawTheGraph.Location = new System.Drawing.Point(1007, 748);
+            this.btnDrawTheGraph.Location = new System.Drawing.Point(586, 724);
             this.btnDrawTheGraph.Name = "btnDrawTheGraph";
             this.btnDrawTheGraph.Size = new System.Drawing.Size(75, 40);
             this.btnDrawTheGraph.TabIndex = 10;
@@ -179,7 +215,7 @@
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1400, 800);
+            this.ClientSize = new System.Drawing.Size(1300, 771);
             this.Controls.Add(this.pnProcessing);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Main";
@@ -199,13 +235,16 @@
         private System.Windows.Forms.Panel pnProcessing;
         private System.Windows.Forms.Panel pnMatrix;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNameOfPoint;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnConnectToServer;
         private System.Windows.Forms.Button btnBF;
         private System.Windows.Forms.TextBox txtbBF;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnDrawTheGraph;
+        private System.Windows.Forms.Label lblSubmitMatrix;
+        private System.Windows.Forms.Label lblDrawGraph;
+        private System.Windows.Forms.Label lblResetMatrix;
     }
 }
 

@@ -41,11 +41,17 @@ namespace PBL4.Model
         /// Bước 3.2 Từ kết quả bước 2 tách lấy danh sách các đường đi ngắn nhất thông qua các điểm.
         /// Kết quả trả về là danh sách các chuỗi đường đi bắt đầu từ điểm 1 .
         /// </summary>
-        //string ConvertToStringResultOfOnePoint(int numberOfPoint, long[,] matrixInput);
-        int GetNumberOfPointFromBrowseFile(string s);
-        //List<string[]> GetMatrixFromBrowseFile(int numberOfPoint, string[] s);
-        long[, ] GetMatrixFromBrowseFile(int numberOfPoint, string[] s);
-
         List<string[]> SplitListPathOfOnePoint(int numberOfPoint, string[] data);
+
+        /// <summary>
+        /// Lấy số điểm của ma trận từ file
+        /// </summary>
+        int GetNumberOfPointFromBrowseFile(string s);
+
+        /// <summary>
+        /// Lấy ma trận từ file
+        /// </summary>
+        long[,] GetMatrixFromBrowseFile(int numberOfPoint, string[] s);
+
     }
 }
