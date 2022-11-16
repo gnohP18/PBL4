@@ -127,13 +127,28 @@
     <value>Distanz</value>
   </data>
   <data name="DrawGraph" xml:space="preserve">
-    <value>Grafik zeichnen</value>
+    <value>Ergebnis</value>
   </data>
   <data name="IGotIt" xml:space="preserve">
     <value>ich habe es verstanden</value>
   </data>
   <data name="IPAddress" xml:space="preserve">
     <value>IP Adresse</value>
+  </data>
+  <data name="MsgClearValue" xml:space="preserve">
+    <value>Alle Werte wurden gelöscht!</value>
+  </data>
+  <data name="MsgComputerName" xml:space="preserve">
+    <value>Der computername ist null</value>
+  </data>
+  <data name="MsgFile" xml:space="preserve">
+    <value>Datei enthält keine daten oder falsches dateiformat!</value>
+  </data>
+  <data name="MsgIPAddress" xml:space="preserve">
+    <value>Falsche IP Adresse</value>
+  </data>
+  <data name="MsgValueMatrix" xml:space="preserve">
+    <value>Wert ist nicht verfügbar! Bitte versuche es erneut</value>
   </data>
   <data name="Notification" xml:space="preserve">
     <value>Benachrichtigung</value>
@@ -151,9 +166,9 @@
     <value>Startpunkt</value>
   </data>
   <data name="SubmitMatrix" xml:space="preserve">
-    <value>Matrix einreichen</value>
+    <value>Kalkulieren</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Algoritmo de caminho mais curto de Dijkstra</value>
+    <value>Routing in einem verteilten System</value>
   </data>
 </root>

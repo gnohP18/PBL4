@@ -40,17 +40,17 @@ namespace PBL4.View
         //Khởi tạo giá trị ban đầu của ma trận
         public void SetInitValue()
         {
-            bool isAvalableValue = true;
+            bool isAvailableValue = true;
             char[] arrChar = txtValue.Text.ToCharArray();
             if (arrChar.Length > 0)
             {
                 foreach (char c in arrChar)
                 {
-                    if ('0' > c && c > '9') isAvalableValue = false;
+                    if ('0' > c && c > '9' || c == '-') isAvailableValue = false;
                 }
             }
-            else isAvalableValue = false;
-            if (isAvalableValue)
+            else isAvailableValue = false;
+            if (isAvailableValue)
             {
                 lbMatLoca.BackColor = Color.LightSkyBlue;
                 Value = Convert.ToInt32(txtValue.Text);

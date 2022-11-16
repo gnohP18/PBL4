@@ -127,13 +127,28 @@
     <value>Distância</value>
   </data>
   <data name="DrawGraph" xml:space="preserve">
-    <value>Desenhar gráfico</value>
+    <value>Resultado</value>
   </data>
   <data name="IGotIt" xml:space="preserve">
     <value>Eu entendi</value>
   </data>
   <data name="IPAddress" xml:space="preserve">
     <value>Endereço de IP</value>
+  </data>
+  <data name="MsgClearValue" xml:space="preserve">
+    <value>Todos os valores foram apagados!</value>
+  </data>
+  <data name="MsgComputerName" xml:space="preserve">
+    <value>O nome do computador é nulo</value>
+  </data>
+  <data name="MsgFile" xml:space="preserve">
+    <value>O arquivo não contém dados ou formato de arquivo incorreto!</value>
+  </data>
+  <data name="MsgIPAddress" xml:space="preserve">
+    <value>Endereço IP incorreto</value>
+  </data>
+  <data name="MsgValueMatrix" xml:space="preserve">
+    <value>O valor está indisponível! Por favor, tente novamente</value>
   </data>
   <data name="Notification" xml:space="preserve">
     <value>Notificação</value>
@@ -151,9 +166,9 @@
     <value>Ponto de partida</value>
   </data>
   <data name="SubmitMatrix" xml:space="preserve">
-    <value>Enviar Matriz</value>
+    <value>Calcular</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Título</value>
+    <value>Roteamento em um sistema distribuído</value>
   </data>
 </root>
