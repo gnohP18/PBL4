@@ -60,17 +60,17 @@
             // txtComputerName
             // 
             this.txtComputerName.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComputerName.Location = new System.Drawing.Point(51, 41);
+            this.txtComputerName.Location = new System.Drawing.Point(51, 44);
             this.txtComputerName.Name = "txtComputerName";
-            this.txtComputerName.Size = new System.Drawing.Size(303, 23);
+            this.txtComputerName.Size = new System.Drawing.Size(303, 27);
             this.txtComputerName.TabIndex = 2;
             // 
             // txtIPAddress
             // 
             this.txtIPAddress.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIPAddress.Location = new System.Drawing.Point(51, 94);
+            this.txtIPAddress.Location = new System.Drawing.Point(51, 101);
             this.txtIPAddress.Name = "txtIPAddress";
-            this.txtIPAddress.Size = new System.Drawing.Size(303, 23);
+            this.txtIPAddress.Size = new System.Drawing.Size(303, 27);
             this.txtIPAddress.TabIndex = 3;
             // 
             // lblComputerName
@@ -78,9 +78,9 @@
             this.lblComputerName.AutoSize = true;
             this.lblComputerName.BackColor = System.Drawing.Color.Transparent;
             this.lblComputerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComputerName.Location = new System.Drawing.Point(47, 14);
+            this.lblComputerName.Location = new System.Drawing.Point(47, 17);
             this.lblComputerName.Name = "lblComputerName";
-            this.lblComputerName.Size = new System.Drawing.Size(115, 18);
+            this.lblComputerName.Size = new System.Drawing.Size(146, 24);
             this.lblComputerName.TabIndex = 4;
             this.lblComputerName.Text = "Computer name";
             // 
@@ -89,9 +89,9 @@
             this.lblIPAddress.AutoSize = true;
             this.lblIPAddress.BackColor = System.Drawing.Color.Transparent;
             this.lblIPAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIPAddress.Location = new System.Drawing.Point(47, 67);
+            this.lblIPAddress.Location = new System.Drawing.Point(47, 74);
             this.lblIPAddress.Name = "lblIPAddress";
-            this.lblIPAddress.Size = new System.Drawing.Size(78, 18);
+            this.lblIPAddress.Size = new System.Drawing.Size(98, 24);
             this.lblIPAddress.TabIndex = 5;
             this.lblIPAddress.Text = "IP address";
             // 
@@ -101,7 +101,7 @@
             this.btnSearchComputerName.BackgroundImage = global::PBL4.Properties.Resources.search_24;
             this.btnSearchComputerName.FlatAppearance.BorderSize = 0;
             this.btnSearchComputerName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearchComputerName.Location = new System.Drawing.Point(21, 41);
+            this.btnSearchComputerName.Location = new System.Drawing.Point(21, 44);
             this.btnSearchComputerName.Name = "btnSearchComputerName";
             this.btnSearchComputerName.Size = new System.Drawing.Size(24, 24);
             this.btnSearchComputerName.TabIndex = 6;
@@ -114,7 +114,7 @@
             this.btnSearchIPAddress.BackgroundImage = global::PBL4.Properties.Resources.search_24;
             this.btnSearchIPAddress.FlatAppearance.BorderSize = 0;
             this.btnSearchIPAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearchIPAddress.Location = new System.Drawing.Point(21, 97);
+            this.btnSearchIPAddress.Location = new System.Drawing.Point(21, 101);
             this.btnSearchIPAddress.Name = "btnSearchIPAddress";
             this.btnSearchIPAddress.Size = new System.Drawing.Size(24, 24);
             this.btnSearchIPAddress.TabIndex = 7;
@@ -131,9 +131,9 @@
             this.panel1.Controls.Add(this.btnSearchComputerName);
             this.panel1.Controls.Add(this.lblComputerName);
             this.panel1.Controls.Add(this.lblIPAddress);
-            this.panel1.Location = new System.Drawing.Point(102, 223);
+            this.panel1.Location = new System.Drawing.Point(113, 208);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(397, 213);
+            this.panel1.Size = new System.Drawing.Size(383, 208);
             this.panel1.TabIndex = 8;
             // 
             // btnConnectToServer
@@ -142,7 +142,7 @@
             this.btnConnectToServer.FlatAppearance.BorderSize = 0;
             this.btnConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnConnectToServer.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnConnectToServer.Location = new System.Drawing.Point(167, 135);
+            this.btnConnectToServer.Location = new System.Drawing.Point(156, 143);
             this.btnConnectToServer.Name = "btnConnectToServer";
             this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
             this.btnConnectToServer.TabIndex = 9;
@@ -152,9 +152,9 @@
             // cbbLanguageChange
             // 
             this.cbbLanguageChange.FormattingEnabled = true;
-            this.cbbLanguageChange.Location = new System.Drawing.Point(482, 593);
+            this.cbbLanguageChange.Location = new System.Drawing.Point(453, 569);
             this.cbbLanguageChange.Name = "cbbLanguageChange";
-            this.cbbLanguageChange.Size = new System.Drawing.Size(141, 21);
+            this.cbbLanguageChange.Size = new System.Drawing.Size(141, 24);
             this.cbbLanguageChange.TabIndex = 9;
             this.cbbLanguageChange.SelectedIndexChanged += new System.EventHandler(this.cbbLanguageChange_SelectedIndexChanged);
             // 
@@ -169,6 +169,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Connection";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connection";
             this.Load += new System.EventHandler(this.Connection_Load);
             this.panel1.ResumeLayout(false);

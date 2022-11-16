@@ -24,14 +24,14 @@
 
         public static int DistanceBetween2RabioButton = 30;
 
-        public static int DefaultCenterOfCircleX = 400;
+        public static int DefaultCenterOfCircleX = 420;
 
         public static int DefaultCenterOfCircleY = 350;
 
-        public static int DefaultHalfLengthOfMajorAxis = 300;
+        public static int DefaultHalfLengthOfMajorAxis = 350;
 
-        public static int DefaultHalfLengthOfMinorAxis = 180;
+        public static int DefaultHalfLengthOfMinorAxis = 220;
 
-        public static int DefaultWidthOfPen = 5;
+        public static int DefaultWidthOfPen = 3;
     }
 }

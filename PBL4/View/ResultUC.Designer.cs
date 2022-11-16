@@ -39,7 +39,7 @@
             this.lblPath.Font = new System.Drawing.Font("Calibri", 12F);
             this.lblPath.Location = new System.Drawing.Point(75, 0);
             this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(475, 25);
+            this.lblPath.Size = new System.Drawing.Size(473, 25);
             this.lblPath.TabIndex = 1;
             this.lblPath.Text = "path";
             // 
@@ -49,7 +49,7 @@
             this.lbWeight.Font = new System.Drawing.Font("Calibri", 12F);
             this.lbWeight.Location = new System.Drawing.Point(75, 25);
             this.lbWeight.Name = "lbWeight";
-            this.lbWeight.Size = new System.Drawing.Size(475, 25);
+            this.lbWeight.Size = new System.Drawing.Size(473, 23);
             this.lbWeight.TabIndex = 2;
             this.lbWeight.Text = "weight";
             // 
@@ -61,7 +61,7 @@
             this.endPointName.Font = new System.Drawing.Font("Calibri", 12F);
             this.endPointName.Location = new System.Drawing.Point(0, 0);
             this.endPointName.Name = "endPointName";
-            this.endPointName.Size = new System.Drawing.Size(75, 50);
+            this.endPointName.Size = new System.Drawing.Size(75, 48);
             this.endPointName.TabIndex = 0;
             this.endPointName.Text = "Name";
             this.endPointName.UseVisualStyleBackColor = false;
@@ -71,11 +71,12 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(235)))), ((int)(((byte)(248)))));
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.lbWeight);
             this.Controls.Add(this.lblPath);
             this.Controls.Add(this.endPointName);
             this.Name = "ResultUC";
-            this.Size = new System.Drawing.Size(550, 50);
+            this.Size = new System.Drawing.Size(548, 48);
             this.ResumeLayout(false);
 
         }

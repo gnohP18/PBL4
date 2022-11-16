@@ -48,7 +48,8 @@
             // pnMatrix
             // 
             this.pnMatrix.AutoScroll = true;
-            this.pnMatrix.BackColor = System.Drawing.SystemColors.Info;
+            this.pnMatrix.BackColor = System.Drawing.Color.LightCyan;
+            this.pnMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnMatrix.Location = new System.Drawing.Point(15, 86);
             this.pnMatrix.Name = "pnMatrix";
             this.pnMatrix.Size = new System.Drawing.Size(1273, 612);
@@ -67,7 +68,7 @@
             // cbbNumberOfPoints
             // 
             this.cbbNumberOfPoints.FormattingEnabled = true;
-            this.cbbNumberOfPoints.Location = new System.Drawing.Point(186, 61);
+            this.cbbNumberOfPoints.Location = new System.Drawing.Point(184, 57);
             this.cbbNumberOfPoints.Name = "cbbNumberOfPoints";
             this.cbbNumberOfPoints.Size = new System.Drawing.Size(161, 24);
             this.cbbNumberOfPoints.TabIndex = 0;
@@ -106,7 +107,7 @@
             this.btnOK.FlatAppearance.BorderSize = 0;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Image = global::PBL4.Properties.Resources.checkedGreen;
-            this.btnOK.Location = new System.Drawing.Point(1194, 726);
+            this.btnOK.Location = new System.Drawing.Point(1136, 728);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 40);
             this.btnOK.TabIndex = 0;
@@ -116,7 +117,7 @@
             // pnProcessing
             // 
             this.pnProcessing.AutoScroll = true;
-            this.pnProcessing.BackColor = System.Drawing.Color.FloralWhite;
+            this.pnProcessing.BackColor = System.Drawing.Color.White;
             this.pnProcessing.Controls.Add(this.lblSubmitMatrix);
             this.pnProcessing.Controls.Add(this.lblDrawGraph);
             this.pnProcessing.Controls.Add(this.lblResetMatrix);
@@ -140,7 +141,7 @@
             // 
             this.lblSubmitMatrix.AutoSize = true;
             this.lblSubmitMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubmitMatrix.Location = new System.Drawing.Point(1162, 701);
+            this.lblSubmitMatrix.Location = new System.Drawing.Point(1143, 701);
             this.lblSubmitMatrix.Name = "lblSubmitMatrix";
             this.lblSubmitMatrix.Size = new System.Drawing.Size(123, 24);
             this.lblSubmitMatrix.TabIndex = 13;
@@ -150,7 +151,7 @@
             // 
             this.lblDrawGraph.AutoSize = true;
             this.lblDrawGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDrawGraph.Location = new System.Drawing.Point(570, 700);
+            this.lblDrawGraph.Location = new System.Drawing.Point(1143, 701);
             this.lblDrawGraph.Name = "lblDrawGraph";
             this.lblDrawGraph.Size = new System.Drawing.Size(107, 24);
             this.lblDrawGraph.TabIndex = 12;
@@ -205,7 +206,7 @@
             this.btnDrawTheGraph.FlatAppearance.BorderSize = 0;
             this.btnDrawTheGraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDrawTheGraph.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnDrawTheGraph.Location = new System.Drawing.Point(586, 724);
+            this.btnDrawTheGraph.Location = new System.Drawing.Point(1136, 728);
             this.btnDrawTheGraph.Name = "btnDrawTheGraph";
             this.btnDrawTheGraph.Size = new System.Drawing.Size(75, 40);
             this.btnDrawTheGraph.TabIndex = 10;

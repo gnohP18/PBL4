@@ -64,6 +64,7 @@ namespace PBL4.View
             CultureInfo cultureInfo = CultureInfo.InvariantCulture;
             cultureInfo = CultureInfo.CreateSpecificCulture(language);
             InitLanguage.Instance.ChangeLanguage(language);
+            lblTitle.Text = _resourceManager.GetString("Title", cultureInfo);
             lblStartPoint.Text = _resourceManager.GetString("StartPoint", cultureInfo);
         }
         //Resize Result 
@@ -209,7 +210,7 @@ namespace PBL4.View
                 int ylb = (int)(centerOfCircleY - (halfLengthOfMinorAxis + 20) * Math.Sin(2 * Math.PI * i / NumberOfPoint));
                 UINameOfPoint[i].Location = new Point(xlb, ylb);
                 UINameOfPoint[i].AutoSize = true;
-                UINameOfPoint[i].BackColor = TransparencyKey;
+                UINameOfPoint[i].BackColor = Color.Transparent;
                 pnGp.Controls.Add(UINameOfPoint[i]);
                 RectangleF a = new RectangleF(ListOfPoint[i].X - 5, ListOfPoint[i].Y - 5, 10, 10);
                 e.Graphics.FillEllipse(aBrush, a);
@@ -225,11 +226,12 @@ namespace PBL4.View
                     if ((i == j) || (matrix[i, j] == 0)) continue;
                     else
                     {
-                        var averageX = (ListOfPoint[i].X + ListOfPoint[j].X) / 2;
-                        var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2;
+                        var averageX = (ListOfPoint[i].X + ListOfPoint[j].X) / 2 + 10;
+                        var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2 + 3;
                         Label weightGraph = new Label();
                         weightGraph.Text = matrix[i, j].ToString();
                         weightGraph.AutoSize = true;
+                        weightGraph.BackColor = Color.Transparent;
                         weightGraph.Location = new Point(averageX, averageY);
                         pnGp.Controls.Add(weightGraph);
                     }

@@ -13,6 +13,8 @@ namespace PBL4.View
         #region Global variable
         private List<string> ListKeyLanguage;
         private string CurrentLanguage;
+        private ResourceManager _resourceManager;
+        private CultureInfo cultureInfo;
         #endregion
 
         private static InitData _initData;
@@ -25,8 +27,8 @@ namespace PBL4.View
         #region Function
         private void SetupLanguage(string language)
         {
-            ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
-            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
+            cultureInfo = CultureInfo.InvariantCulture;
             cultureInfo = CultureInfo.CreateSpecificCulture(language);
             InitLanguage.Instance.ChangeLanguage(language);
             lblComputerName.Text = _resourceManager.GetString("ComputerName", cultureInfo);
@@ -65,12 +67,14 @@ namespace PBL4.View
             }
             else if (!IsAvailableComputerName())
             {
-                NoticeBox noticeBox = new NoticeBox("Computer name is null");
+                String noticeMessage = _resourceManager.GetString("MsgComputerName", cultureInfo);
+                NoticeBox noticeBox = new NoticeBox(noticeMessage);
                 noticeBox.Show();
             }
             else if (!IsAvailableIPAddress())
             {
-                NoticeBox noticeBox = new NoticeBox("Wrong IP Address");
+                String noticeMessage = _resourceManager.GetString("MsgIPAddress", cultureInfo);
+                NoticeBox noticeBox = new NoticeBox(noticeMessage);
                 noticeBox.Show();
             }
         }
@@ -91,6 +95,7 @@ namespace PBL4.View
             ListKeyLanguage = InitLanguage.Instance.KeyLanguage();
             CurrentLanguage = "en-US";
             SetupLanguage(CurrentLanguage);
+            cbbLanguageChange.SelectedIndex = 1;
         }
         #endregion
 

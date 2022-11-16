@@ -43,6 +43,9 @@ namespace PBL4
         //Luồng nhận dữ liệu
         private Thread receiveThread;
         private delegate void SafeCallDelegate(string text);
+        private ResourceManager _resourceManager;
+        private CultureInfo cultureInfo;
+
         #endregion
 
         public Main(string computerName, string hostName, string port)
@@ -63,14 +66,16 @@ namespace PBL4
             {
                 cbbNumberOfPoints.Items.Add(i);
             }
+            btnDrawTheGraph.Visible = false;
+            lblDrawGraph.Visible = false;
         }
         #endregion
 
         #region Function
         private void SetupLanguage(string language)
         {
-            ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
-            CultureInfo cultureInfo = CultureInfo.InvariantCulture;
+            _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
+            cultureInfo = CultureInfo.InvariantCulture;
             cultureInfo = CultureInfo.CreateSpecificCulture(language);
             InitLanguage.Instance.ChangeLanguage(language);
             lblDrawGraph.Text = _resourceManager.GetString("DrawGraph", cultureInfo);
@@ -210,7 +215,6 @@ namespace PBL4
                 }
             }
         }
-
         private void DisconnectFromServer()
         {
             _tcpClient.Close();
@@ -234,7 +238,6 @@ namespace PBL4
             }
 
         }
-
         private void ValueUC_Text_Leave(object sender, EventArgs e)
         {
             for (int i = 0; i < NumberOfPoint; i++)
@@ -287,9 +290,10 @@ namespace PBL4
         {
             if (!IsAvailableMatrix(GetMatrixFromView(ListValueUC, NumberOfPoint), NumberOfPoint))
             {
-                NoticeBox noticeBox = new NoticeBox("Value is unavailable! Please try again");
+                String noticeMessage = _resourceManager.GetString("MsgValueMatrix", cultureInfo);
+                NoticeBox noticeBox = new NoticeBox(noticeMessage);
                 noticeBox.Show();
-            }
+            }  
             else
             {
                 //1.Lấy ma trận từ UI nhập vào
@@ -318,8 +322,24 @@ namespace PBL4
                     receiveThread = new Thread(ReceiveDataFromServer);
                     receiveThread.Start();
                 }
+                btnDrawTheGraph.Visible = true;
+                lblDrawGraph.Visible = true;
+                btnOK.Visible = false;
+                lblSubmitMatrix.Visible = false;
             };
 
+        }
+
+        private void btnDrawTheGraph_Click(object sender, EventArgs e)
+        {
+            //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
+            ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
+            resultGraph.StartPosition = FormStartPosition.CenterScreen;
+            resultGraph.Show();
+            btnOK.Visible = true;
+            lblSubmitMatrix.Visible = true;
+            btnDrawTheGraph.Visible = false;
+            lblDrawGraph.Visible = false;
         }
 
         private void btnReset_Click(object sender, EventArgs e)
@@ -331,7 +351,8 @@ namespace PBL4
                     ListValueUC[i, j].ClearValue();
                 }
             }
-            NoticeBox noticeBox = new NoticeBox("You have cleared all value!");
+            String noticeMessage = _resourceManager.GetString("MsgClearValue", cultureInfo);
+            NoticeBox noticeBox = new NoticeBox(noticeMessage);
             noticeBox.Show();
         }
 
@@ -347,13 +368,16 @@ namespace PBL4
             if (result == DialogResult.OK)
             {
                 string file = openFileDialog.FileName;
+                string fileExtension = file.Substring(file.LastIndexOf('.') + 1).ToLower();
                 txtbBF.Text = file;
                 try
                 {
                     string[] lines = System.IO.File.ReadAllLines(file);
-                    if (lines.Length <= 0)
+                    if (lines.Length <= 0 || fileExtension != "txt")
                     {
-                        NoticeBox noticeBox = new NoticeBox("File does not contain data!");
+                        String noticeMessage = _resourceManager.GetString("MsgFile", cultureInfo);
+                        NoticeBox noticeBox = new NoticeBox(noticeMessage);
+                        noticeBox.Show();
                     }
                     else
                     {
@@ -377,13 +401,6 @@ namespace PBL4
         }
 
 
-        private void btnDrawTheGraph_Click(object sender, EventArgs e)
-        {
-            //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
-            ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
-            resultGraph.StartPosition = FormStartPosition.CenterScreen;
-            resultGraph.Show();
-        }
         #endregion
 
 

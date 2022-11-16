@@ -127,13 +127,28 @@
     <value>Khoảng cách</value>
   </data>
   <data name="DrawGraph" xml:space="preserve">
-    <value>Gửi ma trận</value>
+    <value>Kết quả</value>
   </data>
   <data name="IGotIt" xml:space="preserve">
     <value>Tôi đã hiểu</value>
   </data>
   <data name="IPAddress" xml:space="preserve">
     <value>Địa chỉ IP</value>
+  </data>
+  <data name="MsgClearValue" xml:space="preserve">
+    <value>Tất cả giá trị đã được xóa</value>
+  </data>
+  <data name="MsgComputerName" xml:space="preserve">
+    <value>Tên máy tính chưa được nhập</value>
+  </data>
+  <data name="MsgFile" xml:space="preserve">
+    <value>Tệp không chứa dữ liệu hoặc định đạng tệp không đúng!</value>
+  </data>
+  <data name="MsgIPAddress" xml:space="preserve">
+    <value>Địa chỉ IP không hợp lệ</value>
+  </data>
+  <data name="MsgValueMatrix" xml:space="preserve">
+    <value>Giá trị ma trận không hợp lệ! Nhập lại</value>
   </data>
   <data name="Notification" xml:space="preserve">
     <value>Thông báo</value>
@@ -151,9 +166,9 @@
     <value>Điểm bắt đầu</value>
   </data>
   <data name="SubmitMatrix" xml:space="preserve">
-    <value>Gửi ma trận</value>
+    <value>Tính </value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Thuật toán đường đi ngắn nhất của Dijkstra</value>
+    <value>Định tuyến trong hệ phân tán</value>
   </data>
 </root>
