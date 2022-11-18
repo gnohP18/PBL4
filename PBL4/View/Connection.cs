@@ -63,7 +63,6 @@ namespace PBL4.View
             {
                 Main main = new Main(txtComputerName.Text, txtIPAddress.Text, _initData.PortNumber.ToString());
                 main.Show();
-                this.Hide();
             }
             else if (!IsAvailableComputerName())
             {
@@ -102,7 +101,6 @@ namespace PBL4.View
         private void cbbLanguageChange_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetupLanguage(ListKeyLanguage[cbbLanguageChange.SelectedIndex]);
-            Console.WriteLine(ListKeyLanguage[cbbLanguageChange.SelectedIndex]);
         }
     }
 }

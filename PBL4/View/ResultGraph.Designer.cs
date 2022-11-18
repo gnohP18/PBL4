@@ -30,10 +30,10 @@
         {
             this.pnResultFromServer = new System.Windows.Forms.Panel();
             this.pnGp = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.lblStartPoint = new System.Windows.Forms.Label();
             this.cbbStartPoint = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
-            this.lblTitle = new System.Windows.Forms.Label();
             this.pnGp.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,13 +64,25 @@
             this.pnGp.TabIndex = 5;
             this.pnGp.Paint += new System.Windows.Forms.PaintEventHandler(this.pnGp_Paint);
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblTitle.Location = new System.Drawing.Point(143, 33);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(71, 31);
+            this.lblTitle.TabIndex = 5;
+            this.lblTitle.Text = "Title";
+            // 
             // lblStartPoint
             // 
             this.lblStartPoint.AutoSize = true;
             this.lblStartPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStartPoint.Location = new System.Drawing.Point(237, 738);
+            this.lblStartPoint.Location = new System.Drawing.Point(226, 742);
             this.lblStartPoint.Name = "lblStartPoint";
-            this.lblStartPoint.Size = new System.Drawing.Size(92, 24);
+            this.lblStartPoint.Size = new System.Drawing.Size(75, 18);
             this.lblStartPoint.TabIndex = 4;
             this.lblStartPoint.Text = "Start point";
             // 
@@ -79,7 +91,7 @@
             this.cbbStartPoint.FormattingEnabled = true;
             this.cbbStartPoint.Location = new System.Drawing.Point(335, 741);
             this.cbbStartPoint.Name = "cbbStartPoint";
-            this.cbbStartPoint.Size = new System.Drawing.Size(150, 24);
+            this.cbbStartPoint.Size = new System.Drawing.Size(150, 21);
             this.cbbStartPoint.TabIndex = 2;
             this.cbbStartPoint.SelectedIndexChanged += new System.EventHandler(this.cbbStartPoint_SelectedIndexChanged);
             // 
@@ -95,18 +107,6 @@
             this.btnExit.TabIndex = 1;
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblTitle.Location = new System.Drawing.Point(143, 33);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(87, 39);
-            this.lblTitle.TabIndex = 5;
-            this.lblTitle.Text = "Title";
             // 
             // ResultGraph
             // 

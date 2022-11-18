@@ -108,7 +108,11 @@ namespace PBL4
                 {
                     _streamReader = new StreamReader(_stream);
                     string dataFromServer = _streamReader.ReadLine();
-                    if (dataFromServer != null) UpdateDataFromServer(dataFromServer);
+                    if (dataFromServer != null && dataFromServer != "OK") UpdateDataFromServer(dataFromServer);
+                    else if (dataFromServer == "OK")
+                    {
+                        break;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -117,6 +121,8 @@ namespace PBL4
                     break;
                 }
             }
+            _stream.Close();
+            _tcpClient.Close();
         }
 
         //Xóa item mỗi lần chuyển cbb
@@ -275,6 +281,18 @@ namespace PBL4
         }
         private void btnExit_Click(object sender, EventArgs e)
         {
+            try
+            {
+                _streamWriter = new StreamWriter(_stream);
+                _streamWriter.AutoFlush = true;
+                _streamWriter.WriteLine("exit");
+            }
+            catch (Exception ex)
+            {
+                NoticeBox box = new NoticeBox(ex.ToString());
+                box.Show();
+            }
+            DisconnectFromServer();
             this.Close();
         }
 
@@ -293,7 +311,7 @@ namespace PBL4
                 String noticeMessage = _resourceManager.GetString("MsgValueMatrix", cultureInfo);
                 NoticeBox noticeBox = new NoticeBox(noticeMessage);
                 noticeBox.Show();
-            }  
+            }
             else
             {
                 //1.Lấy ma trận từ UI nhập vào
@@ -333,13 +351,21 @@ namespace PBL4
         private void btnDrawTheGraph_Click(object sender, EventArgs e)
         {
             //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
-            ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
-            resultGraph.StartPosition = FormStartPosition.CenterScreen;
-            resultGraph.Show();
-            btnOK.Visible = true;
-            lblSubmitMatrix.Visible = true;
-            btnDrawTheGraph.Visible = false;
-            lblDrawGraph.Visible = false;
+            if (DataFromServer != null)
+            {
+                ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
+                resultGraph.StartPosition = FormStartPosition.CenterScreen;
+                resultGraph.Show();
+                btnOK.Visible = true;
+                lblSubmitMatrix.Visible = true;
+                btnDrawTheGraph.Visible = false;
+                lblDrawGraph.Visible = false;
+            }
+            else
+            {
+                NoticeBox box = new NoticeBox("data null");
+                box.Show();
+            }
         }
 
         private void btnReset_Click(object sender, EventArgs e)

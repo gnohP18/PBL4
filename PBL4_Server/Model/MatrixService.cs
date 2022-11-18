@@ -44,7 +44,6 @@ namespace PBL4_Server.Model
         #region Function
         public void SplitMatrixFromData(string dataFromServer)
         {
-            Console.WriteLine("After split matrix from data");
             //Tách tên máy
             int indexOfName = dataFromServer.IndexOf('@');
             ComputerName = dataFromServer.Substring(0, indexOfName);
@@ -64,9 +63,7 @@ namespace PBL4_Server.Model
                 for (int j = 0; j < NumberOfPoint; j++)
                 {
                     MatrixDijkstra[i, j] = Convert.ToInt32(arrListStr[count++]);
-                    Console.Write(MatrixDijkstra[i, j] + " ");
                 }
-                Console.WriteLine();
             }
         }
 
@@ -101,7 +98,6 @@ namespace PBL4_Server.Model
                 StringResultOfAllPoint += ConvertResultToString() + '@';
             }
             StringResultOfAllPoint = StringResultOfAllPoint.Remove(StringResultOfAllPoint.Length - 1);
-            Console.Write(StringResultOfAllPoint);
             return StringResultOfAllPoint;
         }
 
@@ -143,16 +139,6 @@ namespace PBL4_Server.Model
                         dist[i] = dist[u] + graph[u, i];
                         pred[i] = MergeMap(pred[u], i.ToString());
                     }
-            }
-            //Hiển thị kết quả
-            for (int i = 0; i < N; i++)
-            {
-                Console.WriteLine(i + " : " + dist[i]);
-                for (int j = 0; j < pred[i].Count; j++)
-                {
-                    Console.WriteLine(pred[i][j] + " ");
-                }
-                Console.WriteLine();
             }
         }
 

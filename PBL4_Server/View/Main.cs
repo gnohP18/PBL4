@@ -15,6 +15,7 @@ namespace PBL4_Server
         #region Service threads
         private delegate void SafeCallDelegate(string text);
         private List<Thread> ListThreadSolve { get; set; }
+        private Thread listenThread;
         #endregion
 
         #region Global variable
@@ -24,7 +25,7 @@ namespace PBL4_Server
         public Main()
         {
             InitializeComponent();
-            Thread listenThread = new Thread(InitServer);
+            listenThread = new Thread(InitServer);
             listenThread.Start();
         }
         private void InitServer()
@@ -35,10 +36,7 @@ namespace PBL4_Server
                 IPAddress address = IPAddress.Parse(_initData.IpAddress);
                 TcpListener listener = new TcpListener(address, _initData.PortNumber);
                 // 1. listen
-                Console.WriteLine("Server started on " + listener.LocalEndpoint);
                 BeginLog += "Server started on " + listener.LocalEndpoint + "\n";
-
-                Console.WriteLine("Waiting for a connection...");
                 BeginLog += "Waiting for a connection..." + "\n";
                 UpdateRTB(BeginLog);
                 while (true)
@@ -54,9 +52,7 @@ namespace PBL4_Server
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex);
             }
-            Console.Read();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -67,7 +63,6 @@ namespace PBL4_Server
         #region
         private void NewThreadAfterAcceptingAConnection(int orderClient, Socket socket)
         {
-            Console.WriteLine("Connection received from " + socket.RemoteEndPoint);
             var startLog = "[IP:" + socket.RemoteEndPoint + "] has joined ";
             UpdateRTB(startLog);
             var stream = new NetworkStream(socket);
@@ -82,13 +77,20 @@ namespace PBL4_Server
                 str = reader.ReadLine();
                 if (str != null && str.ToUpper() != "EXIT")
                 {
+
                     matrixService.SplitMatrixFromData(str);
                     var log = "[" + matrixService.ComputerName + "] " + str;
                     UpdateRTB(log);
+                    // 3. send
+                    writer.WriteLine(matrixService.CalculateDijskstraOfAllPoint());
                 }
-                // 3. send
-                writer.WriteLine(matrixService.CalculateDijskstraOfAllPoint());
                 // 4. close
+                if (str.ToUpper() == "EXIT")
+                {
+                    writer.WriteLine("BYE");
+                    UpdateRTB("[IP:" + socket.RemoteEndPoint + "] has left");
+                    break;
+                }
             }
             stream.Close();
             socket.Close();
@@ -116,6 +118,7 @@ namespace PBL4_Server
                 i.Abort();
             }
             this.Close();
+            listenThread.Abort();
         }
     }
 }
