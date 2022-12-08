@@ -390,16 +390,20 @@ namespace PBL4
         private void btnBF_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text|*.txt";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
                 string file = openFileDialog.FileName;
-                string fileExtension = file.Substring(file.LastIndexOf('.') + 1).ToLower();
+                //string fileExtension = file.Substring(file.LastIndexOf('.') + 1).ToLower();
                 txtbBF.Text = file;
                 try
                 {
                     string[] lines = System.IO.File.ReadAllLines(file);
-                    if (lines.Length <= 0 || fileExtension != "txt")
+                    //|| fileExtension != "txt"
+                    if (lines.Length <= 0 )
                     {
                         String noticeMessage = _resourceManager.GetString("MsgFile", cultureInfo);
                         NoticeBox noticeBox = new NoticeBox(noticeMessage);
