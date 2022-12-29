@@ -209,12 +209,12 @@ namespace PBL4.View
             {
                 for (int j = 0; j < NumberOfPoint; j++)
                 {
-                    //Kiểm tra giá trị ma trận để vẽ đường
+                    //Kiểm tra giá trị ma trận để vẽ trọng số
                     if ((i == j) || (matrix[i, j] == 0)) continue;
-                    else
+                    if (j > i)
                     {
-                        var averageX = 7 * (ListOfPoint[i].X + ListOfPoint[j].X) / 15 + 2;
-                        var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2 + 4;
+                        var averageX = 6 * (ListOfPoint[j].X - ListOfPoint[i].X) / 17 + ListOfPoint[i].X;
+                        var averageY = 6 * (ListOfPoint[j].Y - ListOfPoint[i].Y) / 17 + ListOfPoint[i].Y;
                         Label weightGraph = new Label();
                         weightGraph.Text = matrix[i, j].ToString();
                         weightGraph.AutoSize = true;
