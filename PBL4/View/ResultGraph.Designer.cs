@@ -34,7 +34,7 @@
             this.lblStartPoint = new System.Windows.Forms.Label();
             this.cbbStartPoint = new System.Windows.Forms.ComboBox();
             this.btnExit = new System.Windows.Forms.Button();
-            this.pnGp.SuspendLayout();
+            this.cbShowWeightGraph = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pnResultFromServer
@@ -53,14 +53,9 @@
             this.pnGp.AutoScroll = true;
             this.pnGp.BackColor = System.Drawing.Color.White;
             this.pnGp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnGp.Controls.Add(this.lblTitle);
-            this.pnGp.Controls.Add(this.lblStartPoint);
-            this.pnGp.Controls.Add(this.cbbStartPoint);
-            this.pnGp.Controls.Add(this.btnExit);
-            this.pnGp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnGp.Location = new System.Drawing.Point(0, 0);
+            this.pnGp.Location = new System.Drawing.Point(0, 43);
             this.pnGp.Name = "pnGp";
-            this.pnGp.Size = new System.Drawing.Size(849, 800);
+            this.pnGp.Size = new System.Drawing.Size(849, 731);
             this.pnGp.TabIndex = 5;
             this.pnGp.Paint += new System.Windows.Forms.PaintEventHandler(this.pnGp_Paint);
             // 
@@ -70,9 +65,9 @@
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblTitle.Location = new System.Drawing.Point(143, 33);
+            this.lblTitle.Location = new System.Drawing.Point(148, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(83, 38);
+            this.lblTitle.Size = new System.Drawing.Size(71, 31);
             this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "Title";
             // 
@@ -80,18 +75,18 @@
             // 
             this.lblStartPoint.AutoSize = true;
             this.lblStartPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStartPoint.Location = new System.Drawing.Point(226, 742);
+            this.lblStartPoint.Location = new System.Drawing.Point(615, 777);
             this.lblStartPoint.Name = "lblStartPoint";
-            this.lblStartPoint.Size = new System.Drawing.Size(92, 24);
+            this.lblStartPoint.Size = new System.Drawing.Size(75, 18);
             this.lblStartPoint.TabIndex = 4;
             this.lblStartPoint.Text = "Start point";
             // 
             // cbbStartPoint
             // 
             this.cbbStartPoint.FormattingEnabled = true;
-            this.cbbStartPoint.Location = new System.Drawing.Point(335, 741);
+            this.cbbStartPoint.Location = new System.Drawing.Point(696, 777);
             this.cbbStartPoint.Name = "cbbStartPoint";
-            this.cbbStartPoint.Size = new System.Drawing.Size(150, 24);
+            this.cbbStartPoint.Size = new System.Drawing.Size(150, 21);
             this.cbbStartPoint.TabIndex = 2;
             this.cbbStartPoint.SelectedIndexChanged += new System.EventHandler(this.cbbStartPoint_SelectedIndexChanged);
             // 
@@ -101,26 +96,44 @@
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Image = global::PBL4.Properties.Resources.backicon;
-            this.btnExit.Location = new System.Drawing.Point(11, 3);
+            this.btnExit.Location = new System.Drawing.Point(0, 0);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(40, 43);
             this.btnExit.TabIndex = 1;
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
+            // cbShowWeightGraph
+            // 
+            this.cbShowWeightGraph.AutoSize = true;
+            this.cbShowWeightGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.cbShowWeightGraph.Location = new System.Drawing.Point(3, 775);
+            this.cbShowWeightGraph.Name = "cbShowWeightGraph";
+            this.cbShowWeightGraph.Size = new System.Drawing.Size(152, 22);
+            this.cbShowWeightGraph.TabIndex = 6;
+            this.cbShowWeightGraph.Text = "Show weight graph";
+            this.cbShowWeightGraph.UseVisualStyleBackColor = true;
+            this.cbShowWeightGraph.CheckedChanged += new System.EventHandler(this.cbShowWeightGraph_CheckedChanged);
+            // 
             // ResultGraph
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1300, 800);
             this.Controls.Add(this.pnGp);
+            this.Controls.Add(this.cbShowWeightGraph);
             this.Controls.Add(this.pnResultFromServer);
+            this.Controls.Add(this.lblStartPoint);
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.cbbStartPoint);
+            this.Controls.Add(this.btnExit);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ResultGraph";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ResultGraph";
-            this.pnGp.ResumeLayout(false);
-            this.pnGp.PerformLayout();
+            this.Load += new System.EventHandler(this.ResultGraph_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,5 +145,6 @@
         private System.Windows.Forms.ComboBox cbbStartPoint;
         private System.Windows.Forms.Label lblStartPoint;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.CheckBox cbShowWeightGraph;
     }
 }
