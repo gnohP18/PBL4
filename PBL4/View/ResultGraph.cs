@@ -165,6 +165,8 @@ namespace PBL4.View
         #region Event handle
         private void btnExit_Click(object sender, EventArgs e)
         {
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Main);
+            formToShow.Show();
             listResultFromServer.Clear();
             listTotalWeight = null;
             this.Close();
@@ -172,6 +174,7 @@ namespace PBL4.View
 
         private void pnGp_Paint(object sender, PaintEventArgs e)
         {
+            this.SetStyle(ControlStyles.DoubleBuffer| ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             int widthOfPen = EnumMatrix.DefaultWidthOfPen;
             int centerOfCircleX = EnumMatrix.DefaultCenterOfCircleX;
             int centerOfCircleY = EnumMatrix.DefaultCenterOfCircleY;
@@ -210,12 +213,12 @@ namespace PBL4.View
                     if ((i == j) || (matrix[i, j] == 0)) continue;
                     else
                     {
-                        var averageX = (ListOfPoint[i].X + ListOfPoint[j].X) / 2 + 5;
-                        var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2 + 2;
+                        var averageX = 7 * (ListOfPoint[i].X + ListOfPoint[j].X) / 15 + 2;
+                        var averageY = (ListOfPoint[i].Y + ListOfPoint[j].Y) / 2 + 4;
                         Label weightGraph = new Label();
                         weightGraph.Text = matrix[i, j].ToString();
                         weightGraph.AutoSize = true;
-                        weightGraph.BackColor = Color.Transparent;
+                        weightGraph.BackColor = Color.Empty;
                         weightGraph.Location = new Point(averageX, averageY);
                         pnGp.Controls.Add(weightGraph);
                     }
@@ -230,7 +233,7 @@ namespace PBL4.View
                 int ylb = (int)(centerOfCircleY - (halfLengthOfMinorAxis + 20) * Math.Sin(2 * Math.PI * i / NumberOfPoint));
                 UINameOfPoint[i].Location = new Point(xlb, ylb);
                 UINameOfPoint[i].AutoSize = true;
-                UINameOfPoint[i].BackColor = Color.Transparent;
+                UINameOfPoint[i].BackColor = Color.Empty;
                 pnGp.Controls.Add(UINameOfPoint[i]);
                 RectangleF a = new RectangleF(ListOfPoint[i].X - 5, ListOfPoint[i].Y - 5, 10, 10);
                 e.Graphics.FillEllipse(aBrush, a);

@@ -49,9 +49,15 @@ namespace PBL4.Model
         int GetNumberOfPointFromBrowseFile(string s);
 
         /// <summary>
+        /// Kiểm tra ma trận nhập từ file có hợp lệ hay không 
+        /// </summary>
+        bool CheckMatrixFromBrowserFile(int numberOfPoint, string[] s);
+
+        /// <summary>
         /// Lấy ma trận từ file
         /// </summary>
         long[,] GetMatrixFromBrowseFile(int numberOfPoint, string[] s);
+
 
     }
 }

@@ -70,8 +70,9 @@ namespace PBL4.View
         }
         public void ClearValue()
         {
-            txtValue.Text = null;
             Value = 0;
+            txtValue.Text = null;
+            txtValue.Enabled = true;
         }
 
         public void SetEnableTextBox()
@@ -79,5 +80,10 @@ namespace PBL4.View
             txtValue.Enabled = false;
         }
         #endregion
+
+        private void txtValue_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(Char.IsNumber(e.KeyChar) || e.KeyChar == 8);
+        }
     }
 }

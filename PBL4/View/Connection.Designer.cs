@@ -59,28 +59,28 @@
             // 
             // txtComputerName
             // 
-            this.txtComputerName.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtComputerName.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComputerName.Location = new System.Drawing.Point(51, 44);
             this.txtComputerName.Name = "txtComputerName";
-            this.txtComputerName.Size = new System.Drawing.Size(303, 27);
+            this.txtComputerName.Size = new System.Drawing.Size(303, 29);
             this.txtComputerName.TabIndex = 2;
             // 
             // txtIPAddress
             // 
-            this.txtIPAddress.Font = new System.Drawing.Font("Berlin Sans FB", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIPAddress.Font = new System.Drawing.Font("Berlin Sans FB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIPAddress.Location = new System.Drawing.Point(51, 101);
             this.txtIPAddress.Name = "txtIPAddress";
-            this.txtIPAddress.Size = new System.Drawing.Size(303, 27);
+            this.txtIPAddress.Size = new System.Drawing.Size(303, 29);
             this.txtIPAddress.TabIndex = 3;
             // 
             // lblComputerName
             // 
             this.lblComputerName.AutoSize = true;
             this.lblComputerName.BackColor = System.Drawing.Color.Transparent;
-            this.lblComputerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComputerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblComputerName.Location = new System.Drawing.Point(47, 17);
             this.lblComputerName.Name = "lblComputerName";
-            this.lblComputerName.Size = new System.Drawing.Size(146, 24);
+            this.lblComputerName.Size = new System.Drawing.Size(152, 25);
             this.lblComputerName.TabIndex = 4;
             this.lblComputerName.Text = "Computer name";
             // 
@@ -88,10 +88,10 @@
             // 
             this.lblIPAddress.AutoSize = true;
             this.lblIPAddress.BackColor = System.Drawing.Color.Transparent;
-            this.lblIPAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIPAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIPAddress.Location = new System.Drawing.Point(47, 74);
             this.lblIPAddress.Name = "lblIPAddress";
-            this.lblIPAddress.Size = new System.Drawing.Size(98, 24);
+            this.lblIPAddress.Size = new System.Drawing.Size(105, 25);
             this.lblIPAddress.TabIndex = 5;
             this.lblIPAddress.Text = "IP address";
             // 
@@ -142,19 +142,20 @@
             this.btnConnectToServer.FlatAppearance.BorderSize = 0;
             this.btnConnectToServer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnConnectToServer.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnConnectToServer.Location = new System.Drawing.Point(156, 143);
+            this.btnConnectToServer.Location = new System.Drawing.Point(150, 147);
             this.btnConnectToServer.Name = "btnConnectToServer";
-            this.btnConnectToServer.Size = new System.Drawing.Size(75, 40);
+            this.btnConnectToServer.Size = new System.Drawing.Size(74, 45);
             this.btnConnectToServer.TabIndex = 9;
             this.btnConnectToServer.UseVisualStyleBackColor = false;
             this.btnConnectToServer.Click += new System.EventHandler(this.btnConnectToServer_Click);
             // 
             // cbbLanguageChange
             // 
+            this.cbbLanguageChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbLanguageChange.FormattingEnabled = true;
             this.cbbLanguageChange.Location = new System.Drawing.Point(453, 569);
             this.cbbLanguageChange.Name = "cbbLanguageChange";
-            this.cbbLanguageChange.Size = new System.Drawing.Size(141, 24);
+            this.cbbLanguageChange.Size = new System.Drawing.Size(141, 28);
             this.cbbLanguageChange.TabIndex = 9;
             this.cbbLanguageChange.SelectedIndexChanged += new System.EventHandler(this.cbbLanguageChange_SelectedIndexChanged);
             // 

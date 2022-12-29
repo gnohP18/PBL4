@@ -1,5 +1,5 @@
 ﻿using PBL4_Server.Data;
-using PBL4_Server.Model;
+using PBL4_Server.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;

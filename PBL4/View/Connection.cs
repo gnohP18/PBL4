@@ -61,6 +61,7 @@ namespace PBL4.View
         {
             if (IsAvailableComputerName() && IsAvailableIPAddress())
             {
+                this.Hide();
                 Main main = new Main(txtComputerName.Text, txtIPAddress.Text, _initData.PortNumber.ToString());
                 main.Show();
             }
@@ -102,5 +103,6 @@ namespace PBL4.View
         {
             SetupLanguage(ListKeyLanguage[cbbLanguageChange.SelectedIndex]);
         }
+
     }
 }
