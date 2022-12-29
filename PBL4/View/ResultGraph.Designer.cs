@@ -72,7 +72,7 @@
             this.lblTitle.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.lblTitle.Location = new System.Drawing.Point(143, 33);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(71, 31);
+            this.lblTitle.Size = new System.Drawing.Size(83, 38);
             this.lblTitle.TabIndex = 5;
             this.lblTitle.Text = "Title";
             // 
@@ -82,7 +82,7 @@
             this.lblStartPoint.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStartPoint.Location = new System.Drawing.Point(226, 742);
             this.lblStartPoint.Name = "lblStartPoint";
-            this.lblStartPoint.Size = new System.Drawing.Size(75, 18);
+            this.lblStartPoint.Size = new System.Drawing.Size(92, 24);
             this.lblStartPoint.TabIndex = 4;
             this.lblStartPoint.Text = "Start point";
             // 
@@ -91,7 +91,7 @@
             this.cbbStartPoint.FormattingEnabled = true;
             this.cbbStartPoint.Location = new System.Drawing.Point(335, 741);
             this.cbbStartPoint.Name = "cbbStartPoint";
-            this.cbbStartPoint.Size = new System.Drawing.Size(150, 21);
+            this.cbbStartPoint.Size = new System.Drawing.Size(150, 24);
             this.cbbStartPoint.TabIndex = 2;
             this.cbbStartPoint.SelectedIndexChanged += new System.EventHandler(this.cbbStartPoint_SelectedIndexChanged);
             // 
@@ -100,10 +100,10 @@
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.FlatAppearance.BorderSize = 0;
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExit.Image = global::PBL4.Properties.Resources.uncheckedRed;
-            this.btnExit.Location = new System.Drawing.Point(1, 3);
+            this.btnExit.Image = global::PBL4.Properties.Resources.backicon;
+            this.btnExit.Location = new System.Drawing.Point(11, 3);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(40, 40);
+            this.btnExit.Size = new System.Drawing.Size(40, 43);
             this.btnExit.TabIndex = 1;
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);

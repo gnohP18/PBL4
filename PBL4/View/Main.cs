@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Resources;
 using System.Threading;
@@ -173,6 +174,7 @@ namespace PBL4
                     }
                 }
             }
+            btnOK.Enabled = true;
         }
 
         //Lấy tất cả giá trị từ ô ma trận
@@ -213,13 +215,15 @@ namespace PBL4
                     ListValueUC[i, j].SetCoordinates(coordinates);
                     ListValueUC[i, j].SetLocation(point);
                     SetupItem(ListValueUC[i, j]);
-                    if (i == j)
-                    {
-                        ListValueUC[i, j].SetValueEqualZero();
-                    }
-
                 }
             }
+            btnOK.Enabled = true;
+        }
+        private void ShowMessageBox(string s, CultureInfo cultureInfo)
+        {
+            string noticeMessage = _resourceManager.GetString(s, cultureInfo);
+            NoticeBox noticeBox = new NoticeBox(noticeMessage);
+            noticeBox.Show();
         }
         private void DisconnectFromServer()
         {
@@ -264,7 +268,14 @@ namespace PBL4
             {
                 for (int j = 0; j < NumberOfPoint; j++)
                 {
-                    ListValueUC[i, j].SetValue(MatrixDijktra[i, j]);
+                    if (i == j)
+                    {
+                        ListValueUC[i, j].SetValueEqualZero();
+                    }
+                    else
+                    {
+                        ListValueUC[i, j].SetValue(MatrixDijktra[i, j]);
+                    }
                 }
             }
             for (int i = 0; i < NumberOfPoint; i++)
@@ -294,6 +305,8 @@ namespace PBL4
             }
             DisconnectFromServer();
             this.Close();
+            var formToShow = Application.OpenForms.Cast<Form>().FirstOrDefault(c => c is Connection);
+            formToShow.Show();
         }
 
         private void cbbNumberOfPoints_SelectedIndexChanged(object sender, EventArgs e)
@@ -301,6 +314,7 @@ namespace PBL4
             ClearMatrixItem();
             NumberOfPoint = cbbNumberOfPoints.SelectedIndex + 1;
             InitMatrixWithNumberOfPoint(NumberOfPoint);
+            btnReset.Enabled = true;
         }
 
 
@@ -308,9 +322,7 @@ namespace PBL4
         {
             if (!IsAvailableMatrix(GetMatrixFromView(ListValueUC, NumberOfPoint), NumberOfPoint))
             {
-                String noticeMessage = _resourceManager.GetString("MsgValueMatrix", cultureInfo);
-                NoticeBox noticeBox = new NoticeBox(noticeMessage);
-                noticeBox.Show();
+                ShowMessageBox("MsgValueMatrix", cultureInfo);
             }
             else
             {
@@ -353,6 +365,7 @@ namespace PBL4
             //5.Sau khi nhận dữ liệu và kết thúc luồng lúc này mới cho hiện bảng kết quả và vẽ đồ thị
             if (DataFromServer != null)
             {
+                this.Hide();
                 ResultGraph resultGraph = new ResultGraph(NumberOfPoint, MatrixDijktra, DataFromServer);
                 resultGraph.StartPosition = FormStartPosition.CenterScreen;
                 resultGraph.Show();
@@ -370,16 +383,21 @@ namespace PBL4
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            MatrixDijktra = null;
             for (int i = 0; i < NumberOfPoint; i++)
             {
                 for (int j = 0; j < NumberOfPoint; j++)
                 {
-                    ListValueUC[i, j].ClearValue();
+                    if(i != j)
+                    {
+                        ListValueUC[i, j].ClearValue();
+                    }
                 }
             }
-            String noticeMessage = _resourceManager.GetString("MsgClearValue", cultureInfo);
-            NoticeBox noticeBox = new NoticeBox(noticeMessage);
-            noticeBox.Show();
+            pnMatrix.Controls.Clear();
+            cbbNumberOfPoints.SelectedIndex = -1;
+            btnOK.Enabled = false;
+            ShowMessageBox("MsgClearValue", cultureInfo);
         }
 
         private void btnDisConnectToServer_Click(object sender, EventArgs e)
@@ -397,42 +415,49 @@ namespace PBL4
             if (result == DialogResult.OK)
             {
                 string file = openFileDialog.FileName;
-                //string fileExtension = file.Substring(file.LastIndexOf('.') + 1).ToLower();
                 txtbBF.Text = file;
                 try
                 {
                     string[] lines = System.IO.File.ReadAllLines(file);
-                    //|| fileExtension != "txt"
-                    if (lines.Length <= 0 )
+                    //check file rỗng
+                    if (lines.Length == 0 )
                     {
-                        String noticeMessage = _resourceManager.GetString("MsgFile", cultureInfo);
-                        NoticeBox noticeBox = new NoticeBox(noticeMessage);
-                        noticeBox.Show();
+                        ShowMessageBox("MsgFile", cultureInfo);
                     }
                     else
                     {
                         string lineNumberOfPoint = lines[0];
                         int numberOfPoint = MatrixService.Instance.GetNumberOfPointFromBrowseFile(lineNumberOfPoint);
                         cbbNumberOfPoints.SelectedIndex = numberOfPoint - 1;
-                        string[] temp = new string[numberOfPoint];
-                        for (int i = 0; i < lines.Length - 1; i++)
+                        if((lines.Length - 1) != numberOfPoint)
                         {
-                            temp[i] = lines[i + 1];
+                            ShowMessageBox("MsgFile", cultureInfo);
                         }
-                        long[,] matrix = MatrixService.Instance.GetMatrixFromBrowseFile(numberOfPoint, temp);
-                        SetValueUCFromBrowserFile(matrix, numberOfPoint);
+                        else
+                        {
+                            string[] temp = new string[numberOfPoint];
+                            for (int i = 0; i < lines.Length - 1; i++)
+                            {
+                                temp[i] = lines[i + 1];
+                            }
+                            // check data từ file
+                            if(MatrixService.Instance.CheckMatrixFromBrowserFile(numberOfPoint, temp))
+                            {
+                                long[,] matrix = MatrixService.Instance.GetMatrixFromBrowseFile(numberOfPoint, temp);
+                                SetValueUCFromBrowserFile(matrix, numberOfPoint);
+                            }
+                            else
+                            {
+                                ShowMessageBox("MsgFile", cultureInfo);
+                            }
+                        }    
                     }
                 }
                 catch (IOException)
                 {
-
                 }
             }
         }
-
-
         #endregion
-
-
     }
 }

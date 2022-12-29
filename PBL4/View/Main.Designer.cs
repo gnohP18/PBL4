@@ -35,13 +35,13 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.pnProcessing = new System.Windows.Forms.Panel();
-            this.lblSubmitMatrix = new System.Windows.Forms.Label();
-            this.lblDrawGraph = new System.Windows.Forms.Label();
             this.lblResetMatrix = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtbBF = new System.Windows.Forms.TextBox();
             this.btnBF = new System.Windows.Forms.Button();
             this.btnDrawTheGraph = new System.Windows.Forms.Button();
+            this.lblSubmitMatrix = new System.Windows.Forms.Label();
+            this.lblDrawGraph = new System.Windows.Forms.Label();
             this.pnProcessing.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,10 +91,11 @@
             // btnReset
             // 
             this.btnReset.BackColor = System.Drawing.Color.Transparent;
+            this.btnReset.Enabled = false;
             this.btnReset.FlatAppearance.BorderSize = 0;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReset.Image = global::PBL4.Properties.Resources.reset_24;
-            this.btnReset.Location = new System.Drawing.Point(18, 722);
+            this.btnReset.Location = new System.Drawing.Point(15, 748);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(75, 40);
             this.btnReset.TabIndex = 6;
@@ -104,10 +105,11 @@
             // btnOK
             // 
             this.btnOK.BackColor = System.Drawing.Color.Transparent;
+            this.btnOK.Enabled = false;
             this.btnOK.FlatAppearance.BorderSize = 0;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOK.Image = global::PBL4.Properties.Resources.checkedGreen;
-            this.btnOK.Location = new System.Drawing.Point(1136, 728);
+            this.btnOK.Location = new System.Drawing.Point(1136, 748);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 40);
             this.btnOK.TabIndex = 0;
@@ -118,54 +120,34 @@
             // 
             this.pnProcessing.AutoScroll = true;
             this.pnProcessing.BackColor = System.Drawing.Color.White;
-            this.pnProcessing.Controls.Add(this.lblSubmitMatrix);
-            this.pnProcessing.Controls.Add(this.lblDrawGraph);
             this.pnProcessing.Controls.Add(this.lblResetMatrix);
             this.pnProcessing.Controls.Add(this.lblTitle);
             this.pnProcessing.Controls.Add(this.txtbBF);
             this.pnProcessing.Controls.Add(this.btnBF);
-            this.pnProcessing.Controls.Add(this.btnDrawTheGraph);
             this.pnProcessing.Controls.Add(this.lblNameOfPoint);
             this.pnProcessing.Controls.Add(this.btnReset);
             this.pnProcessing.Controls.Add(this.pnMatrix);
             this.pnProcessing.Controls.Add(this.cbbNumberOfPoints);
-            this.pnProcessing.Controls.Add(this.btnOK);
             this.pnProcessing.Controls.Add(this.btnExit);
+            this.pnProcessing.Controls.Add(this.btnOK);
+            this.pnProcessing.Controls.Add(this.btnDrawTheGraph);
+            this.pnProcessing.Controls.Add(this.lblSubmitMatrix);
+            this.pnProcessing.Controls.Add(this.lblDrawGraph);
             this.pnProcessing.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProcessing.Location = new System.Drawing.Point(0, 0);
             this.pnProcessing.Name = "pnProcessing";
-            this.pnProcessing.Size = new System.Drawing.Size(1300, 771);
+            this.pnProcessing.Size = new System.Drawing.Size(1300, 800);
             this.pnProcessing.TabIndex = 3;
-            // 
-            // lblSubmitMatrix
-            // 
-            this.lblSubmitMatrix.AutoSize = true;
-            this.lblSubmitMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubmitMatrix.Location = new System.Drawing.Point(1143, 701);
-            this.lblSubmitMatrix.Name = "lblSubmitMatrix";
-            this.lblSubmitMatrix.Size = new System.Drawing.Size(123, 24);
-            this.lblSubmitMatrix.TabIndex = 13;
-            this.lblSubmitMatrix.Text = "Submit matrix";
-            // 
-            // lblDrawGraph
-            // 
-            this.lblDrawGraph.AutoSize = true;
-            this.lblDrawGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDrawGraph.Location = new System.Drawing.Point(1143, 701);
-            this.lblDrawGraph.Name = "lblDrawGraph";
-            this.lblDrawGraph.Size = new System.Drawing.Size(107, 24);
-            this.lblDrawGraph.TabIndex = 12;
-            this.lblDrawGraph.Text = "Draw graph";
             // 
             // lblResetMatrix
             // 
             this.lblResetMatrix.AutoSize = true;
             this.lblResetMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResetMatrix.Location = new System.Drawing.Point(12, 701);
+            this.lblResetMatrix.Location = new System.Drawing.Point(21, 721);
             this.lblResetMatrix.Name = "lblResetMatrix";
-            this.lblResetMatrix.Size = new System.Drawing.Size(113, 24);
+            this.lblResetMatrix.Size = new System.Drawing.Size(58, 24);
             this.lblResetMatrix.TabIndex = 11;
-            this.lblResetMatrix.Text = "Reset matrix";
+            this.lblResetMatrix.Text = "Reset";
             // 
             // lblTitle
             // 
@@ -206,17 +188,37 @@
             this.btnDrawTheGraph.FlatAppearance.BorderSize = 0;
             this.btnDrawTheGraph.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDrawTheGraph.Image = global::PBL4.Properties.Resources.neural_24;
-            this.btnDrawTheGraph.Location = new System.Drawing.Point(1136, 728);
+            this.btnDrawTheGraph.Location = new System.Drawing.Point(1136, 748);
             this.btnDrawTheGraph.Name = "btnDrawTheGraph";
             this.btnDrawTheGraph.Size = new System.Drawing.Size(75, 40);
             this.btnDrawTheGraph.TabIndex = 10;
             this.btnDrawTheGraph.UseVisualStyleBackColor = false;
             this.btnDrawTheGraph.Click += new System.EventHandler(this.btnDrawTheGraph_Click);
             // 
+            // lblSubmitMatrix
+            // 
+            this.lblSubmitMatrix.AutoSize = true;
+            this.lblSubmitMatrix.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubmitMatrix.Location = new System.Drawing.Point(1143, 712);
+            this.lblSubmitMatrix.Name = "lblSubmitMatrix";
+            this.lblSubmitMatrix.Size = new System.Drawing.Size(123, 24);
+            this.lblSubmitMatrix.TabIndex = 13;
+            this.lblSubmitMatrix.Text = "Submit matrix";
+            // 
+            // lblDrawGraph
+            // 
+            this.lblDrawGraph.AutoSize = true;
+            this.lblDrawGraph.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDrawGraph.Location = new System.Drawing.Point(1143, 712);
+            this.lblDrawGraph.Name = "lblDrawGraph";
+            this.lblDrawGraph.Size = new System.Drawing.Size(107, 24);
+            this.lblDrawGraph.TabIndex = 12;
+            this.lblDrawGraph.Text = "Draw graph";
+            // 
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1300, 771);
+            this.ClientSize = new System.Drawing.Size(1300, 800);
             this.Controls.Add(this.pnProcessing);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Main";

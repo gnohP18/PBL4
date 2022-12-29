@@ -111,6 +111,7 @@ namespace PBL4.Model
         public int GetNumberOfPointFromBrowseFile(string s)
         {
             int numberOfPoint = 0;
+            s = s.Trim();
             string[] temp = s.Split(' ');
             for (int i = 0; i < temp.Length; i++)
             {
@@ -122,12 +123,42 @@ namespace PBL4.Model
             return numberOfPoint;
         }
 
+        public bool CheckMatrixFromBrowserFile(int numberOfPoint, string[] s)
+        {
+            bool check = true;
+            int numericValue;
+            for (int i = 0; i < numberOfPoint; i++)
+            {
+                s[i] = s[i].Trim();
+                string[] temp = s[i].Split(' ');
+
+                //check đủ cột
+                if (temp.Length != numberOfPoint)
+                {
+                    check = false;
+                }
+                else
+                {
+                    for(int j = 0; j < numberOfPoint; j++)
+                    {
+                        // kiểm tra có phải là số hay không
+                        bool isNumber = int.TryParse(temp[j], out numericValue);
+                        if(isNumber == false)
+                        {
+                            check = false;
+                        }
+                    }
+                }
+            }
+            return check;
+        }
+
         public long[,] GetMatrixFromBrowseFile(int numberOfPoint, string[] s)
         {
             long[,] matrixDijstra = new long[numberOfPoint, numberOfPoint];
             for (int i = 0; i < numberOfPoint; i++)
             {
-                var matrixString = s[i];
+                s[i] = s[i].Trim();
                 string[] temp = s[i].Split(' ');
                 for (int j = 0; j < numberOfPoint; j++)
                 {

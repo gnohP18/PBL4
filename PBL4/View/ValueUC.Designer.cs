@@ -35,10 +35,11 @@
             // txtValue
             // 
             this.txtValue.Dock = System.Windows.Forms.DockStyle.Right;
-            this.txtValue.Location = new System.Drawing.Point(35, 0);
+            this.txtValue.Location = new System.Drawing.Point(50, 0);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(35, 20);
+            this.txtValue.Size = new System.Drawing.Size(50, 22);
             this.txtValue.TabIndex = 0;
+            this.txtValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValue_KeyPress);
             // 
             // lbMatLoca
             // 
@@ -47,7 +48,7 @@
             this.lbMatLoca.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMatLoca.Location = new System.Drawing.Point(0, 0);
             this.lbMatLoca.Name = "lbMatLoca";
-            this.lbMatLoca.Size = new System.Drawing.Size(35, 22);
+            this.lbMatLoca.Size = new System.Drawing.Size(50, 22);
             this.lbMatLoca.TabIndex = 1;
             this.lbMatLoca.Text = "lb";
             this.lbMatLoca.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -58,7 +59,7 @@
             this.Controls.Add(this.lbMatLoca);
             this.Controls.Add(this.txtValue);
             this.Name = "ValueUC";
-            this.Size = new System.Drawing.Size(70, 22);
+            this.Size = new System.Drawing.Size(100, 22);
             this.ResumeLayout(false);
             this.PerformLayout();
 
