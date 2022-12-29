@@ -17,6 +17,7 @@ namespace PBL4.View
         private long[,] MatrixDijktra { get; set; }
         private int NumberOfPoint { get; set; }
         private Label[] UINameOfPoint { get; set; }
+        private Label[] UIWeightGraph { get; set; }
         //Danh sách tên điểm dựa vào số lượng điểm 
         private List<string> NamePoint { get; set; }
         private List<string> listTotalWeight { get; set; }
@@ -57,7 +58,7 @@ namespace PBL4.View
         #endregion
 
         #region Function
-        //Setup laanuage
+        //Setup language
         private void SetupLanguage(string language)
         {
             ResourceManager _resourceManager = new ResourceManager("PBL4.Resources.Language.Resource", typeof(InitLanguage).Assembly);
@@ -67,11 +68,18 @@ namespace PBL4.View
             lblTitle.Text = _resourceManager.GetString("Title", cultureInfo);
             lblStartPoint.Text = _resourceManager.GetString("StartPoint", cultureInfo);
         }
+
         //Resize Result 
         private void SetResultUC(ResultUC resultUC)
         {
             resultUC.Dock = DockStyle.Top;
             pnResultFromServer.Controls.Add(resultUC);
+        }
+
+        //Xóa label
+        private void ClearUIWeightGraphLabel()
+        {
+            pnGp.Controls.Clear();
         }
 
         //Khởi tạo ô kết quả trả về từ server
@@ -113,9 +121,37 @@ namespace PBL4.View
             }
         }
 
+        //Vẽ  trọng số
+        private void DrawWeightGraph(long[,] matrix, int numberOfPoint, List<Point> listOfPoint)
+        {
+            var count = 0;
+            for (int i = 0; i < numberOfPoint; i++)
+            {
+                for (int j = 0; j < numberOfPoint; j++)
+                {
+                    //Kiểm tra giá trị ma trận để vẽ đường
+                    if ((i == j) || (matrix[i, j] == 0)) continue;
+                    if (j > i)
+                    {
+                        var averageX = 6 * (ListOfPoint[j].X - ListOfPoint[i].X) / 17 + ListOfPoint[i].X;
+                        var averageY = 6 * (ListOfPoint[j].Y - ListOfPoint[i].Y) / 17 + ListOfPoint[i].Y;
+                        UIWeightGraph[count] = new Label();
+                        UIWeightGraph[count].Text = matrix[i, j].ToString();
+                        UIWeightGraph[count].AutoSize = true;
+                        UIWeightGraph[count].BackColor = Color.Empty;
+                        UIWeightGraph[count].Location = new Point(averageX, averageY);
+                        pnGp.Controls.Add(UIWeightGraph[count]);
+                        count++;
+                    }
+                }
+            }
+        }
+
         // Draw Right Route
         private void RightRoute(List<int> rightRoute)
         {
+            pnGp.Controls.Clear();
+            cbShowWeightGraph.Checked = false;
             int widthOfPen = EnumMatrix.DefaultWidthOfPen;
             CurrentGraphics = pnGp.CreateGraphics();
             Rectangle rectangle = new Rectangle(1, 1, 8, 1);
@@ -137,9 +173,32 @@ namespace PBL4.View
                     }
                 }
             }
+
             for (int i = 0; i < rightRoute.Count - 1; i++)
             {
                 e.Graphics.DrawLine(redPen, ListOfPoint[rightRoute[i]], ListOfPoint[rightRoute[i + 1]]);
+            }
+
+            for (int i = 0; i < rightRoute.Count - 1; i++)
+            {
+                int averageX = 0;
+                int averageY = 0;
+                if (rightRoute[i] > rightRoute[i + 1])
+                {
+                    averageX = 6 * (ListOfPoint[rightRoute[i + 1]].X - ListOfPoint[rightRoute[i]].X) / 17 + ListOfPoint[rightRoute[i]].X;
+                    averageY = 6 * (ListOfPoint[rightRoute[i + 1]].Y - ListOfPoint[rightRoute[i]].Y) / 17 + ListOfPoint[rightRoute[i]].Y;
+                }
+                else
+                {
+                    averageX = 6 * (ListOfPoint[rightRoute[i]].X - ListOfPoint[rightRoute[i + 1]].X) / 17 + ListOfPoint[rightRoute[i + 1]].X;
+                    averageY = 6 * (ListOfPoint[rightRoute[i]].Y - ListOfPoint[rightRoute[i + 1]].Y) / 17 + ListOfPoint[rightRoute[i + 1]].Y;
+                }
+                Label weightGraph = new Label();
+                weightGraph.Text = MatrixDijktra[rightRoute[i], rightRoute[i + 1]].ToString();
+                weightGraph.AutoSize = true;
+                weightGraph.BackColor = Color.Red;
+                weightGraph.Location = new Point(averageX, averageY);
+                pnGp.Controls.Add(weightGraph);
             }
         }
 
@@ -174,13 +233,8 @@ namespace PBL4.View
 
         private void pnGp_Paint(object sender, PaintEventArgs e)
         {
-            this.SetStyle(ControlStyles.DoubleBuffer| ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             int widthOfPen = EnumMatrix.DefaultWidthOfPen;
-            int centerOfCircleX = EnumMatrix.DefaultCenterOfCircleX;
-            int centerOfCircleY = EnumMatrix.DefaultCenterOfCircleY;
-
-            int halfLengthOfMajorAxis = EnumMatrix.DefaultHalfLengthOfMajorAxis;
-            int halfLengthOfMinorAxis = EnumMatrix.DefaultHalfLengthOfMinorAxis;
 
             Brush aBrush = (Brush)Brushes.Red;
             Pen pPen = new Pen(Color.Red);
@@ -204,27 +258,26 @@ namespace PBL4.View
                     }
                 }
             }
-            //Vẽ trọng số ma trận
+
+            //vẽ tên điểm 
+            DrawNameOfPoint(listPointName);
+
             for (int i = 0; i < NumberOfPoint; i++)
             {
-                for (int j = 0; j < NumberOfPoint; j++)
-                {
-                    //Kiểm tra giá trị ma trận để vẽ trọng số
-                    if ((i == j) || (matrix[i, j] == 0)) continue;
-                    if (j > i)
-                    {
-                        var averageX = 6 * (ListOfPoint[j].X - ListOfPoint[i].X) / 17 + ListOfPoint[i].X;
-                        var averageY = 6 * (ListOfPoint[j].Y - ListOfPoint[i].Y) / 17 + ListOfPoint[i].Y;
-                        Label weightGraph = new Label();
-                        weightGraph.Text = matrix[i, j].ToString();
-                        weightGraph.AutoSize = true;
-                        weightGraph.BackColor = Color.Empty;
-                        weightGraph.Location = new Point(averageX, averageY);
-                        pnGp.Controls.Add(weightGraph);
-                    }
-                }
+
+                RectangleF a = new RectangleF(ListOfPoint[i].X - 5, ListOfPoint[i].Y - 5, 10, 10);
+                e.Graphics.FillEllipse(aBrush, a);
+                e.Graphics.DrawEllipse(pPen, a);
             }
-                        //vẽ tên điểm 
+        }
+
+        private void DrawNameOfPoint(List<string> listPointName)
+        {
+            var centerOfCircleX = EnumMatrix.DefaultCenterOfCircleX;
+            var centerOfCircleY = EnumMatrix.DefaultCenterOfCircleY;
+            var halfLengthOfMajorAxis = EnumMatrix.DefaultHalfLengthOfMajorAxis;
+            var halfLengthOfMinorAxis = EnumMatrix.DefaultHalfLengthOfMinorAxis;
+
             for (int i = 0; i < NumberOfPoint; i++)
             {
                 UINameOfPoint[i] = new Label();
@@ -236,8 +289,6 @@ namespace PBL4.View
                 UINameOfPoint[i].BackColor = Color.Empty;
                 pnGp.Controls.Add(UINameOfPoint[i]);
                 RectangleF a = new RectangleF(ListOfPoint[i].X - 5, ListOfPoint[i].Y - 5, 10, 10);
-                e.Graphics.FillEllipse(aBrush, a);
-                e.Graphics.DrawEllipse(pPen, a);
             }
         }
 
@@ -246,6 +297,25 @@ namespace PBL4.View
             int startPoint = cbbStartPoint.SelectedIndex;
             this.pnResultFromServer.Controls.Clear();
             InitResultFromNumberOfPoint(NumberOfPoint, startPoint);
+        }
+
+        private void cbShowWeightGraph_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbShowWeightGraph.Checked)
+            {
+                DrawWeightGraph(MatrixDijktra, NumberOfPoint, ListOfPoint);
+            }
+            else
+            {
+                DrawWeightGraph(MatrixDijktra, NumberOfPoint, ListOfPoint);
+                pnGp.Controls.Clear();
+                ClearUIWeightGraphLabel();
+            }
+        }
+
+        private void ResultGraph_Load(object sender, EventArgs e)
+        {
+            UIWeightGraph = new Label[NumberOfPoint * NumberOfPoint];
         }
         #endregion
     }
